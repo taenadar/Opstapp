@@ -1,0 +1,52 @@
+/* Toggle styles (to be used with toggles.js)
+-------------------------------------------------- */
+
+.toggle
+{
+	position: relative;
+	width: 5rem;
+	height: 1.8rem;
+	background-color: $color-dark;
+	curosr: pointer;
+	display: inline-block;
+}
+
+.toggle.active
+{
+	background-color: $color-primary;
+}
+
+.toggle::before
+{
+	position: absolute;
+	right: 13px;
+	line-height: 28px;
+	color: $color-lightest;
+	text-transform: uppercase;
+	content: "Off";
+}
+
+.toggle.active::before
+{
+	right: auto;
+	left: 15px;
+	content: "On";
+}
+
+.toggle-handle
+{
+	position: absolute;
+	z-index: 2;
+	width: 1.8rem;
+	height: 1.8rem;
+	-webkit-transition: -webkit-transform 0.1s ease-in-out, border 0.1s ease-in-out;
+	transition: transform 0.1s ease-in-out, border 0.1s ease-in-out;
+	background-color: $color-lighter;
+}
+
+.toggle.active .toggle-handle
+{
+	-webkit-transform: translate3d( 3.2rem, 0, 0 );
+	transform: translate3d( 3.2rem, 0, 0 );
+}
+

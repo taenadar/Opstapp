@@ -1,0 +1,43 @@
+{
+  "name": "opstapp",
+  "description": "User Interface elements for Opstapp",
+  "version": "0.0.1",
+  "homepage": "https://github.com/taenadar/opstapp",
+  "author": {
+    "name": "wooorm",
+    "email": "tituswormer@gmail.com",
+    "url": "https://github.com/wooorm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/taenadar/opstapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/taenadar/opstapp/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/taenadar/opstapp/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-siml": "0.0.5",
+    "grunt": "~0.4.0rc6",
+    "grunt-contrib-sass": "~0.3.0",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-ftp-deploy": "0.0.9"
+  },
+  "keywords": [
+    "opstapp",
+    "siml",
+    "sass",
+    "grunt",
+    "coffee",
+    "coffeescript"
+  ]
+}

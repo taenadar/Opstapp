@@ -1,0 +1,56 @@
+/* Segmented controllers
+-------------------------------------------------- */
+
+.segmented-controller {
+	display: -webkit-box;
+	display: box;
+
+	margin-bottom: 10px;
+	overflow: hidden;
+	font-size: 12px;
+	font-weight: bold;
+	list-style: none;
+	border-radius: 3px;
+
+	-webkit-box-orient: horizontal;
+	box-orient: horizontal;
+
+	background-color: $color-dark;
+}
+
+/* Section within controller */
+.segmented-controller li {
+	overflow: hidden;
+	text-align: center;
+	white-space: nowrap;
+
+	-webkit-box-flex: 1;
+	box-flex: 1;
+
+	color: $color-primary;
+}
+
+/* Link that fills each section */
+.segmented-controller li > a {
+	display: block;
+	padding: 8px 16px;
+	overflow: hidden;
+	line-height: 15px;
+	text-overflow: ellipsis;
+}
+
+.segmented-controller li.active {
+	background-color: $color-darker;
+}
+
+.segmented-controller li.active > a {
+	color: $color-lightest;
+}
+
+.segmented-controller-item {
+	display: none;
+}
+
+.segmented-controller-item.active {
+	display: block;
+}

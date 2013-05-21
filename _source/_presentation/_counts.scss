@@ -1,0 +1,32 @@
+/* General count styles
+-------------------------------------------------- */
+
+[class*="count"] {
+	display: inline-block;
+	padding: 5px 7px;
+	font-size: 12px;
+	line-height: 13px;
+	color: $color-lightest;
+	background-color: #3e3e3e;
+	background-color: rgba( 0,0,0,0.33 );
+}
+
+/* Count modifiers
+-------------------------------------------------- */
+
+/* Overriding styles for counts with modifiers	*/
+
+.count-primary
+{
+	background-color: $color-primary;
+}
+
+.count-secondary
+{
+	background-color: $color-accent-medium-light;
+}
+
+.count-tertiary
+{
+	background-color: $color-accent-light;
+}

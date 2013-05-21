@@ -1,0 +1,90 @@
+/* Popovers (to be used with popovers.js)
+-------------------------------------------------- */
+
+.popover {
+	position: fixed;
+	top: 55px;
+	left: 50%;
+	z-index: 20;
+	display: none;
+	width: 280px;
+	padding: 5px;
+	margin-left: -146px;
+	background-color: $color-accent-medium-light;
+	opacity: 0;
+	-webkit-transform: translate3d(0, -15px, 0);
+	transform: translate3d(0, -15px, 0);
+	-webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+/* Caret on top of popover using CSS triangles (thanks to @chriscoyier for solution) */
+.popover:after {
+	position: absolute;
+	left: 50%;
+	width: 0;
+	height: 0;
+	content: '';
+	top: -20px;
+	margin-left: -20px;
+	border-right: 20px solid transparent;
+	border-bottom: 20px solid $color-accent-medium-light;
+	border-left: 20px solid transparent;
+}
+
+/* Popover animation
+-------------------------------------------------- */
+
+.popover.visible {
+	opacity: 1;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+/* Backdrop (used as invisible touch escape)
+-------------------------------------------------- */
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 10;
+}
+
+/* Lists in popovers
+-------------------------------------------------- */
+
+.popover .list {
+	width: auto;
+	max-height: 250px;
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Modals -------------------------------------------------- */
+
+.modal {
+	position: fixed; 
+	top: 0;
+	opacity: 0;
+	z-index: 11; 
+	width: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	background-color: #fff;	
+	-webkit-transform: translate3d(0, 100%, 0);
+	transform: translate3d(0, 100%, 0);
+	-webkit-transition: -webkit-transform .25s ease-in-out, opacity 1ms .25s;
+	transition: transform .25s ease-in-out, opacity 1ms .25s;
+}
+
+/* Modal - When active -------------------------------------------------- */
+.modal.active {
+	opacity: 1;
+	height: 100%;
+	-webkit-transition: -webkit-transform .25s ease-in-out;
+	transition: transform .25 ease-in-out;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}

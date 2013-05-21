@@ -1,0 +1,10 @@
+.slider
+	ul
+		li
+			img[src="./asset/image/slide/1.png"]
+			span.slide-text "← Slide me"
+		li > img[src="./asset/image/slide/2.png"]
+		li > img[src="./asset/image/slide/3.png"]
+ul.list > li
+	a[href="_index.html"][data-transition="slide-out"] "Go back"
+	span.chevron

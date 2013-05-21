@@ -1,0 +1,124 @@
+// == Rewrite ==================================================================
+
+style = style[type="text/css"]
+img = img[alt=""]
+
+
+// == Add ======================================================================
+
+stylesheet = link[rel="stylesheet"]
+touch-icon = link[rel="apple-touch-icon-precomposed"]
+
+// == Actual content ===========================================================
+
+@doctype()
+html
+	head
+		meta[charset="utf-8"]
+		title "Opstapp"
+		meta[name="viewport"][content="initial-scale=1, maximum-scale=1, user-scalable=no"]
+		meta[name="apple-mobile-web-app-capable"][content="yes"]
+		meta[name="apple-mobile-web-app-status-bar-style"][content="black"]
+		meta[name="apple-mobile-web-app-title"][content="Opstapp"]
+		touch-icon[sizes="114x114"][href="./asset/image/apple-touch-icon-114x114.png"]
+		touch-icon[sizes="72x72"][href="./asset/image/apple-touch-icon-72x72.png"]
+		touch-icon[sizes="57x57"][href="./asset/image/apple-touch-icon-57x57.png"]
+		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgzRd9CQLIBHuB8j_Yy7msfopuDeXzQ8&amp;v=3.exp&sensor=false"]
+
+		// Include the compiled CSS
+		stylesheet[href="./_presentation/opstapp.css"]
+	body
+		#plan-route-modal.plan-route-modal.modal.active
+			.content.content-padded
+				.input-group
+					.input-row
+						label "Van"
+						input#plan-route-from[type="text"][value="Museum Plein"]
+					.input-row
+						label "Naar"
+						input#plan-route-to[type="text"][value="Amsterdam Centraal"]
+				
+				a#plan-route.button-primary.button-block "Plan mijn route"
+				a.button-secondary.button-block[href="#meestermatcher-modal"] "Meestermatcher"
+		
+		#meestermatcher-modal.meestermatcher-modal.modal
+			header.bar-title
+				h3.title "Meestermatcher"
+				a.button[href="#meestermatcher-modal"] "Close"
+			.content.content-padded
+				ul.list.meestermatcher-list
+					li#step1.segmented-controller-item.active
+						p "Hoe ziet een perfecte vakantie voor jou er uit?"
+						.row
+							.img[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "zon"
+							.img[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "zee"
+							.img[style="background-image:url(./asset/image/slide/3.png)"]
+								strong "strand"
+							.img.last[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "wind"
+						.row
+							.img[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "zon"
+							.img[style="background-image:url(./asset/image/slide/3.png)"]
+								strong "zee"
+							.img[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "strand"
+							.img.last[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "wind"
+					li#step2.segmented-controller-item
+						p "Liefde of lust?"
+						.row
+							.img[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "zon"
+							.img[style="background-image:url(./asset/image/slide/3.png)"]
+								strong "zee"
+							.img[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "strand"
+							.img.last[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "wind"
+						.row
+							.img[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "zon"
+							.img[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "zee"
+							.img[style="background-image:url(./asset/image/slide/3.png)"]
+								strong "strand"
+							.img.last[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "wind"
+					li#step3.segmented-controller-item
+						p "Magisch magenta or basic beige?"
+						.row
+							.img[style="background-image:url(./asset/image/slide/3.png)"]
+								strong "zee"
+							.img[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "zon"
+							.img[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "wind"
+							.img.last[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "strand"
+						.row
+							.img[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "zon"
+							.img[style="background-image:url(./asset/image/slide/3.png)"]
+								strong "strand"
+							.img[style="background-image:url(./asset/image/slide/1.png)"]
+								strong "wind"
+							.img.last[style="background-image:url(./asset/image/slide/2.png)"]
+								strong "zee"
+				ul#meestermatcher-controller.meestermatcher-controller
+					li.active > a[href="#step1"] "1"
+					li > a[href="#step2"] "2"
+					li > a[href="#step3"] "3"
+			header.bar-footer
+				a#meestermatcher-next.button-primary.button-block[href="#step2"] "Volgende stap"
+		
+		header.bar-title > h1.title "Opstapp"
+		.content
+			#map-canvas
+		header.bar-footer
+			a.button-primary.button-block[href="#plan-route-modal"] "Route aanpassen"
+
+		// Include the compiled JS
+		script[src="./_behavior/opstapp.js"]

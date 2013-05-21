@@ -1,0 +1,180 @@
+
+// Demo.
+.phone-outer {
+	width: 443px;
+	height: 816px;
+	background-image: url('../asset/image/phone.png');
+	position: relative;
+}
+
+.phone-inner {
+	overflow: auto;
+	width: 322px;
+	height: 566px;
+	position: absolute;
+	top: 115px;
+	left: 64px;
+	color: white !important;
+	-webkit-box-direction: normal;
+	box-direction: normal;
+}
+
+// Demo reset.
+
+.bar-footer
+{
+	bottom: initial !important;
+}
+
+[class*="bar-"], .popover, .backdrop, .content, .modal {
+	position: absolute !important;
+}
+
+body {
+	position: static !important;
+	background-color: white !important;
+	color: black !important;
+	width: 45rem;
+	margin: 0 auto !important;
+}
+
+.heading-primary
+{
+	margin: 1em 0;
+	font-size: 3rem;
+	text-align: center;
+	color: $color-primary;
+}
+
+.heading-secondary
+{
+	margin: 4em 0;
+	font-size: 2.5rem;
+	text-align: center;
+	color: $color-primary;
+}
+
+.heading-tertiary
+{
+	margin: 1em 0;
+	font-size: 2rem;
+	color: $color-primary;
+}
+
+.view
+{
+	position: relative;
+	margin-left: -7.5rem;
+	width: 60rem;
+	margin-top: 6rem;
+	margin-bottom: 6rem;
+	overflow: hidden;
+	
+	display: box;
+	display: -webkit-box;
+	display: flexbox;
+
+	box-align: center;
+	-webkit-box-align: center;
+	flex-align: center;
+
+	-webkit-box-pack: center;
+	box-pack: center;
+	flex-pack: center;
+}
+
+.view:nth-child(even)
+{
+	-webkit-box-direction: reverse;
+	box-direction: reverse;
+}
+
+.interface
+{
+	width: 32rem;
+}
+
+.description
+{
+	width: 28rem;
+}
+
+.view:nth-child(even) .description
+{
+	padding-left: 4rem;
+}
+
+.view:nth-child(odd) .description
+{
+	padding-right: 4rem;
+}
+
+
+.interface
+{
+	position: relative;
+}
+
+.view .interface::before
+{
+	color: $color-primary;
+	font-size: 640px;
+	position: absolute;
+	font-family: "helvetica neue";
+	font-weight: 100;
+}
+
+.view:nth-child(odd) .interface::before
+{
+	content: "}";
+	right: 85%;
+}
+
+.view:nth-child(even) .interface::before
+{
+	content: "{";
+	left: 72%;
+}
+
+.inset
+{
+	padding: .25rem;
+}
+
+.slider .slide-text {
+	position: absolute;
+	top: 45%;
+	left: 0;
+	width: 100%;
+	color: $color-lightest;
+	text-align: center;
+	font-size: 24px;
+	font-weight: 300;
+}
+
+#demo-view fieldset
+{
+	display: block;
+	overflow: hidden;
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+}
+
+#demo-view fieldset a
+{
+	display: inline-block;
+	vertical-align: top;
+	line-height: 28px;
+}
+
+#demo-view .toggle
+{
+	float: right;
+}
+
+#demo-view h1
+{
+	text-align: center;
+	font-size: 20px;
+	line-height: 44px;
+}

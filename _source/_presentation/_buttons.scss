@@ -1,0 +1,93 @@
+/* General button styles
+-------------------------------------------------- */
+
+[class*="button"]
+{
+	position: relative;
+	display: inline-block;
+	padding: 4px 12px;
+	font-weight: normal;
+	line-height: 18px;
+	text-align: center;
+	vertical-align: top;
+
+	cursor: pointer;
+
+	margin-top: 0;
+	margin-right: .25rem;
+	margin-bottom: .4rem;
+	margin-left: 0;
+
+	color: $color-lightest;
+	background-color: $color-dark;
+}
+
+/* Active */
+[class*="button"]:active
+{
+	color: $color-primary;
+}
+
+/* Button modifiers
+-------------------------------------------------- */
+
+.button-primary
+{
+	background-color: $color-primary;
+}
+
+.button-secondary
+{
+	background-color: $color-accent-medium-light;
+}
+
+.button-tertiary
+{
+	background-color: $color-accent-light;
+}
+
+.button-primary:active, .button-secondary:active, .button-tertiary:active
+{
+	color: $color-dark;
+}
+
+.button-primary:active
+{
+	background-color: $color-accent-medium-dark;
+}
+
+.button-secondary:active
+{
+	background-color: $color-accent-medium;
+}
+
+.button-tertiary:active
+{
+	background-color: $color-accent-darker;
+}
+
+/* Block level buttons (full width buttons) */
+.button-block {
+	display: block;
+	margin-right: 0;
+}
+
+/* Counts in buttons
+-------------------------------------------------- */
+
+[class*="button"] [class*="count"]
+{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	margin-right: -4px;
+	margin-left: 4px;
+}
+
+/* Position counts within block level buttons
+	 Note: These are absolutely positioned so that text of button isn't "pushed" by count and always
+	 stays at true center of button */
+.button-block [class*="count"] {
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+}

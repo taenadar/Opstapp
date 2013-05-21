@@ -1,0 +1,117 @@
+@font-face {
+	font-family: "rijksmuseum";
+	src: url('../asset/font/rijksmuseum.otf');
+	font-style: normal;
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: "rijksmuseum";
+	src: url('../asset/font/rijksmuseum_italic.otf');
+	font-style: italic;
+	font-weight: 600;
+}
+
+@font-face {
+	font-family: 'rijksmuseum';
+	src: url('../asset/font/rijksmuseum_bold.otf');
+	font-style: normal;
+	font-weight: 800;
+}
+
+@font-face {
+	font-family: 'flat-ui-icons';
+	src: url('../asset/font/flat-ui-icons.eot');
+	src: url('../asset/font/flat-ui-icons.eot?#iefix') format("embedded-opentype"), url('../asset/font/flat-ui-icons.woff') format("woff"), url('../asset/font/flat-ui-icons.ttf') format("truetype"), url('../asset/font/flat-ui-icons.svg#Flat-UI-Icons-24') format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class*="fui-"]::before {
+	font-family: flat-ui-icons;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+.fui-video::before {
+	content: "\e000";
+}
+
+.fui-time::before {
+	content: "\e001";
+}
+
+.fui-settings::before {
+	content: "\e002";
+}
+
+.fui-plus::before {
+	content: "\e003";
+}
+
+.fui-new::before {
+	content: "\e005";
+}
+
+.fui-menu::before {
+	content: "\e006";
+}
+
+.fui-man::before {
+	content: "\e007";
+}
+
+.fui-mail::before {
+	content: "\e008";
+}
+
+.fui-lock::before {
+	content: "\e009";
+}
+
+.fui-location::before {
+	content: "\e00a";
+}
+
+.fui-heart::before {
+	content: "\e00b";
+}
+
+.fui-eye::before {
+	content: "\e00c";
+}
+
+.fui-cross::before {
+	content: "\e00d";
+}
+
+.fui-cmd::before {
+	content: "\e00e";
+}
+
+.fui-checkround::before {
+	content: "\e00f";
+}
+
+.fui-checkmark::before {
+	content: "\e010";
+}
+
+.fui-calendar::before {
+	content: "\e011";
+}
+
+.fui-bubble::before {
+	content: "\e012";
+}
+
+.fui-volume::before {
+	content: "\e013";
+}
+
+.fui-camera::before {
+	content: "\e004";
+}
