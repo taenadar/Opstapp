@@ -67,8 +67,6 @@ module.exports = ( grunt ) ->
 					'parse' : 'html5'
 				'files' :
 					'_dist/index.html' : '_source/index.siml'
-					'_dist/artist.html' : '_source/artist.siml'
-					'_dist/_index.html' : '_source/index.siml'
 
 		# SASS: Presentation.
 		'sass' :

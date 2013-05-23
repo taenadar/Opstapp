@@ -47,4 +47,3 @@ $planRoute.on 'click', ( event ) ->
 # 	else $planRouteModal.classList.remove 'active'
 # 
 # do home
-

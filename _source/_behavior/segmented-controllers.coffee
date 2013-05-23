@@ -53,69 +53,75 @@ window.on 'click', ( event ) ->
 	$targetBody.classList.add className
 
 
+$meestermatcherController = $ '.meestermatcher-controller'
+$meestermatcherList = $ '.meestermatcher-list'
+$meestermatcherNext = $$ '#meestermatcher-next'
 
-$meestermatcherNext = do ( $ '#meestermatcher-next' ).item
+meestermatcherListItemCount = $meestermatcherList.item().childElementCount
+
+changeActiveScreen = ( index ) ->
+	if index < 1
+		return
+	
+	if index > meestermatcherListItemCount
+		alert index
+		return
+	
+	
+	actives = $meestermatcherController.$ '.active'
+	actives = actives.concat $meestermatcherList.$ '.active'
+	
+	length = actives.length
+	iterator = -1
+	
+	while ++iterator < length
+		actives[ iterator ].classList.remove 'active'
+	
+	$newActiveItem = $meestermatcherList.$$ '#step' + index
+	$newActiveControler = $meestermatcherController.$$ '[href="#step' + index + '"]'
+	
+	$newActiveItem.classList.add 'active'
+	$newActiveControler.parentElement.classList.add 'active'
+	$meestermatcherNext.hash = '#step' + ( index + 1 )
+	
+
+
 
 $meestermatcherNext.on 'click', ( event ) ->
 	hash = $meestermatcherNext.hash
-	$target = $$ hash
-	
-	if not $target then return
-	
-	$active = $target.parentNode.$$ '.active'
+	index = +hash.slice 5
 	
 	do event.preventDefault
 	do event.stopPropagation
 	
-	# Remove `.active` on the previous tab.
-	if $active then $active.classList.remove 'active'
+	changeActiveScreen index
 
-	# Add `.active` on the current tab.
-	$target.classList.add 'active'
+$meestermatcherController.item().on 'click', ( event ) ->
 	
-	# Update hash.
-	index = +hash.slice 5
-	index++
-	$meestermatcherNext.hash = '#step' + index
-	
-	$active_ = $meestermatcherController.$$ '.active'
-	$active_.classList.remove 'active'
-	$active_.nextElementSibling.classList.add 'active'
-		
-	return
-
-$meestermatcherController = do ( $ '#meestermatcher-controller' ).item
-$meestermatcherControllers = $meestermatcherController.$ '#meestermatcher-controller a'
-
-$meestermatcherController.on 'click', ( event ) ->
-	
-	if 'a' isnt do event.target.tagName.toLowerCase then return
+	if 'a' isnt event.target.tagName.toLowerCase() then return
 	
 	hash = event.target.hash
-	$target = $$ hash
-	
-	console.log @, @hash
-	
-	if not $target then return
+	index = +hash.slice 5
 	
 	do event.preventDefault
 	do event.stopPropagation
 	
-	$active = $target.parentNode.$$ '.active'
-	$active_ = $meestermatcherController.$$ '.active'
-	
-	# Remove `.active` on the previous tab.
-	if $active then $active.classList.remove 'active'
-	if $active_ then $active_.classList.remove 'active'
+	changeActiveScreen index
 
-	# Add `.active` on the current tab.
-	$target.classList.add 'active'
-	event.target.parentElement.classList.add 'active'
-	
-	# Update hash.
-	index = +hash.slice 5
-	index++
-	$meestermatcherNext.hash = '#step' + index
 
-	
-console.log $meestermatcherController, $meestermatcherControllers
+$el = do ( $ '#meestermatcher-modal .content' ).item
+
+Hammer( $el ).on 'swipeleft', ( event ) ->
+	do event.preventDefault
+	do event.stopPropagation
+	# Go forward.
+	changeActiveScreen +$meestermatcherNext.hash.slice 5
+
+Hammer( $el ).on 'swiperight', ->
+	do event.preventDefault
+	do event.stopPropagation
+	# Go back.
+	changeActiveScreen ( +$meestermatcherNext.hash.slice 5 ) - 2
+
+Hammer( $el ).on 'tap', ( event ) ->
+	console.log @, event

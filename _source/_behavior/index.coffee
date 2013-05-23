@@ -44,11 +44,11 @@ $.NodeList::item = ( index ) ->
 $.NodeList::length = 0
 $.NodeList::selector = null
 
-$.NodeList::$ = -> 
+$.NodeList::$ = ( selectors ) -> 
 	$nodes = new $.NodeList
 	length = @length
 	iterator = -1
-
+	
 	while ++iterator < length
 		$nodes_ = @[ iterator ].$ selectors
 		iterator_ = -1
@@ -58,6 +58,11 @@ $.NodeList::$ = ->
 			$nodes.push $nodes_[ iterator_ ]
 
 	$nodes
+
+$.NodeList::$$ = ( selectors, index ) ->
+	$nodes = @$ selectors
+	$nodes.item index
+
 
 $.NodeList::clone = () ->
 	$nodes = new $.NodeList

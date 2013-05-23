@@ -36,6 +36,23 @@
 	margin-top: .5rem;
 }
 
+
+.list li.primary
+{
+	background-color: $color-primary;
+}
+
+.list li.secondary
+{
+	background-color: $color-accent-medium-light;
+}
+
+.list li.tertiary
+{
+	background-color: $color-accent-light;
+}
+
+
 /* Inset list
 -------------------------------------------------- */
 

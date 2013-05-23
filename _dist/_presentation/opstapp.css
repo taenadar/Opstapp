@@ -1,5 +1,5 @@
-/*! opstapp - v0.0.1 - 2013-05-22
-* https://github.com/wooorm/opstapp
+/*! opstapp - v0.0.1 - 2013-05-23
+* https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /* General bar styles
 -------------------------------------------------- */
@@ -247,7 +247,8 @@ body {
   left: 0;
   font: 14px/1.25 rijksmuseum, arial, sans-serif;
   color: white;
-  background-color: #202327; }
+  background-color: #202327;
+  overflow: hidden; }
 
 /* Universal link styling */
 a {
@@ -343,6 +344,11 @@ a {
 .button-block {
   display: block;
   margin-right: 0; }
+
+.button-large {
+  font-size: 16px;
+  line-height: 24px;
+  padding: 5px 16px; }
 
 /* Counts in buttons
 -------------------------------------------------- */
@@ -589,6 +595,15 @@ textarea {
 
 .list + * {
   margin-top: .5rem; }
+
+.list li.primary {
+  background-color: #d55140; }
+
+.list li.secondary {
+  background-color: #42a68c; }
+
+.list li.tertiary {
+  background-color: #5e99b0; }
 
 /* Inset list
 -------------------------------------------------- */
