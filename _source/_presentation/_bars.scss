@@ -18,17 +18,13 @@
 /* Modifier class to dock any bar below .bar-title */
 .bar-header-secondary {
 	top: 37px;
+	background-color: $color-accent-medium-light;
 }
 
 /* Modifier class to dock any bar to bottom of viewport */
 .bar-footer {
 	height: 37px;
 	bottom: 0;
-}
-
-/* Generic bar for wrapping buttons, segmented controllers, etc. */
-.bar-standard {
-	background-color: $color-primary;
 }
 
 /* Title bar

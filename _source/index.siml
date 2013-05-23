@@ -21,14 +21,6 @@ html
 		meta[name="apple-mobile-web-app-capable"][content="yes"]
 		meta[name="apple-mobile-web-app-status-bar-style"][content="black"]
 		meta[name="apple-mobile-web-app-title"][content="Opstapp"]
-		touch-icon[sizes="114x114"][href="./asset/image/apple-touch-icon-114x114.png"]
-		touch-icon[sizes="72x72"][href="./asset/image/apple-touch-icon-72x72.png"]
-		touch-icon[sizes="57x57"][href="./asset/image/apple-touch-icon-57x57.png"]
-		
-		meta[name="viewport"][content="initial-scale=1, maximum-scale=1, user-scalable=no"]
-		meta[name="apple-mobile-web-app-capable"][content="yes"]
-		meta[name="apple-mobile-web-app-status-bar-style"][content="black"]
-		meta[name="apple-mobile-web-app-title"][content="Opstapp"]
 		touch-icon[href="./asset/image/touch_icon/apple-touch-icon-57x57-precomposed.png"]
 		touch-icon[sizes="72x72"][href="./asset/image/touch_icon/apple-touch-icon-72x72-precomposed.png"]
 		touch-icon[sizes="114x114"][href="./asset/image/touch_icon/apple-touch-icon-114x114-precomposed.png"]
@@ -41,7 +33,7 @@ html
 		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-1536x2008.png"][media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)"]
 		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-2048x1496.png"][media="(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"]
 		
-		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgzRd9CQLIBHuB8j_Yy7msfopuDeXzQ8&amp;v=3.exp&sensor=false"]
+		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgzRd9CQLIBHuB8j_Yy7msfopuDeXzQ8&amp;v=3.8&sensor=false"]
 
 		// Include the compiled CSS
 		stylesheet[href="./_presentation/opstapp.css"]
@@ -58,12 +50,14 @@ html
 				
 				a#plan-route.button-primary.button-block.button-large "Plan route"
 				a#plan-uitgestippeld.button-secondary.button-block.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
-				a.button-tertiary.button-block.button-large[href="#meestermatcher-modal"] "Meestermatcher"
 		
 		#uitgestippeld-modal.uitgestippeld-modal.modal
 			header.bar-title
 				h3.title "Uitgestippeld"
 				a.button[href="#uitgestippeld-modal"] "Close"
+			.bar-standard.bar-header-secondary
+				a.button-secondary.button-block[href="#meestermatcher-modal"] "Meestermatcher"
+				
 			.content > ul.list
 				li
 					"Rembrandtroute"

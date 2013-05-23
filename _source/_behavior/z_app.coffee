@@ -27,12 +27,14 @@ $planFrom = do ( $ '#plan-route-from' ).item
 $planRoute.on 'click', ( event ) ->
 	origin = $planTo.value
 	destination = $planFrom.value
+	
 	if origin is '' and destination is ''
 		# Error message?
 		return
 	
 	home false
-	calculateRoute origin, destination
+	# do calcRoute
+	calcRoute origin, destination
 		
 # do home
 
