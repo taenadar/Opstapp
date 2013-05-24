@@ -975,4 +975,5 @@ textarea {
 #map-canvas {
   height: 100%;
   /* Overwrites Google Maps loading style */
-  background-color: transparent !important; }
+  background-color: transparent !important;
+  color: #202327; }
