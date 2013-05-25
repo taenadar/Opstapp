@@ -105,3 +105,31 @@ Element::$$ = Element::querySelector
 Window::on = Window::addEventListener
 Element::on = Element::addEventListener
 
+$div = document.createElement 'div'
+vendors = 'Khtml Ms O Moz Webkit'.split ' '
+vendorsLength = vendors.length
+
+exports.supports = supports = ( prop ) ->
+	iterator = vendorsLength
+	
+	prop = prop.replace /^[a-z]/, ( value ) ->
+		return do value.toUpperCase
+	
+	if prop of $div.style
+		return prop
+	
+	while iterator--
+		prop_ = vendors[ iterator ] + prop
+		
+		if prop_ of $div.style then return prop_
+		
+		prop__ = ( do vendors[ iterator ].toLowerCase ) + prop
+		
+		if prop__ of $div.style then return prop__
+	
+	false
+
+#   
+# if ( supports('textShadow') ) { 
+#    document.documentElement.className += ' textShadow';  
+# } 

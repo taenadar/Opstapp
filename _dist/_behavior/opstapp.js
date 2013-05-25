@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-24
+/*! opstapp - v0.0.1 - 2013-05-25
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -1550,7 +1550,7 @@ Here be coffee
 
 
 (function() {
-  var $, $$, exports, __slice__;
+  var $, $$, $div, exports, supports, vendors, vendorsLength, __slice__;
 
   exports = this;
 
@@ -1657,6 +1657,35 @@ Here be coffee
   Window.prototype.on = Window.prototype.addEventListener;
 
   Element.prototype.on = Element.prototype.addEventListener;
+
+  $div = document.createElement('div');
+
+  vendors = 'Khtml Ms O Moz Webkit'.split(' ');
+
+  vendorsLength = vendors.length;
+
+  exports.supports = supports = function(prop) {
+    var iterator, prop_, prop__;
+
+    iterator = vendorsLength;
+    prop = prop.replace(/^[a-z]/, function(value) {
+      return value.toUpperCase();
+    });
+    if (prop in $div.style) {
+      return prop;
+    }
+    while (iterator--) {
+      prop_ = vendors[iterator] + prop;
+      if (prop_ in $div.style) {
+        return prop_;
+      }
+      prop__ = (vendors[iterator].toLowerCase()) + prop;
+      if (prop__ in $div.style) {
+        return prop__;
+      }
+    }
+    return false;
+  };
 
 }).call(this);
 ;
@@ -1985,7 +2014,6 @@ Here be coffee
       var marker;
 
       marker = makeMarker(point, icon, title);
-      console.log(index, point.waypoint);
       marker.info = new google.maps.InfoWindow({
         'content': content
       });
@@ -2088,7 +2116,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $backdrop, getTargets, onPopoverHidden;
+  var $backdrop, getTargets, onPopoverHidden, transEndEventNames, transitionEnd;
 
   getTargets = function($target) {
     var $popovers, iterator, length;
@@ -2106,10 +2134,20 @@ Here be coffee
     }
   };
 
+  transEndEventNames = {
+    'WebkitTransition': 'webkitTransitionEnd',
+    'MozTransition': 'transitionend',
+    'OTransition': 'oTransitionEnd',
+    'msTransition': 'MSTransitionEnd',
+    'transition': 'transitionend'
+  };
+
+  transitionEnd = transEndEventNames[supports('transition')];
+
   onPopoverHidden = function() {
     document.body.removeChild($backdrop);
     popover.style.display = 'none';
-    return popover.removeEventListener('webkitTransitionEnd', onPopoverHidden);
+    return popover.removeEventListener(transitionEnd, onPopoverHidden);
   };
 
   $backdrop = (function() {
@@ -2118,7 +2156,7 @@ Here be coffee
     $node = document.createElement('div');
     $node.classList.add('backdrop');
     $node.on('touchend', function() {
-      popover.on('webkitTransitionEnd', onPopoverHidden);
+      popover.on(transitionEnd, onPopoverHidden);
       return popover.classList.remove('visible');
     });
     return $node;
@@ -2265,10 +2303,6 @@ Here be coffee
     event.preventDefault();
     event.stopPropagation();
     return changeActiveScreen((+$meestermatcherNext.hash.slice(5)) - 2);
-  });
-
-  Hammer($el).on('tap', function(event) {
-    return console.log(this, event);
   });
 
 }).call(this);

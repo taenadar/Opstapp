@@ -122,6 +122,3 @@ Hammer( $el ).on 'swiperight', ->
 	do event.stopPropagation
 	# Go back.
 	changeActiveScreen ( +$meestermatcherNext.hash.slice 5 ) - 2
-
-Hammer( $el ).on 'tap', ( event ) ->
-	console.log @, event

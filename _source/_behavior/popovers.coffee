@@ -14,10 +14,19 @@ getTargets = ( $target ) ->
 
 	return
 
+transEndEventNames =
+	'WebkitTransition' : 'webkitTransitionEnd'
+	'MozTransition' : 'transitionend'
+	'OTransition' : 'oTransitionEnd'
+	'msTransition' : 'MSTransitionEnd'
+	'transition' : 'transitionend'
+
+transitionEnd = transEndEventNames[ supports 'transition' ]
+
 onPopoverHidden = () ->
 	document.body.removeChild $backdrop
 	popover.style.display = 'none'
-	popover.removeEventListener 'webkitTransitionEnd', onPopoverHidden
+	popover.removeEventListener transitionEnd, onPopoverHidden
 
 $backdrop = do () ->
 	$node = document.createElement 'div'
@@ -25,7 +34,7 @@ $backdrop = do () ->
 	$node.classList.add 'backdrop'
 
 	$node.on 'touchend', () ->
-		popover.on 'webkitTransitionEnd', onPopoverHidden
+		popover.on transitionEnd, onPopoverHidden
 		popover.classList.remove 'visible'
 
 	$node

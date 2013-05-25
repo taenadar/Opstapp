@@ -317,8 +317,6 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 	window.setTimeout ->
 			marker = makeMarker point, icon, title
 			
-			console.log index, point.waypoint
-			
 			marker.info = new google.maps.InfoWindow
 				'content' : content
 			
