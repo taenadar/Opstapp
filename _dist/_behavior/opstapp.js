@@ -1792,6 +1792,8 @@ Here be coffee
     }
   ];
 
+  console.log(app.data);
+
   waypoints = [];
 
   (function() {
@@ -2072,7 +2074,6 @@ Here be coffee
     app.locationManager.off(onLocationUpdate);
     directionsRenderer.set('directions', null);
     polyLine.setPath([]);
-    console.log(polyLine.path);
     currentMarker = null;
     iterator = -1;
     length = markers.length;

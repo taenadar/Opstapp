@@ -111,7 +111,7 @@ WAYPOINTS = [
 	}
 ]
 
-
+console.log app.data
 
 waypoints = []
 
