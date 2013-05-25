@@ -1,5 +1,8 @@
 exports = @
 
+app = exports.app or exports.app = {}
+app.locationManager
+
 WAYPOINTS = [
 	{
 		"artiest" : "Rembrandt",
@@ -197,10 +200,37 @@ map.mapTypes.set 'map_style', styledMap
 map.setMapTypeId 'map_style'
 
 polyLine = new google.maps.Polyline
-	'strokeColor' : '#42a68c'
+	'strokeColor' : '#5e99b0'
 	'strokeOpacity' : 1
-	'strokeWeight' : 2
+	'strokeWeight' : 3
 	'map' : map
+
+markerIcons = {}
+
+do ->
+	iterator = -1
+	length = 8
+
+	while ++iterator < length
+		markerIcons[ iterator ] = 
+			'scaledSize' : new google.maps.Size 20, 35
+			'size' : new google.maps.Size 20, 35
+			'url' : "./asset/image/map/marker_closed_#{iterator + 1}.png"
+	
+markerIcons.a = 
+	'scaledSize' : new google.maps.Size 20, 35
+	'size' : new google.maps.Size 20, 35
+	'url' : "./asset/image/map/marker_closed_a.png"
+
+markerIcons.b = 
+	'scaledSize' : new google.maps.Size 20, 35
+	'size' : new google.maps.Size 20, 35
+	'url' : "./asset/image/map/marker_closed_b.png"
+
+markerIcons.user = 
+	'scaledSize' : new google.maps.Size 19, 19
+	'size' : new google.maps.Size 19, 19
+	'url' : "./asset/image/map/marker_closed_user.png"
 
 markerIcon = 
 	'scaledSize' : new google.maps.Size 20, 35
@@ -217,8 +247,6 @@ directionsRenderer = new google.maps.DirectionsRenderer
 	'suppressMarkers' : true
 	'suppressInfoWindows' : true
 	'map' : map
-
-# polyLine.setMap map
 
 # Set the map to display direction.
 # directionsRenderer.setMap map
@@ -240,7 +268,8 @@ exports.locationsArray = locationsArray = [
 ]
 
 
-exports.calcRoute = calcRoute = ( start, end ) ->
+calcRoute = ( start, end ) ->
+	do clearMap
 	waypts = []
 	origin = do start.toString
 	destination = do end.toString
@@ -282,9 +311,75 @@ findPointsOnRoute = ( boxes, origin, destination ) ->
 					'stopover' : true
 	drawNewRoute waypts, origin, destination
 
+markers = []
+currentMarker = null
+currentUser = null
+
+updateBounds = ->
+	bounds = new google.maps.LatLngBounds
+	
+	
+	if currentUser
+		console.log 'updateBounds', currentUser.position.toString()
+	else
+		console.log 'updateBounds', currentUser
+	
+	if currentUser
+		bounds.extend currentUser.position
+	
+	iterator = -1
+	length = markers.length
+	
+	while ++iterator < length
+		bounds.extend markers[ iterator ].position
+	
+	map.fitBounds bounds
+
+	undefined
+
+onLocationUpdate = ( position ) ->
+	coords = position.coords
+	latLng = new google.maps.LatLng coords.latitude, coords.longitude
+	
+	if currentUser
+		currentUser.setPosition latLng
+	else
+		currentUser = new google.maps.Marker
+			'position' : latLng
+			'map' : map
+			'icon' : markerIcons.user
+			'title' : 'current location.'
+			'animation' : google.maps.Animation.DROP
+			'flat' : true
+	
+	do updateBounds
+	undefined
+
+clearMap = ->
+	
+	app.locationManager.off onLocationUpdate
+	
+	# Remove directions.
+	directionsRenderer.set 'directions', null
+	
+	# Remove polyLine
+	polyLine.setPath []
+	
+	# Remove markers
+	currentMarker = null
+	
+	iterator = -1
+	length = markers.length
+	
+	while ++iterator < length
+		markers[ iterator ].setMap null
+	
+	markers = []
+	
+	@
 
 makeMarker = ( position, icon, title ) ->
-	new google.maps.Marker
+	marker = new google.maps.Marker
 		'position' : position
 		'map' : map
 		'icon' : icon
@@ -292,21 +387,21 @@ makeMarker = ( position, icon, title ) ->
 		'animation' : google.maps.Animation.DROP
 		'flat' : true
 		'optimized' : false
-
-
-currentMarker = null
-
+	
+	markers.push marker
+	
+	marker
 
 visualizeLeg = ( address, point, waypoint, index, length ) ->
 	if index is 0
 		title = 'start'
-		icon = openMarkerIcon
+		icon = markerIcons.a or markerIcon
 	else if index is length
 		title = 'end'
-		icon = openMarkerIcon
+		icon = markerIcons.b or markerIcon
 	else
 		title = 'waypoint'
-		icon = markerIcon
+		icon = markerIcons[ index - 1 ] or markerIcon
 		point.waypoint = waypoint.location.waypoint
 	
 	if point.waypoint
@@ -324,10 +419,8 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 				if currentMarker
 					do currentMarker.info.close
 				
+				marker.info.open map, marker
 				currentMarker = marker
-				g = marker.info.open map, marker
-				p = @info.d.f.parentElement
-				exports.x = @info.d.f
 			
 		, index * 200
 
@@ -337,6 +430,8 @@ google.maps.event.addListener map, 'click', ->
 		currentMarker = null
 
 drawNewRoute = ( waypts, origin, destination ) ->
+	app.locationManager.on onLocationUpdate
+	
 	request =
 		'origin' : origin
 		'destination' : destination
@@ -366,7 +461,12 @@ drawNewRoute = ( waypts, origin, destination ) ->
 				address = origin
 			
 			visualizeLeg leg.start_address, leg.start_location, waypoint, iterator, length
+			do updateBounds
 		
 		leg = legs[ length - 1 ]
 		visualizeLeg destination, leg.end_location, null, iterator, length
 		
+		do updateBounds
+		
+
+exports.calcRoute = calcRoute

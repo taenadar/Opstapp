@@ -43,7 +43,7 @@ html
 				.input-group
 					.input-row
 						label "Van"
-						input#plan-route-from[type="text"][value="Museum Plein"]
+						input#plan-route-from[type="text"][value="Museumplein"]
 					.input-row
 						label "Naar"
 						input#plan-route-to[type="text"][value="Amsterdam Centraal"]

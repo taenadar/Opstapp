@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-25
+/*! opstapp - v0.0.1 - 2013-05-26
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -1690,9 +1690,13 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, WAYPOINTS, calcRoute, currentMarker, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, openMarkerIcon, polyLine, routeBoxer, styledMap, visualizeLeg, waypoints;
+  var $map, WAYPOINTS, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, openMarkerIcon, polyLine, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
 
   exports = this;
+
+  app = exports.app || (exports.app = {});
+
+  app.locationManager;
 
   WAYPOINTS = [
     {
@@ -1898,11 +1902,47 @@ Here be coffee
   map.setMapTypeId('map_style');
 
   polyLine = new google.maps.Polyline({
-    'strokeColor': '#42a68c',
+    'strokeColor': '#5e99b0',
     'strokeOpacity': 1,
-    'strokeWeight': 2,
+    'strokeWeight': 3,
     'map': map
   });
+
+  markerIcons = {};
+
+  (function() {
+    var iterator, length, _results;
+
+    iterator = -1;
+    length = 8;
+    _results = [];
+    while (++iterator < length) {
+      _results.push(markerIcons[iterator] = {
+        'scaledSize': new google.maps.Size(20, 35),
+        'size': new google.maps.Size(20, 35),
+        'url': "./asset/image/map/marker_closed_" + (iterator + 1) + ".png"
+      });
+    }
+    return _results;
+  })();
+
+  markerIcons.a = {
+    'scaledSize': new google.maps.Size(20, 35),
+    'size': new google.maps.Size(20, 35),
+    'url': "./asset/image/map/marker_closed_a.png"
+  };
+
+  markerIcons.b = {
+    'scaledSize': new google.maps.Size(20, 35),
+    'size': new google.maps.Size(20, 35),
+    'url': "./asset/image/map/marker_closed_b.png"
+  };
+
+  markerIcons.user = {
+    'scaledSize': new google.maps.Size(19, 19),
+    'size': new google.maps.Size(19, 19),
+    'url': "./asset/image/map/marker_closed_user.png"
+  };
 
   markerIcon = {
     'scaledSize': new google.maps.Size(20, 35),
@@ -1929,9 +1969,10 @@ Here be coffee
 
   exports.locationsArray = locationsArray = [new google.maps.LatLng(52.368268, 4.895656), new google.maps.LatLng(52.368289, 4.897228), new google.maps.LatLng(52.383324, 4.885024), new google.maps.LatLng(52.3722, 4.888433), new google.maps.LatLng(52.373058, 4.892864), new google.maps.LatLng(52.371473, 4.880612), new google.maps.LatLng(52.366085, 4.896727), new google.maps.LatLng(52.367238, 4.889554), new google.maps.LatLng(52.376595, 4.90222), new google.maps.LatLng(52.368856, 4.892843)];
 
-  exports.calcRoute = calcRoute = function(start, end) {
+  calcRoute = function(start, end) {
     var destination, origin, request, waypts;
 
+    clearMap();
     waypts = [];
     origin = start.toString();
     destination = end.toString();
@@ -1977,8 +2018,75 @@ Here be coffee
     return drawNewRoute(waypts, origin, destination);
   };
 
+  markers = [];
+
+  currentMarker = null;
+
+  currentUser = null;
+
+  updateBounds = function() {
+    var bounds, iterator, length;
+
+    bounds = new google.maps.LatLngBounds;
+    if (currentUser) {
+      console.log('updateBounds', currentUser.position.toString());
+    } else {
+      console.log('updateBounds', currentUser);
+    }
+    if (currentUser) {
+      bounds.extend(currentUser.position);
+    }
+    iterator = -1;
+    length = markers.length;
+    while (++iterator < length) {
+      bounds.extend(markers[iterator].position);
+    }
+    map.fitBounds(bounds);
+    return void 0;
+  };
+
+  onLocationUpdate = function(position) {
+    var coords, latLng;
+
+    coords = position.coords;
+    latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
+    if (currentUser) {
+      currentUser.setPosition(latLng);
+    } else {
+      currentUser = new google.maps.Marker({
+        'position': latLng,
+        'map': map,
+        'icon': markerIcons.user,
+        'title': 'current location.',
+        'animation': google.maps.Animation.DROP,
+        'flat': true
+      });
+    }
+    updateBounds();
+    return void 0;
+  };
+
+  clearMap = function() {
+    var iterator, length;
+
+    app.locationManager.off(onLocationUpdate);
+    directionsRenderer.set('directions', null);
+    polyLine.setPath([]);
+    console.log(polyLine.path);
+    currentMarker = null;
+    iterator = -1;
+    length = markers.length;
+    while (++iterator < length) {
+      markers[iterator].setMap(null);
+    }
+    markers = [];
+    return this;
+  };
+
   makeMarker = function(position, icon, title) {
-    return new google.maps.Marker({
+    var marker;
+
+    marker = new google.maps.Marker({
       'position': position,
       'map': map,
       'icon': icon,
@@ -1987,22 +2095,22 @@ Here be coffee
       'flat': true,
       'optimized': false
     });
+    markers.push(marker);
+    return marker;
   };
-
-  currentMarker = null;
 
   visualizeLeg = function(address, point, waypoint, index, length) {
     var content, icon, title;
 
     if (index === 0) {
       title = 'start';
-      icon = openMarkerIcon;
+      icon = markerIcons.a || markerIcon;
     } else if (index === length) {
       title = 'end';
-      icon = openMarkerIcon;
+      icon = markerIcons.b || markerIcon;
     } else {
       title = 'waypoint';
-      icon = markerIcon;
+      icon = markerIcons[index - 1] || markerIcon;
       point.waypoint = waypoint.location.waypoint;
     }
     if (point.waypoint) {
@@ -2018,15 +2126,11 @@ Here be coffee
         'content': content
       });
       return google.maps.event.addListener(marker, 'click', function() {
-        var g, p;
-
         if (currentMarker) {
           currentMarker.info.close();
         }
-        currentMarker = marker;
-        g = marker.info.open(map, marker);
-        p = this.info.d.f.parentElement;
-        return exports.x = this.info.d.f;
+        marker.info.open(map, marker);
+        return currentMarker = marker;
       });
     }, index * 200);
   };
@@ -2041,6 +2145,7 @@ Here be coffee
   drawNewRoute = function(waypts, origin, destination) {
     var request;
 
+    app.locationManager.on(onLocationUpdate);
     request = {
       'origin': origin,
       'destination': destination,
@@ -2069,11 +2174,15 @@ Here be coffee
           address = origin;
         }
         visualizeLeg(leg.start_address, leg.start_location, waypoint, iterator, length);
+        updateBounds();
       }
       leg = legs[length - 1];
-      return visualizeLeg(destination, leg.end_location, null, iterator, length);
+      visualizeLeg(destination, leg.end_location, null, iterator, length);
+      return updateBounds();
     });
   };
+
+  exports.calcRoute = calcRoute;
 
 }).call(this);
 ;
@@ -2116,7 +2225,15 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $backdrop, getTargets, onPopoverHidden, transEndEventNames, transitionEnd;
+  var $backdrop, getTargets, onPopoverHidden, transitionEnd;
+
+  transitionEnd = {
+    'WebkitTransition': 'webkitTransitionEnd',
+    'MozTransition': 'transitionend',
+    'OTransition': 'oTransitionEnd',
+    'msTransition': 'MSTransitionEnd',
+    'transition': 'transitionend'
+  }[supports('transition')];
 
   getTargets = function($target) {
     var $popovers, iterator, length;
@@ -2133,16 +2250,6 @@ Here be coffee
       $target = $target.parentNode;
     }
   };
-
-  transEndEventNames = {
-    'WebkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'transitionend',
-    'OTransition': 'oTransitionEnd',
-    'msTransition': 'MSTransitionEnd',
-    'transition': 'transitionend'
-  };
-
-  transitionEnd = transEndEventNames[supports('transition')];
 
   onPopoverHidden = function() {
     document.body.removeChild($backdrop);
@@ -2346,9 +2453,103 @@ Here be coffee
 
 
 (function() {
-  var $planFrom, $planRoute, $planRouteModal, $planTo, exports, home;
+  var $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, locationManager;
 
   exports = this;
+
+  app = exports.app || (exports.app = {});
+
+  LocationManager = function(options) {
+    var _onerror, _onsuccess,
+      _this = this;
+
+    this.listeners = [];
+    if (options) {
+      this.options = options;
+    }
+    _onsuccess = this.onsuccess;
+    _onerror = this.onerror;
+    this.onsuccess = (function() {
+      return _onsuccess.apply(_this, arguments);
+    });
+    this.onerror = (function() {
+      return _onerror.apply(_this, arguments);
+    });
+    this.isRequested = false;
+    return this;
+  };
+
+  LocationManager.prototype.request = function(position) {
+    if (this.isRequested === true) {
+      return;
+    }
+    this.isRequested = true;
+    if (navigator.geolocation) {
+      this.id = navigator.geolocation.watchPosition(this.onsuccess, this.onerror, this.options);
+    } else {
+      this.onerror({
+        'code': -1,
+        'message': 'GEOLOCATION UNAVAILABLE'
+      });
+    }
+    return this;
+  };
+
+  LocationManager.prototype.options = {
+    'enableHighAccuracy': true,
+    'maximumAge': 0
+  };
+
+  LocationManager.prototype.onsuccess = function(position) {
+    this.position = position;
+    this.onupdate_();
+    return this;
+  };
+
+  LocationManager.prototype.on = function(listener) {
+    if (this.position) {
+      listener(this.position);
+    }
+    this.listeners.push(listener);
+    return this;
+  };
+
+  LocationManager.prototype.off = function(listener) {
+    var iterator, length;
+
+    iterator = -1;
+    length = this.listeners.length;
+    while (++iterator < length) {
+      if (this.listeners[iterator] === listener) {
+        delete this.listeners[iterator];
+        return true;
+      }
+    }
+    return false;
+  };
+
+  LocationManager.prototype.listeners = [];
+
+  LocationManager.prototype.onupdate_ = function() {
+    var iterator, length, listener;
+
+    iterator = -1;
+    length = this.listeners.length;
+    while (++iterator < length) {
+      listener = this.listeners[iterator];
+      if (listener && listener.call && listener.apply) {
+        this.listeners[iterator](this.position);
+      }
+    }
+    return this;
+  };
+
+  LocationManager.prototype.onerror = function(error) {
+    console.warn("ERROR(" + error.code + "): " + error.message);
+    return this;
+  };
+
+  locationManager = app.locationManager = new LocationManager;
 
   /*
   Plan-my-route modal.
@@ -2372,16 +2573,31 @@ Here be coffee
 
   $planFrom = ($('#plan-route-from')).item();
 
-  $planRoute.on('click', function(event) {
-    var destination, origin;
+  window.on('load', function() {
+    return locationManager.request();
+  });
 
-    origin = $planTo.value;
-    destination = $planFrom.value;
+  $planRoute.on('click', function(event) {
+    var destination, listener, origin;
+
+    origin = $planFrom.value;
+    destination = $planTo.value;
     if (origin === '' && destination === '') {
-      return;
+
+    } else if ('huidige locatie' === origin.toLowerCase()) {
+      listener = function(position) {
+        var coords;
+
+        coords = [position.coords.latitude, position.coords.longitude];
+        home(false);
+        calcRoute(coords, destination);
+        return locationManager.off(listener);
+      };
+      return locationManager.on(listener);
+    } else {
+      home(false);
+      return calcRoute(origin, destination);
     }
-    home(false);
-    return calcRoute(origin, destination);
   });
 
 }).call(this);

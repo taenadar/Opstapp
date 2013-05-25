@@ -129,7 +129,3 @@ exports.supports = supports = ( prop ) ->
 	
 	false
 
-#   
-# if ( supports('textShadow') ) { 
-#    document.documentElement.className += ' textShadow';  
-# } 
