@@ -3,113 +3,7 @@ exports = @
 app = exports.app or exports.app = {}
 app.locationManager
 
-WAYPOINTS = [
-	{
-		"artiest" : "Rembrandt",
-		"stuk" : "Nachtwacht",
-		"latlng" : [ 52.368268, 4.895656 ],
-		"opmerking" : "Originele plek van de nachtwacht",
-		"link" : ""
-	},
-	{
-		"artiest" : "Rembrandt",
-		"stuk" : "De staalmeesters",
-		"latlng" : [ 52.368289, 4.897228 ],
-		"opmerking" : "Originele plek en thema",
-		"link" : ""
-	},
-	{
-		"artiest" : "George Hendrik Breitner",
-		"stuk" : "Buurtje in de Amsterdamse Jordaan",
-		"latlng" : [ 52.383324, 4.885024 ],
-		"opmerking" : "Hier is het schilderij op gebasseerd",
-		"link" : ""
-	},
-	{
-		"artiest" : "George Hendrik Breitner",
-		"stuk" : "De Singelbrug bij de Paleisstraat",
-		"latlng" : [ 52.3722, 4.888433 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/SK-A-3580"
-	},
-	{
-		"artiest" : "George Hendrik Breitner",
-		"stuk" : "De Dam te Amsterdam",
-		"latlng" : [ 52.373058, 4.892864 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/SK-A-3659"
-	},
-	{
-		"artiest" : "Rembrandt",
-		"stuk" : "Eerste verkochte schilderij",
-		"latlng" : [ 52.371473, 4.880612 ],
-		"opmerking" : "Aan deze gracht woonde de eerste koper van een van Rembrandts stukken. (misschien leuk om te weten)",
-		"link" : "http://nl.wikipedia.org/wiki/Johan_Huydecoper_van_Maarsseveen_(1599-1661)"
-	},
-	{
-		"artiest" : "Rembrandt",
-		"stuk" : "Standbeeld van Rembrandt op de Botermarkt",
-		"latlng" : [ 52.366085, 4.896727 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B"
-	},
-	{
-		"artiest" : "Beerstraten",
-		"stuk" : "Heiligewegspoort te Amsterdam in de winter",
-		"latlng" : [ 52.367238, 4.889554 ],
-		"opmerking" : "staat nog wat info over op wiki",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48 , http://nl.wikipedia.org/wiki/Heiligewegspoort"
-	},
-	{
-		"artiest" : "Beerstraten",
-		"stuk" : "Schreijerstoren te Amsterdam",
-		"latlng" : [ 52.376595, 4.90222 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/RP-T-1888-A-1559"
-	},
-	{
-		"artiest" : "George Hendrik Breitner",
-		"stuk" : "Het Rokin in Amsterdam",
-		"latlng" : [ 52.368856, 4.892843 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/SK-A-3579"
-	},
-	{
-		"artiest" : "Johannes Jelgerhuis",
-		"stuk" : "De Amsterdamse buitensingel bij de Leidsepoort",
-		"latlng" : [ 52.363585, 4.882028 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/SK-A-1055"
-	},
-	{
-		"artiest" : "Jan van der Heyden",
-		"stuk" : "Amsterdams stadsgezicht met huizen aan de Herengracht",
-		"latlng" : [ 52.379149, 4.89177 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/SK-A-154"
-	},
-	{
-		"artiest" : "Gerrit Adriaensz. Berckheyde",
-		"stuk" : "De Gouden Bocht in de Herengracht",
-		"latlng" : [ 52.363893, 4.892188 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/collectie/SK-A-5003"
-	},
-	{
-		"artiest" : "George Hendrik Breitner",
-		"stuk" : "De Singelbrug bij de Paleisstraat in Amsterdam",
-		"latlng" : [ 52.372196, 4.888567 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/search/objecten?q=George+Hendrik+Breitner&p=1&ps=12#/SK-A-3580,1"
-	},
-	{
-		"artiest" : "George Hendrik Breitner",
-		"stuk" : "Trampaarden op de Dam te Amsterdam",
-		"latlng" : [ 52.372812, 4.892961 ],
-		"opmerking" : "",
-		"link" : "https://www.rijksmuseum.nl/nl/search/objecten?p=1&ps=12&maker=George+Hendrik+Breitner#/SK-A-3658,3"
-	}
-]
+WAYPOINTS = app.data
 
 waypoints = []
 
@@ -121,7 +15,7 @@ do ->
 	while ++iterator < length
 	
 		waypoint = WAYPOINTS[ iterator ]
-		latLng = new google.maps.LatLng waypoint.latlng[ 0 ], waypoint.latlng[ 1 ]
+		latLng = new google.maps.LatLng waypoint.latitude, waypoint.longitude
 		latLng.waypoint = waypoint
 		waypoints[ iterator ] = latLng
 
@@ -394,7 +288,8 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 		point.waypoint = waypoint.location.waypoint
 	
 	if point.waypoint
-		content = "<b>#{point.waypoint.stuk}</b><br/>#{point.waypoint.artiest}<br/><a class=\"button-primary button-block button-large\" href=\"#{point.waypoint.link}\">Op naar het Rijks!</a>"
+		console.log 'point', point
+		content = "<b>#{point.waypoint.piece}</b><br/>#{point.waypoint.artist}<br/><a class=\"button-primary button-block button-large button-map\" href=\"#{point.waypoint.link}\">Meer info »</a>"
 	else
 		content = "<b>#{address}</b>"
 		

@@ -984,3 +984,6 @@ textarea {
   /* Overwrites Google Maps loading style */
   background-color: transparent !important;
   color: #202327; }
+
+.button-map {
+  margin-top: 6px; }

@@ -132,9 +132,9 @@ app.data = [
 		"latitude": 52.363585,
 		"longitude": 4.882028,
 		"description": "",
-		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-1055	",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-1055",
 		"info" : {
-			"image": ""
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1055"
 		}
 	},
 	{

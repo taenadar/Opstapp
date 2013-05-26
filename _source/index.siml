@@ -44,7 +44,7 @@ html
 				.input-group
 					.input-row
 						label "Van"
-						input#plan-route-from[type="text"][value="Huidige locatie"]
+						input#plan-route-from[type="text"][value="Weesperplein, Amsterdam"]
 					.input-row
 						label "Naar"
 						input#plan-route-to[type="text"][value="Rijksmuseum, Amsterdam"]
