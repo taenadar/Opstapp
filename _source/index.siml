@@ -44,10 +44,10 @@ html
 				.input-group
 					.input-row
 						label "Van"
-						input#plan-route-from[type="text"][value="Weesperplein, Amsterdam"]
+						input#plan-route-from[type="text"][value="Huidige locatie"]
 					.input-row
 						label "Naar"
-						input#plan-route-to[type="text"][value="Rijksmuseum, Amsterdam"]
+						input#plan-route-to[type="text"][value="Amsterdam Centraal"]
 					.input-row
 						label "Afstand"
 						select#plan-route-distance
@@ -58,6 +58,8 @@ html
 				
 				a#plan-route.button-primary.button-block.button-large "Plan route"
 				a#plan-uitgestippeld.button-secondary.button-block.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
+		
+		#info-modal.info-modal.modal
 		
 		#uitgestippeld-modal.uitgestippeld-modal.modal
 			header.bar-title

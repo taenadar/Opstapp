@@ -95,8 +95,9 @@ $planRouteModal = do ( $ '#plan-route-modal' ).item
 exports.home = home = ( boolean ) ->
 	boolean is !!boolean or boolean = !$planRouteModal.classList.contains 'active'
 	
-	if boolean then $planRouteModal.classList.add 'active'
-	else $planRouteModal.classList.remove 'active'
+	$planRouteModal.classList[ if boolean then 'add' else 'remove' ] 'active'
+	
+	$planRouteModal
 
 $planRoute = do ( $ '#plan-route' ).item
 $planTo = do ( $ '#plan-route-to' ).item
@@ -127,3 +128,68 @@ $planRoute.on 'click', ( event ) ->
 	else
 		home false
 		calcRoute origin, destination, distance
+
+$infoModal = do ( $ '#info-modal' ).item
+
+exports.info = info = ( boolean ) ->
+	boolean is !!boolean or boolean = !$infoModal.classList.contains 'active'
+	$infoModal.classList[ if boolean then 'add' else 'remove' ] 'active'
+	$infoModal
+
+
+waypoints = {}
+
+do ->
+	iterator = -1
+	data = app.data
+	length = data.length
+	
+	while ++iterator < length
+		waypoint = data[ iterator ]
+
+		unless waypoint.info and waypoint.info.id then continue
+		
+		waypoints[ waypoint.info.id ] = waypoint
+	
+	undefined
+
+waypointToString = ( data ) ->
+	"""
+		<header class=\"bar-title\">
+			<h3 class=\"title\">
+				#{data.piece}
+			</h3>
+			<a class=\"button\" href=\"#info-modal\">
+				Close
+			</a>
+		</header>
+		<div class=\"content\">
+			<div class=\"img\" style=\"background-image:url(#{data.info.image})\">
+				<img class=\"hidden\" alt=\"\" src=\"#{data.info.image}\">
+			</div>
+			<div class=\"info-wrapper\">
+				<h1>#{data.info.title}</h1>
+				<h2>#{data.artist}</h2>
+				<p>#{data.info.description}</p>
+			</div>
+		</div>
+	"""
+
+
+window.on 'click', ( event ) ->
+	$target = event.target
+	
+	if $target.classList.contains 'button-map'
+		do event.preventDefault
+		do event.stopPropagation
+		
+		id = $target.dataset.id
+		if id is 'undefined' then id = null
+		waypoint = waypoints[ id ]
+		
+		unless id or waypoint then return
+		
+		$infoModal.innerHTML = waypointToString waypoint
+		info true
+	
+	return

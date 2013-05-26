@@ -1690,7 +1690,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, WAYPOINTS, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, openMarkerIcon, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
+  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
 
   exports = this;
 
@@ -1698,18 +1698,17 @@ Here be coffee
 
   app.locationManager;
 
-  WAYPOINTS = app.data;
-
   waypoints = [];
 
   (function() {
-    var iterator, latLng, length, waypoint, _results;
+    var data, iterator, latLng, length, waypoint, _results;
 
     iterator = -1;
-    length = WAYPOINTS.length;
+    data = app.data;
+    length = data.length;
     _results = [];
     while (++iterator < length) {
-      waypoint = WAYPOINTS[iterator];
+      waypoint = data[iterator];
       latLng = new google.maps.LatLng(waypoint.latitude, waypoint.longitude);
       latLng.waypoint = waypoint;
       _results.push(waypoints[iterator] = latLng);
@@ -1862,12 +1861,6 @@ Here be coffee
     'url': './asset/image/map/marker_closed.png'
   };
 
-  openMarkerIcon = {
-    'scaledSize': new google.maps.Size(20, 35),
-    'size': new google.maps.Size(20, 35),
-    'url': './asset/image/map/marker.png'
-  };
-
   routeBoxer = new RouteBoxer;
 
   directionsService = new google.maps.DirectionsService;
@@ -2007,7 +2000,7 @@ Here be coffee
   };
 
   visualizeLeg = function(address, point, waypoint, index, length) {
-    var content, icon, title;
+    var content, data, icon, title;
 
     if (index === 0) {
       title = 'start';
@@ -2021,8 +2014,8 @@ Here be coffee
       point.waypoint = waypoint.location.waypoint;
     }
     if (point.waypoint) {
-      console.log('point', point);
-      content = "<b>" + point.waypoint.piece + "</b><br/>" + point.waypoint.artist + "<br/><a class=\"button-primary button-block button-large button-map\" href=\"" + point.waypoint.link + "\">Meer info »</a>";
+      data = point.waypoint;
+      content = "<b>" + data.piece + "</b><br/>" + data.artist + "<br/><a class=\"button-primary button-block button-large button-map\" href=\"" + data.link + "\" data-id=\"" + data.info.id + "\">Meer info »</a>";
     } else {
       content = "<b>" + address + "</b>";
     }
@@ -2361,7 +2354,7 @@ Here be coffee
 
 
 (function() {
-  var $planDistance, $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, locationManager;
+  var $infoModal, $planDistance, $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, info, locationManager, waypointToString, waypoints;
 
   exports = this;
 
@@ -2467,11 +2460,8 @@ Here be coffee
 
   exports.home = home = function(boolean) {
     boolean === !!boolean || (boolean = !$planRouteModal.classList.contains('active'));
-    if (boolean) {
-      return $planRouteModal.classList.add('active');
-    } else {
-      return $planRouteModal.classList.remove('active');
-    }
+    $planRouteModal.classList[boolean ? 'add' : 'remove']('active');
+    return $planRouteModal;
   };
 
   $planRoute = ($('#plan-route')).item();
@@ -2507,6 +2497,56 @@ Here be coffee
     } else {
       home(false);
       return calcRoute(origin, destination, distance);
+    }
+  });
+
+  $infoModal = ($('#info-modal')).item();
+
+  exports.info = info = function(boolean) {
+    boolean === !!boolean || (boolean = !$infoModal.classList.contains('active'));
+    $infoModal.classList[boolean ? 'add' : 'remove']('active');
+    return $infoModal;
+  };
+
+  waypoints = {};
+
+  (function() {
+    var data, iterator, length, waypoint;
+
+    iterator = -1;
+    data = app.data;
+    length = data.length;
+    while (++iterator < length) {
+      waypoint = data[iterator];
+      if (!(waypoint.info && waypoint.info.id)) {
+        continue;
+      }
+      waypoints[waypoint.info.id] = waypoint;
+    }
+    return void 0;
+  })();
+
+  waypointToString = function(data) {
+    return "<header class=\"bar-title\">\n	<h3 class=\"title\">\n		" + data.piece + "\n	</h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(" + data.info.image + ")\">\n		<img class=\"hidden\" alt=\"\" src=\"" + data.info.image + "\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + data.info.title + "</h1>\n		<h2>" + data.artist + "</h2>\n		<p>" + data.info.description + "</p>\n	</div>\n</div>";
+  };
+
+  window.on('click', function(event) {
+    var $target, id, waypoint;
+
+    $target = event.target;
+    if ($target.classList.contains('button-map')) {
+      event.preventDefault();
+      event.stopPropagation();
+      id = $target.dataset.id;
+      if (id === 'undefined') {
+        id = null;
+      }
+      waypoint = waypoints[id];
+      if (!(id || waypoint)) {
+        return;
+      }
+      $infoModal.innerHTML = waypointToString(waypoint);
+      info(true);
     }
   });
 
