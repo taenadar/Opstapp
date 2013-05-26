@@ -113,22 +113,22 @@ app.data = [
 	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
 	// 	}
 	// },
-	// {
-	// 	"artist": "Beerstraten",
-	// 	"piece": "Heiligewegspoort te Amsterdam in de winter",
-	// 	"latitude": 52.367238,
-	// 	"longitude": 4.889554,
-	// 	"description": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
-	// 	"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48",
-	// 	"info" : {
-	// 		"title" : "",
-	// 		"type" : "",
-	// 		"id" : "",
-	// 		"date" : "",
-	// 		"description" : "",
-	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
-	// 	}
-	// },
+	{
+		"artist": "Beerstraten",
+		"piece": "Heiligewegspoort te Amsterdam in de winter",
+		"latitude": 52.367238,
+		"longitude": 4.889554,
+		"description": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48",
+		"info" : {
+			"title" : "Heiligewegspoort te Amsterdam in de winter",
+			"type" : "tekening",
+			"id" : "RP-T-1905-48",
+			"date" : "1638 - 1658",
+			"description" : "",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
+		}
+	},
 	{
 		"artist": "Beerstraten",
 		"piece": "Schreijerstoren te Amsterdam",
