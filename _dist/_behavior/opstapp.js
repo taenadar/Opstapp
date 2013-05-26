@@ -1690,7 +1690,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, WAYPOINTS, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, openMarkerIcon, polyLine, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
+  var $map, WAYPOINTS, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, openMarkerIcon, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
 
   exports = this;
 
@@ -1791,8 +1791,6 @@ Here be coffee
       "link": "https://www.rijksmuseum.nl/nl/search/objecten?p=1&ps=12&maker=George+Hendrik+Breitner#/SK-A-3658,3"
     }
   ];
-
-  console.log(app.data);
 
   waypoints = [];
 
@@ -1903,11 +1901,15 @@ Here be coffee
 
   map.setMapTypeId('map_style');
 
-  polyLine = new google.maps.Polyline({
-    'strokeColor': '#5e99b0',
-    'strokeOpacity': 1,
-    'strokeWeight': 3,
-    'map': map
+  directionsRenderer = new google.maps.DirectionsRenderer({
+    'suppressMarkers': true,
+    'suppressInfoWindows': true,
+    'map': map,
+    'polylineOptions': {
+      'strokeColor': '#5e99b0',
+      'strokeOpacity': 0.8,
+      'strokeWeight': 3
+    }
   });
 
   markerIcons = {};
@@ -1958,20 +1960,13 @@ Here be coffee
     'url': './asset/image/map/marker.png'
   };
 
-  directionsRenderer = new google.maps.DirectionsRenderer({
-    'polylineOptions': polyLine,
-    'suppressMarkers': true,
-    'suppressInfoWindows': true,
-    'map': map
-  });
-
   routeBoxer = new RouteBoxer;
 
   directionsService = new google.maps.DirectionsService;
 
   exports.locationsArray = locationsArray = [new google.maps.LatLng(52.368268, 4.895656), new google.maps.LatLng(52.368289, 4.897228), new google.maps.LatLng(52.383324, 4.885024), new google.maps.LatLng(52.3722, 4.888433), new google.maps.LatLng(52.373058, 4.892864), new google.maps.LatLng(52.371473, 4.880612), new google.maps.LatLng(52.366085, 4.896727), new google.maps.LatLng(52.367238, 4.889554), new google.maps.LatLng(52.376595, 4.90222), new google.maps.LatLng(52.368856, 4.892843)];
 
-  calcRoute = function(start, end) {
+  calcRoute = function(start, end, distance) {
     var destination, origin, request, waypts;
 
     clearMap();
@@ -1986,20 +1981,20 @@ Here be coffee
       'travelMode': google.maps.TravelMode.WALKING
     };
     return directionsService.route(request, function(response, status) {
-      var boxes, path;
+      var path;
 
       if (status !== google.maps.DirectionsStatus.OK) {
         return;
       }
       path = response.routes[0].overview_path;
-      boxes = routeBoxer.box(path, 0.05);
-      return findPointsOnRoute(boxes, origin, destination);
+      return findPointsOnRoute(path, origin, destination, distance);
     });
   };
 
-  findPointsOnRoute = function(boxes, origin, destination) {
-    var bounds, boxpolys, iterator, iterator_, length, length_, waypts;
+  findPointsOnRoute = function(path, origin, destination, distance) {
+    var bounds, boxes, boxpolys, iterator, iterator_, length, length_, waypts;
 
+    boxes = routeBoxer.box(path, distance);
     waypts = [];
     iterator = -1;
     length = boxes.length;
@@ -2017,7 +2012,17 @@ Here be coffee
         }
       }
     }
-    return drawNewRoute(waypts, origin, destination);
+    if (waypts.length > 8 && distance > 0) {
+      findPointsOnRoute(path, origin, destination, distance - 0.1);
+    } else if (waypts.length < 2 && distance < 5) {
+      findPointsOnRoute(path, origin, destination, distance + 0.1);
+    } else {
+      if (waypts.length > 8) {
+        waypoints = waypoints.slice(0, 8);
+      }
+      drawNewRoute(waypts, origin, destination, distance);
+    }
+    return this;
   };
 
   markers = [];
@@ -2030,11 +2035,6 @@ Here be coffee
     var bounds, iterator, length;
 
     bounds = new google.maps.LatLngBounds;
-    if (currentUser) {
-      console.log('updateBounds', currentUser.position.toString());
-    } else {
-      console.log('updateBounds', currentUser);
-    }
     if (currentUser) {
       bounds.extend(currentUser.position);
     }
@@ -2072,15 +2072,13 @@ Here be coffee
     var iterator, length;
 
     app.locationManager.off(onLocationUpdate);
-    directionsRenderer.set('directions', null);
-    polyLine.setPath([]);
-    currentMarker = null;
     iterator = -1;
     length = markers.length;
     while (++iterator < length) {
       markers[iterator].setMap(null);
     }
     markers = [];
+    currentMarker = null;
     return this;
   };
 
@@ -2143,7 +2141,7 @@ Here be coffee
     }
   });
 
-  drawNewRoute = function(waypts, origin, destination) {
+  drawNewRoute = function(waypts, origin, destination, distance) {
     var request;
 
     app.locationManager.on(onLocationUpdate);
@@ -2454,7 +2452,7 @@ Here be coffee
 
 
 (function() {
-  var $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, locationManager;
+  var $planDistance, $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, locationManager;
 
   exports = this;
 
@@ -2546,7 +2544,6 @@ Here be coffee
   };
 
   LocationManager.prototype.onerror = function(error) {
-    console.warn("ERROR(" + error.code + "): " + error.message);
     return this;
   };
 
@@ -2574,30 +2571,33 @@ Here be coffee
 
   $planFrom = ($('#plan-route-from')).item();
 
+  $planDistance = ($('#plan-route-distance')).item();
+
   window.on('load', function() {
     return locationManager.request();
   });
 
   $planRoute.on('click', function(event) {
-    var destination, listener, origin;
+    var destination, distance, listener, origin;
 
     origin = $planFrom.value;
     destination = $planTo.value;
+    distance = parseFloat($planDistance.value);
     if (origin === '' && destination === '') {
-
+      alert('Een begin- en eindpunt moet aanwezig zijn om een route te plannen');
     } else if ('huidige locatie' === origin.toLowerCase()) {
       listener = function(position) {
         var coords;
 
         coords = [position.coords.latitude, position.coords.longitude];
         home(false);
-        calcRoute(coords, destination);
+        calcRoute(coords, destination, distance);
         return locationManager.off(listener);
       };
       return locationManager.on(listener);
     } else {
       home(false);
-      return calcRoute(origin, destination);
+      return calcRoute(origin, destination, distance);
     }
   });
 

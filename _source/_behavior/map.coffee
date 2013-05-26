@@ -111,8 +111,6 @@ WAYPOINTS = [
 	}
 ]
 
-console.log app.data
-
 waypoints = []
 
 # Hide from "global" scope.
@@ -199,11 +197,14 @@ map.mapTypes.set 'map_style', styledMap
 # Set the maps ID.
 map.setMapTypeId 'map_style'
 
-polyLine = new google.maps.Polyline
-	'strokeColor' : '#5e99b0'
-	'strokeOpacity' : 1
-	'strokeWeight' : 3
+directionsRenderer = new google.maps.DirectionsRenderer
+	'suppressMarkers' : true
+	'suppressInfoWindows' : true
 	'map' : map
+	'polylineOptions' :
+		'strokeColor' : '#5e99b0'
+		'strokeOpacity' : 0.8
+		'strokeWeight' : 3
 
 markerIcons = {}
 
@@ -242,15 +243,6 @@ openMarkerIcon =
 	'size' : new google.maps.Size 20, 35
 	'url' : './asset/image/map/marker.png'
 
-directionsRenderer = new google.maps.DirectionsRenderer
-	'polylineOptions' : polyLine
-	'suppressMarkers' : true
-	'suppressInfoWindows' : true
-	'map' : map
-
-# Set the map to display direction.
-# directionsRenderer.setMap map
-
 routeBoxer = new RouteBoxer
 directionsService = new google.maps.DirectionsService
 
@@ -268,7 +260,7 @@ exports.locationsArray = locationsArray = [
 ]
 
 
-calcRoute = ( start, end ) ->
+calcRoute = ( start, end, distance ) ->
 	do clearMap
 	waypts = []
 	origin = do start.toString
@@ -285,12 +277,11 @@ calcRoute = ( start, end ) ->
 		if status isnt google.maps.DirectionsStatus.OK then return
 		
 		path = response.routes[ 0 ].overview_path
-		boxes = routeBoxer.box path, 0.05
-
-		findPointsOnRoute boxes, origin, destination
+		findPointsOnRoute path, origin, destination, distance
 
 
-findPointsOnRoute = ( boxes, origin, destination ) ->
+findPointsOnRoute = ( path, origin, destination, distance ) ->
+	boxes = routeBoxer.box path, distance
 	waypts = []
 	
 	iterator = -1
@@ -309,7 +300,18 @@ findPointsOnRoute = ( boxes, origin, destination ) ->
 				waypts.push
 					'location' : waypoints[ iterator_ ]
 					'stopover' : true
-	drawNewRoute waypts, origin, destination
+	
+	if waypts.length > 8 and distance > 0
+		findPointsOnRoute path, origin, destination, distance - 0.1
+	else if waypts.length < 2 and distance < 5
+		findPointsOnRoute path, origin, destination, distance + 0.1
+	else
+		if waypts.length > 8
+			waypoints = waypoints.slice 0, 8
+		
+		drawNewRoute waypts, origin, destination, distance
+	
+	@
 
 markers = []
 currentMarker = null
@@ -317,12 +319,6 @@ currentUser = null
 
 updateBounds = ->
 	bounds = new google.maps.LatLngBounds
-	
-	
-	if currentUser
-		console.log 'updateBounds', currentUser.position.toString()
-	else
-		console.log 'updateBounds', currentUser
 	
 	if currentUser
 		bounds.extend currentUser.position
@@ -359,15 +355,7 @@ clearMap = ->
 	
 	app.locationManager.off onLocationUpdate
 	
-	# Remove directions.
-	directionsRenderer.set 'directions', null
-	
-	# Remove polyLine
-	polyLine.setPath []
-	
 	# Remove markers
-	currentMarker = null
-	
 	iterator = -1
 	length = markers.length
 	
@@ -375,6 +363,7 @@ clearMap = ->
 		markers[ iterator ].setMap null
 	
 	markers = []
+	currentMarker = null
 	
 	@
 
@@ -429,7 +418,7 @@ google.maps.event.addListener map, 'click', ->
 		do currentMarker.info.close
 		currentMarker = null
 
-drawNewRoute = ( waypts, origin, destination ) ->
+drawNewRoute = ( waypts, origin, destination, distance ) ->
 	app.locationManager.on onLocationUpdate
 	
 	request =

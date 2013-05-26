@@ -566,6 +566,13 @@ textarea {
   margin-top: .125rem;
   margin-bottom: .125rem; }
 
+.input-row label + select {
+  float: right;
+  width: 65%;
+  padding-left: 0;
+  margin-top: .125rem;
+  margin-bottom: .125rem; }
+
 /* Lists
 -------------------------------------------------- */
 /* Remove usual bullet styles from list */

@@ -76,7 +76,7 @@ LocationManager::onupdate_ = ->
 	@
 
 LocationManager::onerror = ( error ) ->
-	console.warn "ERROR(#{error.code}): #{error.message}"
+	# Fail silently.
 	
 	@
 
@@ -101,6 +101,7 @@ exports.home = home = ( boolean ) ->
 $planRoute = do ( $ '#plan-route' ).item
 $planTo = do ( $ '#plan-route-to' ).item
 $planFrom = do ( $ '#plan-route-from' ).item
+$planDistance = do ( $ '#plan-route-distance' ).item
 
 
 window.on 'load', -> do locationManager.request
@@ -110,32 +111,19 @@ $planRoute.on 'click', ( event ) ->
 	
 	origin = $planFrom.value
 	destination = $planTo.value
+	distance = parseFloat $planDistance.value
 	
 	if origin is '' and destination is ''
-		# Error message?
+		alert 'Een begin- en eindpunt moet aanwezig zijn om een route te plannen'
 		return
 	else if 'huidige locatie' is do origin.toLowerCase
 		listener = ( position ) ->
 			coords = [ position.coords.latitude, position.coords.longitude ]
 			home false
-			calcRoute coords, destination
+			calcRoute coords, destination, distance
 			locationManager.off listener
 		
 		locationManager.on listener
 	else
 		home false
-		calcRoute origin, destination
-		
-# do home
-
-# Actions
-
-# $planRouteModal = do ( $ '#plan-route-modal' ).item
-# 
-# exports.home = home = ( boolean ) ->
-# 	boolean is !!boolean or boolean = !$planRouteModal.classList.contains 'active'
-# 	
-# 	if boolean then $planRouteModal.classList.add 'active'
-# 	else $planRouteModal.classList.remove 'active'
-# 
-# do home
+		calcRoute origin, destination, distance
