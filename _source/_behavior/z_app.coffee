@@ -156,9 +156,7 @@ do ->
 waypointToString = ( data ) ->
 	"""
 		<header class=\"bar-title\">
-			<h3 class=\"title\">
-				#{data.piece}
-			</h3>
+			<h3 class=\"title\"><div class="overflow-wrapper">#{data.piece}</div></h3>
 			<a class=\"button\" href=\"#info-modal\">
 				Close
 			</a>

@@ -146,3 +146,11 @@
 {
 	margin-top: 10px;
 }
+
+.info-modal .overflow-wrapper
+{
+	margin-left: 12px;
+	margin-right: 74px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
