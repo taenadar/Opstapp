@@ -171,6 +171,7 @@ waypointToString = ( data ) ->
 				<h1>#{data.info.title}</h1>
 				<h2>#{data.artist}</h2>
 				<p>#{data.info.description}</p>
+				<a class=\"button-primary button-block button-large\" href=\"#{data.link}\">Op naar het Rijks!</a>
 			</div>
 		</div>
 	"""

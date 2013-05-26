@@ -1003,6 +1003,9 @@ textarea {
 .info-wrapper p {
   line-height: 1.5; }
 
+.info-wrapper .button-block {
+  margin-top: 10px; }
+
 #map-canvas {
   height: 100%;
   /* Overwrites Google Maps loading style */

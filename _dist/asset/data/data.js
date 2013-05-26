@@ -81,54 +81,54 @@ app.data = [
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3659"
 		}
 	},
-	{
-		"artist": "Rembrandt van Rijn",
-		"piece": "Eerste verkochte schilderij",
-		"latitude": 52.371473,
-		"longitude": 4.880612,
-		"description": "Aan deze gracht woonde de eerste koper van een van Rembrandts stukken.",
-		"link": "http://nl.wikipedia.org/wiki/Johan_Huydecoper_van_Maarsseveen_(1599-1661)",
-		"info" : {
-			"title" : "",
-			"type" : "",
-			"id" : "",
-			"date" : "",
-			"description" : "",
-			"image": ""
-		}
-	},
-	{
-		"artist": "Rembrandt van Rijn",
-		"piece": "Standbeeld van Rembrandt op de Botermarkt",
-		"latitude": 52.366085,
-		"longitude": 4.896727,
-		"description": "Hier staat het stanbeeld van Rembrandt van Rijn.",
-		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B",
-		"info" : {
-			"title" : "",
-			"type" : "",
-			"id" : "",
-			"date" : "",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
-		}
-	},
-	{
-		"artist": "Beerstraten",
-		"piece": "Heiligewegspoort te Amsterdam in de winter",
-		"latitude": 52.367238,
-		"longitude": 4.889554,
-		"description": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
-		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48",
-		"info" : {
-			"title" : "",
-			"type" : "",
-			"id" : "",
-			"date" : "",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
-		}
-	},
+	// {
+	// 	"artist": "Rembrandt van Rijn",
+	// 	"piece": "Eerste verkochte schilderij",
+	// 	"latitude": 52.371473,
+	// 	"longitude": 4.880612,
+	// 	"description": "Aan deze gracht woonde de eerste koper van een van Rembrandts stukken.",
+	// 	"link": "http://nl.wikipedia.org/wiki/Johan_Huydecoper_van_Maarsseveen_(1599-1661)",
+	// 	"info" : {
+	// 		"title" : "",
+	// 		"type" : "",
+	// 		"id" : "",
+	// 		"date" : "",
+	// 		"description" : "",
+	// 		"image": ""
+	// 	}
+	// },
+	// {
+	// 	"artist": "Rembrandt van Rijn",
+	// 	"piece": "Standbeeld van Rembrandt op de Botermarkt",
+	// 	"latitude": 52.366085,
+	// 	"longitude": 4.896727,
+	// 	"description": "Hier staat het stanbeeld van Rembrandt van Rijn.",
+	// 	"link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B",
+	// 	"info" : {
+	// 		"title" : "",
+	// 		"type" : "",
+	// 		"id" : "",
+	// 		"date" : "",
+	// 		"description" : "",
+	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
+	// 	}
+	// },
+	// {
+	// 	"artist": "Beerstraten",
+	// 	"piece": "Heiligewegspoort te Amsterdam in de winter",
+	// 	"latitude": 52.367238,
+	// 	"longitude": 4.889554,
+	// 	"description": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
+	// 	"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48",
+	// 	"info" : {
+	// 		"title" : "",
+	// 		"type" : "",
+	// 		"id" : "",
+	// 		"date" : "",
+	// 		"description" : "",
+	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
+	// 	}
+	// },
 	{
 		"artist": "Beerstraten",
 		"piece": "Schreijerstoren te Amsterdam",
@@ -256,21 +256,21 @@ app.data = [
 			"description" : "Het Vondelpark met het standbeeld van Joost van den Vondel, ontworpen door beeldhouwer Louis Royer.",
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1883-A-7334"
 		}
-	},
-	{
-		"artist": "",
-		"piece": "",
-		"latitude": "",
-		"longitude": "",
-		"description": "",
-		"link": "",
-		"info" : {
-			"title" : "",
-			"type" : "",
-			"id" : "",
-			"date" : "",
-			"description" : "",
-			"image": ""
-		}
+	// },
+	// {
+	// 	"artist": "",
+	// 	"piece": "",
+	// 	"latitude": "",
+	// 	"longitude": "",
+	// 	"description": "",
+	// 	"link": "",
+	// 	"info" : {
+	// 		"title" : "",
+	// 		"type" : "",
+	// 		"id" : "",
+	// 		"date" : "",
+	// 		"description" : "",
+	// 		"image": ""
+	// 	}
 	}
 ];

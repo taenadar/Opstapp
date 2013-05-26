@@ -2527,7 +2527,7 @@ Here be coffee
   })();
 
   waypointToString = function(data) {
-    return "<header class=\"bar-title\">\n	<h3 class=\"title\">\n		" + data.piece + "\n	</h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(" + data.info.image + ")\">\n		<img class=\"hidden\" alt=\"\" src=\"" + data.info.image + "\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + data.info.title + "</h1>\n		<h2>" + data.artist + "</h2>\n		<p>" + data.info.description + "</p>\n	</div>\n</div>";
+    return "<header class=\"bar-title\">\n	<h3 class=\"title\">\n		" + data.piece + "\n	</h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(" + data.info.image + ")\">\n		<img class=\"hidden\" alt=\"\" src=\"" + data.info.image + "\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + data.info.title + "</h1>\n		<h2>" + data.artist + "</h2>\n		<p>" + data.info.description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + data.link + "\">Op naar het Rijks!</a>\n	</div>\n</div>";
   };
 
   window.on('click', function(event) {
