@@ -3,18 +3,17 @@ exports = @
 app = exports.app or exports.app = {}
 app.locationManager
 
-WAYPOINTS = app.data
-
 waypoints = []
 
 # Hide from "global" scope.
 do ->
 	iterator = -1
-	length = WAYPOINTS.length
+	data = app.data
+	length = data.length
 	
 	while ++iterator < length
 	
-		waypoint = WAYPOINTS[ iterator ]
+		waypoint = data[ iterator ]
 		latLng = new google.maps.LatLng waypoint.latitude, waypoint.longitude
 		latLng.waypoint = waypoint
 		waypoints[ iterator ] = latLng
@@ -107,35 +106,30 @@ do ->
 	length = 8
 
 	while ++iterator < length
-		markerIcons[ iterator ] = 
+		markerIcons[ iterator ] =
 			'scaledSize' : new google.maps.Size 20, 35
 			'size' : new google.maps.Size 20, 35
 			'url' : "./asset/image/map/marker_closed_#{iterator + 1}.png"
 	
-markerIcons.a = 
+markerIcons.a =
 	'scaledSize' : new google.maps.Size 20, 35
 	'size' : new google.maps.Size 20, 35
 	'url' : "./asset/image/map/marker_closed_a.png"
 
-markerIcons.b = 
+markerIcons.b =
 	'scaledSize' : new google.maps.Size 20, 35
 	'size' : new google.maps.Size 20, 35
 	'url' : "./asset/image/map/marker_closed_b.png"
 
-markerIcons.user = 
+markerIcons.user =
 	'scaledSize' : new google.maps.Size 19, 19
 	'size' : new google.maps.Size 19, 19
 	'url' : "./asset/image/map/marker_closed_user.png"
 
-markerIcon = 
+markerIcon =
 	'scaledSize' : new google.maps.Size 20, 35
 	'size' : new google.maps.Size 20, 35
 	'url' : './asset/image/map/marker_closed.png'
-
-openMarkerIcon =
-	'scaledSize' : new google.maps.Size 20, 35
-	'size' : new google.maps.Size 20, 35
-	'url' : './asset/image/map/marker.png'
 
 routeBoxer = new RouteBoxer
 directionsService = new google.maps.DirectionsService
@@ -288,8 +282,8 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 		point.waypoint = waypoint.location.waypoint
 	
 	if point.waypoint
-		console.log 'point', point
-		content = "<b>#{point.waypoint.piece}</b><br/>#{point.waypoint.artist}<br/><a class=\"button-primary button-block button-large button-map\" href=\"#{point.waypoint.link}\">Meer info »</a>"
+		data = point.waypoint
+		content = "<b>#{data.piece}</b><br/>#{data.artist}<br/><a class=\"button-primary button-block button-large button-map\" href=\"#{data.link}\" data-id=\"#{data.info.id}\">Meer info »</a>"
 	else
 		content = "<b>#{address}</b>"
 		
