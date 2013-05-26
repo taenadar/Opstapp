@@ -80,6 +80,7 @@ $map = document.getElementById 'map-canvas'
 # Create the actualy map on the map element.
 map = new google.maps.Map $map,
 	'zoom' : 14
+	'streetViewControl' : false
 	'center' : new google.maps.LatLng 52.359903, 4.884131
 	'mapTypeControlOptions' :
 		'mapTypeIds' : [ google.maps.MapTypeId.ROADMAP, 'map_style' ]

@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-26
+/*! opstapp - v0.0.1 - 2013-05-27
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -1798,6 +1798,7 @@ Here be coffee
 
   map = new google.maps.Map($map, {
     'zoom': 14,
+    'streetViewControl': false,
     'center': new google.maps.LatLng(52.359903, 4.884131),
     'mapTypeControlOptions': {
       'mapTypeIds': [google.maps.MapTypeId.ROADMAP, 'map_style']
