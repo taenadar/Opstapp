@@ -121,10 +121,10 @@ app.data = [
 		"description": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48",
 		"info" : {
-			"title" : "",
-			"type" : "",
-			"id" : "",
-			"date" : "",
+			"title" : "Heiligewegspoort te Amsterdam in de winter",
+			"type" : "tekening",
+			"id" : "RP-T-1905-48",
+			"date" : "1638 - 1658",
 			"description" : "",
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
 		}
