@@ -1,0 +1,191 @@
+[
+	{
+		"artiest": "Rembrandt van Rijn",
+		"stuk": "Nachtwacht",
+		"latatitude": "52.368268",
+		"langtitude": "4.895656",
+		"Opmerking": "Originele plek van de Nachtwacht",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-C-5",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-5"
+	},
+	{
+		"artiest": "Rembrandt van Rijn",
+		"stuk": "De Staalmeesters",
+		"latatitude": "52.368289",
+		"langtitude": "4.897228",
+		"Opmerking": "Originele plek en thema",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-C-6",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-6"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "Buurtje in de Amsterdamse Jordaan",
+		"latatitude": "52.383324",
+		"langtitude": "4.885024",
+		"Opmerking": "Het schilderij 'Buurtje in de Amsterdamse Jordaan' is gebaseerd op deze straat.",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3529",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3529"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "De Singelbrug bij de Paleisstraat",
+		"latatitude": "52.3722",
+		"langtitude": "4.888433",
+		"Opmerking": "Het schilderij is gebaseerd op deze locatie.",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3580",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3580"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "De Dam te Amsterdam",
+		"latatitude": "52.373058",
+		"langtitude": "4.892864",
+		"Opmerking": "Het schilderij is gebaseerd op deze locatie",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3659",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3659"
+	},
+	{
+		"artiest": "Rembrandt van Rijn",
+		"stuk": "Eerste verkochte schilderij",
+		"latatitude": "52.371473",
+		"langtitude": "4.880612",
+		"Opmerking": "Aan deze gracht woonde de eerste koper van een van Rembrandts stukken.",
+		"Link": "http://nl.wikipedia.org/wiki/Johan_Huydecoper_van_Maarsseveen_(1599-1661)",
+		"Afbeelding": ""
+	},
+	{
+		"artiest": "Rembrandt van Rijn",
+		"stuk": "Standbeeld van Rembrandt op de Botermarkt",
+		"latatitude": "52.366085",
+		"langtitude": "4.896727",
+		"Opmerking": "Hier staat het stanbeeld van Rembrandt van Rijn.",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
+	},
+	{
+		"artiest": "Beerstraten",
+		"stuk": "Heiligewegspoort te Amsterdam in de winter",
+		"latatitude": "52.367238",
+		"langtitude": "4.889554",
+		"Opmerking": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1905-48",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
+	},
+	{
+		"artiest": "Beerstraten",
+		"stuk": "Schreijerstoren te Amsterdam",
+		"latatitude": "52.376595",
+		"langtitude": "4.90222",
+		"Opmerking": "De tekening is van de toren die u hier voor u ziet.",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1888-A-1559",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1888-A-1559"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "Het Rokin in Amsterdam",
+		"latatitude": "52.368856",
+		"langtitude": "4.892843",
+		"Opmerking": "..",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3579",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3579"
+	},
+	{
+		"artiest": "Johannes Jelgerhuis",
+		"stuk": "De Amsterdamse buitensingel bij de Leidsepoort",
+		"latatitude": "52.363585",
+		"langtitude": "4.882028",
+		"Opmerking": "",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-1055	",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1055"
+	},
+	{
+		"artiest": "Jan van der Heyden",
+		"stuk": "Amsterdams stadsgezicht met huizen aan de Herengracht",
+		"latatitude": "52.379149",
+		"langtitude": "4.89177",
+		"Opmerking": "",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-154",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-154"
+	},
+	{
+		"artiest": "Gerrit Adriaensz. Berckheyde",
+		"stuk": "De Gouden Bocht in de Herengracht",
+		"latatitude": "52.363893",
+		"langtitude": "4.892188",
+		"Opmerking": "",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-5003",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-5003"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "De Singelbrug bij de Paleisstraat in Amsterdam",
+		"latatitude": "52.372196",
+		"langtitude": "4.888567",
+		"Opmerking": "",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3580",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3580"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "Trampaarden op de Dam te Amsterdam",
+		"latatitude": "52.372812",
+		"langtitude": "4.892961",
+		"Opmerking": "",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3658",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3658"
+	},
+	{
+		"artiest": "George Hendrik Breitner",
+		"stuk": "Gezicht op het Leidseplein in Amsterdam",
+		"latatitude": "52.363640",
+		"langtitude": "4.882237",
+		"Opmerking": "",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-K89477",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-K89477"
+	},
+	{
+		"artiest": "Johan Conrad Greive",
+		"stuk": "Gezicht op het standbeeld van Vondel in het Vondelpark",
+		"latatitude": "52.360021",
+		"langtitude": "4.873949",
+		"Opmerking": "Het Vondelpark met het standbeeld van Joost van den Vondel, ontworpen door beeldhouwer Louis Royer.",
+		"Link": "https://www.rijksmuseum.nl/nl/collectie/RP-P-1883-A-7334",
+		"Afbeelding": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1883-A-7334"
+	},
+	{
+		"artiest": "",
+		"stuk": "",
+		"latatitude": "",
+		"langtitude": "",
+		"Opmerking": "",
+		"Link": "",
+		"Afbeelding": ""
+	},
+	{
+		"artiest": "",
+		"stuk": "",
+		"latatitude": "",
+		"langtitude": "",
+		"Opmerking": "",
+		"Link": "",
+		"Afbeelding": ""
+	},
+	{
+		"artiest": "",
+		"stuk": "",
+		"latatitude": "",
+		"langtitude": "",
+		"Opmerking": "",
+		"Link": "",
+		"Afbeelding": ""
+	},
+	{
+		"artiest": "",
+		"stuk": "",
+		"latatitude": "",
+		"langtitude": "",
+		"Opmerking": "",
+		"Link": "",
+		"Afbeelding": ""
+	}
+]
