@@ -150,7 +150,7 @@ app.data = [
 		"piece": "Het Rokin in Amsterdam",
 		"latitude": 52.368856,
 		"longitude": 4.892843,
-		"description": "",
+		"description": "Dit was het beeld dat George Hendrik Breitner had op het Rokin in 1897.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3579",
 		"info" : {
 			"title" : "Het Rokin in Amsterdam",
