@@ -6,7 +6,7 @@ app.data = [
 		"piece": "Nachtwacht",
 		"latitude": 52.368268,
 		"longitude": 4.895656,
-		"description": "Originele plek van de Nachtwacht",
+		"description": "Het bekendste schilderij van Rembrandt van Rijn is op deze plek gemaakt. Rembrandt van Rijn heeft de Nachtwacht geschilderd tussen de jaren 1639 en 1642.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-C-5",
 		"info" : {
 			"title" : "Schutters van wijk II onder leiding van kapitein Frans Banninck Cocq, bekend als de ‘Nachtwacht’",
@@ -22,7 +22,7 @@ app.data = [
 		"piece": "De Staalmeesters",
 		"latitude": 52.368289,
 		"longitude": 4.897228,
-		"description": "Originele plek en thema",
+		"description": "Deze gebouwen hoorden in Rembrants tijd bij het Staalhof, de vergaderplek van de Staalmeesters. De staalmeesters zij beoordeelden proeflappen van wol of zijde op kleur en kwaliteit voordat ze in Amsterdam mochten worden verkocht. Op deze plek kwam de Staalmeesters bij elkaar.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-C-6",
 		"info" : {
 			"title" : "De waardijns van het Amsterdamse lakenbereidersgilde, bekend als ‘De staalmeesters’, Rembrandt Harmensz. van Rijn, 16",
@@ -38,7 +38,7 @@ app.data = [
 		"piece": "Buurtje in de Amsterdamse Jordaan",
 		"latitude": 52.383324,
 		"longitude": 4.885024,
-		"description": "Het schilderij 'Buurtje in de Amsterdamse Jordaan' is gebaseerd op deze straat.",
+		"description": "De straat waar u nu staat is gemaakt op basis van deze straat in de tijd van Breitner.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3529",
 		"info" : {
 			"title" : "Buurtje in de Amsterdamse Jordaan",
@@ -54,7 +54,7 @@ app.data = [
 		"piece": "De Singelbrug bij de Paleisstraat",
 		"latitude": 52.3722,
 		"longitude": 4.888433,
-		"description": "Het schilderij is gebaseerd op deze locatie.",
+		"description": "Op deze brug heeft Breitner zijn schilderij gebaseerd.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3580",
 		"info" : {
 			"title" : "De Singelbrug bij de Paleisstraat in Amsterdam",
@@ -70,7 +70,7 @@ app.data = [
 		"piece": "De Dam te Amsterdam",
 		"latitude": 52.373058,
 		"longitude": 4.892864,
-		"description": "Het schilderij is gebaseerd op deze locatie",
+		"description": "Breitner heeft dit schilderij gebaseerd op de taferelen die zich afspeelde in zijn tijd op de dam.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3659",
 		"info" : {
 			"title" : "De Dam te Amsterdam",
@@ -97,22 +97,22 @@ app.data = [
 	// 		"image": ""
 	// 	}
 	// },
-	// {
-	// 	"artist": "Rembrandt van Rijn",
-	// 	"piece": "Standbeeld van Rembrandt op de Botermarkt",
-	// 	"latitude": 52.366085,
-	// 	"longitude": 4.896727,
-	// 	"description": "Hier staat het stanbeeld van Rembrandt van Rijn.",
-	// 	"link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B",
-	// 	"info" : {
-	// 		"title" : "",
-	// 		"type" : "",
-	// 		"id" : "",
-	// 		"date" : "",
-	// 		"description" : "",
-	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
-	// 	}
-	// },
+	{
+		"artist": "Onbekend",
+		"piece": "Standbeeld van Rembrandt op de Botermarkt",
+		"latitude": 52.366085,
+		"longitude": 4.896727,
+		"description": "In 1852 onthulde Koning Willem III op het plein een door Louis Royer ontworpen gietijzeren standbeeld van Rembrandt.Het is het oudste nog bestaande standbeeld in Amsterdam en werd gegoten in een stuk. In 1876 werd de naam Botermarkt gewijzigd in Rembrandtplein. Veel Amsterdammers spreken over het "Rembrandtsplein" met een tussen-s. Hoewel taalkundig misschien incorrect, stond deze naam tot 1985 ook op de straatnaamborden.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B",
+		"info" : {
+			"title" : "Standbeeld van Rembrandt op de Botermarkt",
+			"type" : "Foto",
+			"id" : "RP-F-F01710-B",
+			"date" : "ca. 1860 - ca. 1870",
+			"description" : "Standbeeld van Rembrandt op de Botermarkt, thans Rembrandtplein in Amsterdam.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
+		}
+	},
 	{
 		"artist": "Beerstraten",
 		"piece": "Heiligewegspoort te Amsterdam in de winter",
@@ -150,7 +150,7 @@ app.data = [
 		"piece": "Het Rokin in Amsterdam",
 		"latitude": 52.368856,
 		"longitude": 4.892843,
-		"description": "..",
+		"description": "",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3579",
 		"info" : {
 			"title" : "Het Rokin in Amsterdam",
@@ -166,7 +166,7 @@ app.data = [
 		"piece": "De Amsterdamse buitensingel bij de Leidsepoort",
 		"latitude": 52.363585,
 		"longitude": 4.882028,
-		"description": "",
+		"description": "Het beeld zoals Johannes Jelgerhuis het zag in zijn tijd. ",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-1055",
 		"info" : {
 			"title" : "De Amsterdamse buitensingel bij de Leidsepoort, gezien vanuit de schouwburg",
@@ -182,7 +182,7 @@ app.data = [
 		"piece": "Amsterdams stadsgezicht met huizen aan de Herengracht",
 		"latitude": 52.379149,
 		"longitude": 4.89177,
-		"description": "",
+		"description": "Dit is het stadsgezicht zoals Jan van der Heyden dat zag in zijn tijd. ",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-154",
 		"info" : {
 			"title" : "Amsterdams stadsgezicht met huizen aan de Herengracht en de oude Haarlemmersluis",
@@ -214,7 +214,7 @@ app.data = [
 		"piece": "Trampaarden op de Dam te Amsterdam",
 		"latitude": 52.372812,
 		"longitude": 4.892961,
-		"description": "",
+		"description": "Vroeger werd de tram nog voorgeduwt door paarden. Dat is goed te zien op deze tekening. ",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-3658",
 		"info" : {
 			"title" : "Trampaarden op de Dam te Amsterdam",
@@ -230,7 +230,7 @@ app.data = [
 		"piece": "Gezicht op het Leidseplein in Amsterdam",
 		"latitude": 52.363640,
 		"longitude": 4.882237,
-		"description": "",
+		"description": "Dit is wat Breitner zag op het Leidseplein in zijn tijd.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-K89477",
 		"info" : {
 			"title" : "Gezicht op het Leidseplein in Amsterdam",
@@ -256,21 +256,166 @@ app.data = [
 			"description" : "Het Vondelpark met het standbeeld van Joost van den Vondel, ontworpen door beeldhouwer Louis Royer.",
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1883-A-7334"
 		}
+	},
+	{
+		"artist": "George Hendrik Breitner",
+		"piece": "Gezicht op het Oosterpark",
+		"latitude": "52.359405",
+		"longitude": "4.920391",
+		"description": "Dit is wat George Hendrik Breitner zag toen hij op het besneeuwde Oosterpark in Amsterdam bekeek.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-4925",
+		"info" : {
+			"title" : "Gezicht op het Oosterpark in Amsterdam in de sneeuw",
+			"type" : "schilderij",
+			"id" : "SK-A-4925",
+			"date" : "1892",
+			"description" : "Gezicht op het Oosterpark te Amsterdam in de sneeuw. Op de voorgrond jonge rechte bomen, in de verte de omringende gebouwen. Waarschijnlijk geschilderd vanuit het atelier van Breitner en Witsen, het tegenwoordige Witsenhuis.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925"
+		}
+	},
+	{
+		"artist": "Jan Goeree",
+		"piece": "Regulierspoort en de herberg de Munt",
+		"latitude": "52.367655",
+		"longitude": "4.894014",
+		"description": "Het onderste deel van de Munttoren is overgebleven van een oude verdedigingstoren die bij brand grotendeels verwoest werd. In 1672 en 1673 werden hier munten geslage, vandaar de naam: Munttoren.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-P-1905-450",
+		"info" : {
+			"title" : "Regulierspoort en de herberg de Munt te Amsterdam",
+			"type" : "prent / boekillustratie",
+			"id" : "RP-P-1905-450",
+			"date" : "1680 - 1731 en/of 1782",
+			"description" : "Twee voorstellingen met gezichten op de Regulierspoort (van binnen en van buiten) en de herberg de Munt te Amsterdam. De prent heeft een Nederlands onderschrift en het paginanummer 284 bovenaan rechts.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1905-450"
+		}
+	},
+	{
+		"artist": "George Hendrik Breitner",
+		"piece": "Het Damrak",
+		"latitude": "52.3763",
+		"longitude": "4.897283",
+		"description": "Sinds 1889 versperde het Centraal Station in Amsterdam de open verbinding tussen het Damrak en het IJ. In plaats van een open water werd het Damrak een binnenhaven. Breitner schilderde hier de huizen aan de Warmoesstraat en de Oudekerkstoren. Hij gebruikte een foto waarop ook de Koopmansbeurs in aanbouw stond, maar op het schilderij is dit gebouw weggelaten.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-2879",
+		"info" : {
+			"title" : "Het Damrak in Amsterdam",
+			"type" : "schilderij",
+			"id" : "SK-A-2879",
+			"date" : "ca. 1903",
+			"description" : "Gezicht op het Damrak te Amsterdam. Aan de wal liggen allerlei schepen. Boven de huizen van de Warmoesstraat de toren van de Oude Kerk.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-2879"
+		}
+	},
+	{
+		"artist": "George Hendrik Breitner",
+		"piece": "Bouwterrein in Amsterdam",
+		"latitude": "52.352984",
+		"longitude": "4.882368",
+		"description": "Dit is mogelijk de plaats waar dit schilderij op is gebaseerd. ",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-2977",
+		"info" : {
+			"title" : "Bouwterrein in Amsterdam",
+			"type" : "schilderij",
+			"id" : "SK-A-2977",
+			"date" : "ca. 1880 - ca. 1923",
+			"description" : "Bouwwerkzaamheden in Amsterdam, misschien bij het Roelof Hartplein of het Wilhelmina Gasthuis. Links een man met een paard die heipalen aanvoert.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-2977"
+		}
+	},
+	{
+		"artist": "Bartholomeus van der Helst",
+		"piece": "Schuttersmaaltijd ",
+		"latitude": "52.367659",
+		"longitude": "4.889551",
+		"description": "Op de plek van de Voetboogdoelen bevindt zich nu het moderne hoofdgebouw van de Universiteitsbibliotheek van Amsterdam.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-C-2",
+		"info" : {
+			"title" : "Schuttersmaaltijd ter viering van de Vrede van Munster",
+			"type" : "schilderij",
+			"id" : "SK-C-2",
+			"date" : "1648",
+			"description" : "De schuttersmaaltijd in de Voetboogdoelen of St. Jorisdoelen te Amsterdam ter viering van het sluiten van de vrede van Munster, 18 juni 1648. Voorgesteld zijn: kapitein Cornelis Jansz Witsen (met de zilveren drinkhoorn), luitenant Johan Oetgens van Waveren (die zijn hand schudt), de vaandrig Jacob Banningh (zittend naast de grote trommel), Dirck Claesz Thoveling en Thomas Hartog (sergeanten), Pieter van Hoorn, Willem Pietersz van der Voort, Adriaen Dirck Sparwer, Hendrick Calaber, Govert van der Mij, Johannes Calaber, Benedictus Schaeck, Jan Maes, Jacob van Diemen, Jan van Ommeren, Isaac Ooyens, Gerrit Pietersz van Anstenraadt, Herman Teunisz de Kluyter, Andries van Anstenraadt, Christoffel Poock, Hendrick Dommer Wz, Paulus Hennekijn, Lambregt van den Bos en Willem (de trommelslager). Op de grote trommel hangt een papier met een gedicht van Jan Vos. Door de openstaande ramen is de gevel van de brouwerij 'het Lam' aan de Singel zichtbaar. Rechts brengt een vrouwen een kalkoenpastei binnen. Op tafel staan tinnen borden, roemers en andere glazen. Links staat op de vloer een grote metalen koeler met een wijnvat.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-2"
+		}
+	},
+	{
+		"artist": "",
+		"piece": "Zandafgraving te Amsterdam",
+		"latitude": "52.369206",
+		"longitude": "4.879548",
+		"description": "Waar u nu loopt was vroeger een gracht. Vandaar ook de naam 'Elandsgrachts'. Dit schilderij weergeeft het dempen van deze gracht.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-4740",
+		"info" : {
+			"title" : "Zandafgraving te Amsterdam",
+			"type" : "schilderij",
+			"id" : "SK-A-4740",
+			"date" : "1891",
+			"description" : "Een zandafgraving te Amsterdam. Arbeiders rusten en aan het werk in een bouwput. In het midden een werkman met een kruiwagen. Waarschijnlijk is de demping van de Elandsgracht in de Jordaan voorgesteld.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4740"
+		}
+	},
+	{
+		"artist": "Isaac Ouwater",
+		"piece": "De Sint-Antoniuswaag",
+		"latitude": "52.372776",
+		"longitude": "4.900261",
+		"description": "Gezicht op de Sint Antoniuswaag op het huidige Nieuwmarkt te Amsterdam.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-306",
+		"info" : {
+			"title" : "De Sint-Antoniuswaag in Amsterdam",
+			"type" : "schilderij",
+			"id" : "SK-A-306",
+			"date" : "ca. 1780 - ca. 1790",
+			"description" : "Het onderwerp van het schilderij, de oude, 15de-eeuwse Waag, staat grotendeels in de schaduw. Ook op de voorgrond past Ouwater sterke lichtcontrasten toe: de tafel met rariteiten vangt de zon terwijl de voor-grond donker is. In dit schilderij en in zijn tegenhanger met de Nieuwe Kerk lichten witte japonnen, dieren en lantaarnpalen op en verlevendigen zo het geheel.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-306"
+		}
+	},
+	{
+		"artist": "Hendrik Gerrit ten Cate",
+		"piece": "De Torensluis",
+		"latitude": "52.374545",
+		"longitude": "4.889632",
+		"description": "De Jan Roodenpoortstoren was een bouwwerk op de hoek van het Singel en de Torensteeg. De oorspronkelijk middeleeuwse verdedigingstoren. In 1829 werd de toren afgebroken omdat de verarmde stad het onderhoud van het verwaarloosde en door houtrot aangetaste toren te duur vond. In 2003 zijn de contouren van de toren zichtbaar gemaakt in de keitjesbestrating van de in 1648 gebouwde Torensluis. De Torensluis is de brug waar u nu op staat.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-1018",
+		"info" : {
+			"title" : "De Torensluis met de Jan Roodenpoortstoren te Amsterdam",
+			"type" : "schilderij",
+			"id" : "SK-A-1018",
+			"date" : "1829",
+			"description" : "De Torensluis met de Jan Roodenpoortstoren te Amsterdam. De toren is in 1829 afgebroken.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1018"
+		}
+	}
 	// },
 	// {
-	// 	"artist": "",
-	// 	"piece": "",
-	// 	"latitude": "",
-	// 	"longitude": "",
-	// 	"description": "",
-	// 	"link": "",
-	// 	"info" : {
-	// 		"title" : "",
-	// 		"type" : "",
-	// 		"id" : "",
-	// 		"date" : "",
-	// 		"description" : "",
-	// 		"image": ""
-	// 	}
-	}
+		// "artist": "",
+		// "piece": "",
+		// "latitude": "",
+		// "longitude": "",
+		// "description": "",
+		// "link": "https://www.rijksmuseum.nl/nl/collectie/",
+		// "info" : {
+			// "title" : "",
+			// "type" : "",
+			// "id" : "",
+			// "date" : "",
+			// "description" : "",
+			// "image": "https://www.rijksmuseum.nl/assetimage2.jsp?id="
+		// }
+	// },
+	// {
+		// "artist": "",
+		// "piece": "",
+		// "latitude": "",
+		// "longitude": "",
+		// "description": "",
+		// "link": "https://www.rijksmuseum.nl/nl/collectie/",
+		// "info" : {
+			// "title" : "",
+			// "type" : "",
+			// "id" : "",
+			// "date" : "",
+			// "description" : "",
+			// "image": "https://www.rijksmuseum.nl/assetimage2.jsp?id="
+		// }
+	// }
 ];
