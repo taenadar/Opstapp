@@ -3,3 +3,4 @@ Thumbs.db
 node_modules
 .ftppass
 .sass-cache
+_dist/.com.apple.timemachine.supported

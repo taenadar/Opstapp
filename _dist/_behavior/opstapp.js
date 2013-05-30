@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-27
+/*! opstapp - v0.0.1 - 2013-05-30
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -2355,7 +2355,7 @@ Here be coffee
 
 
 (function() {
-  var $infoModal, $planDistance, $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, info, locationManager, waypointToString, waypoints;
+  var $infoModal, $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, info, locationManager, waypointToString, waypoints;
 
   exports = this;
 
@@ -2471,8 +2471,6 @@ Here be coffee
 
   $planFrom = ($('#plan-route-from')).item();
 
-  $planDistance = ($('#plan-route-distance')).item();
-
   window.on('load', function() {
     return locationManager.request();
   });
@@ -2482,7 +2480,7 @@ Here be coffee
 
     origin = $planFrom.value;
     destination = $planTo.value;
-    distance = parseFloat($planDistance.value);
+    distance = 500;
     if (origin === '' && destination === '') {
       alert('Een begin- en eindpunt moet aanwezig zijn om een route te plannen');
     } else if ('huidige locatie' === origin.toLowerCase()) {

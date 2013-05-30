@@ -48,13 +48,6 @@ html
 					.input-row
 						label "Naar"
 						input#plan-route-to[type="text"][value="Amsterdam Centraal"]
-					.input-row
-						label "Afstand"
-						select#plan-route-distance
-							option[value="0.1"]> "500 meter"
-							option[value="0.2"]> "1 kilometer"
-							option[value="0.4"]> "2 kilometer"
-							option[value="0.8"]> "4 kilometer"
 				
 				a#plan-route.button-primary.button-block.button-large "Plan route"
 				a#plan-uitgestippeld.button-secondary.button-block.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"

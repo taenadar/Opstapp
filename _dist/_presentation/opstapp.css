@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-27
+/*! opstapp - v0.0.1 - 2013-05-30
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /* General bar styles
@@ -343,9 +343,9 @@ a {
   margin-right: 0; }
 
 .button-large {
-  font-size: 16px;
+  font-size: 21px;
   line-height: 24px;
-  padding: 5px 16px; }
+  padding: 8px 24px; }
 
 /* Counts in buttons
 -------------------------------------------------- */

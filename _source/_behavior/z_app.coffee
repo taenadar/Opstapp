@@ -102,17 +102,14 @@ exports.home = home = ( boolean ) ->
 $planRoute = do ( $ '#plan-route' ).item
 $planTo = do ( $ '#plan-route-to' ).item
 $planFrom = do ( $ '#plan-route-from' ).item
-$planDistance = do ( $ '#plan-route-distance' ).item
-
 
 window.on 'load', -> do locationManager.request
-
 
 $planRoute.on 'click', ( event ) ->
 	
 	origin = $planFrom.value
 	destination = $planTo.value
-	distance = parseFloat $planDistance.value
+	distance = 500
 	
 	if origin is '' and destination is ''
 		alert 'Een begin- en eindpunt moet aanwezig zijn om een route te plannen'
