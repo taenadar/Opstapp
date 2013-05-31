@@ -1545,6 +1545,149 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
 
 }();
 
+(function() {
+  var Carousel, exports;
+
+  exports = this;
+
+  Carousel = function($node, insertController) {
+    var $controller, $hammer, $item, handler, items, iterator, length,
+      _this = this;
+
+    this.$node = $node;
+    this.$container = $node.$$('.carousel-list');
+    this.$panes = $node.$('.carousel-list > li');
+    this.paneWidth = 0;
+    this.paneCount = this.$panes.length;
+    this.paneCurrent = 0;
+    if (insertController) {
+      this.$controller = $controller = document.createElement('ul');
+      $controller.classList.add('carousel-controller');
+      items = [];
+      iterator = -1;
+      length = this.paneCount;
+      while (++iterator < length) {
+        items[iterator] = "<li><a href=\"#\" data-id=\"" + iterator + "\">" + (iterator + 1) + "</a></li>";
+      }
+      $controller.innerHTML = items.join('');
+      this.$items = $controller.$('li');
+      $item = $controller.$$("[data-id='" + this.paneCurrent + "']");
+      $item.parentElement.classList.add('active');
+      $node.appendChild($controller);
+    }
+    $hammer = Hammer($node, {
+      'drag_lock_to_axis': true
+    });
+    $hammer.on('release dragleft dragright swipeleft swiperight', function() {
+      return _this.handleHammer.apply(_this, arguments);
+    });
+    this.$controller.addEventListener('click', function(event) {
+      if ('a' === event.target.tagName.toLowerCase()) {
+        return _this.handleController(event);
+      }
+    });
+    this.setPaneDimensions();
+    handler = function() {
+      return _this.setPaneDimensions();
+    };
+    window.addEventListener('load', handler);
+    window.addEventListener('resize', handler);
+    window.addEventListener('orientationchange', handler);
+    return this;
+  };
+
+  Carousel.prototype.setPaneDimensions = function() {
+    var iterator, length;
+
+    this.paneWidth = this.$node.getBoundingClientRect().width;
+    iterator = -1;
+    length = this.paneCount;
+    while (++iterator < length) {
+      this.$panes[iterator].style.width = this.paneWidth + 'px';
+    }
+    this.$container.style.width = (this.paneWidth * this.paneCount) + 'px';
+    return this;
+  };
+
+  Carousel.prototype.showPane = function(index) {
+    var $item, iterator, length;
+
+    this.paneCurrent = Math.max(0, Math.min(index, this.paneCount - 1));
+    if (this.$items) {
+      iterator = -1;
+      length = this.$items.length;
+      while (++iterator < length) {
+        this.$items[iterator].classList.remove('active');
+      }
+      $item = this.$controller.$$("[data-id='" + this.paneCurrent + "']");
+      $item.parentElement.classList.add('active');
+    }
+    this.setContainerOffset((100 / this.paneCount) * -this.paneCurrent, true);
+    return this;
+  };
+
+  Carousel.prototype.setContainerOffset = function(percent, animate) {
+    this.$container.classList[animate ? 'add' : 'remove']('animate');
+    this.$container.style['-webkit-transform'] = "translate3d(" + percent + "%,0,0) scale3d(1,1,1)";
+    return this;
+  };
+
+  Carousel.prototype.next = function() {
+    return this.showPane(this.paneCurrent + 1, true);
+  };
+
+  Carousel.prototype.prev = function() {
+    return this.showPane(this.paneCurrent - 1, true);
+  };
+
+  Carousel.prototype.handleController = function(event) {
+    var $target, id;
+
+    $target = event.target;
+    id = +$target.dataset.id;
+    event.preventDefault();
+    event.stopPropagation();
+    this.showPane(id, true);
+    return this;
+  };
+
+  Carousel.prototype.handleHammer = function(event) {
+    var direction, offsetDrag, offsetPane, type;
+
+    event.gesture.preventDefault();
+    type = event.type;
+    direction = event.gesture.direction;
+    if (type === 'dragright' || type === 'dragleft') {
+      offsetPane = (100 / this.paneCount) * -this.paneCurrent;
+      offsetDrag = ((100 / this.paneWidth) * event.gesture.deltaX) / this.paneCount;
+      if ((this.paneCurrent === 0 && direction === Hammer.DIRECTION_RIGHT) || (this.paneCurrent === this.paneCount - 1 && direction === Hammer.DIRECTION_LEFT)) {
+        offsetDrag *= 0.4;
+      }
+      this.setContainerOffset(offsetDrag + offsetPane);
+    } else if (type === 'swipeleft') {
+      this.next();
+      event.gesture.stopDetect();
+    } else if (type === 'swiperight') {
+      this.prev();
+      event.gesture.stopDetect();
+    } else if (type === 'release') {
+      if (this.paneWidth / 2 < Math.abs(event.gesture.deltaX)) {
+        if (direction === 'right') {
+          this.prev();
+        } else {
+          this.next();
+        }
+      } else {
+        this.showPane(this.paneCurrent, true);
+      }
+    }
+    return this;
+  };
+
+  exports.Carousel = Carousel;
+
+}).call(this);
+;
 /*
 Here be coffee
 */
@@ -2191,7 +2334,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $meesterMatcherArea, $meestermatcherController, $meestermatcherList, $walkthroughArea, $walkthroughController, $walkthroughList, $walkthroughModal, changeMeesterMatcherActiveScreen, changeWalkthroughActiveScreen, currentMeesterMatcherItem, currentWalkthroughItem, exports, getTargets, meestermatcherListItemCount, walkthrough, walkthroughListItemCount;
+  var exports, getTargets;
 
   exports = this;
 
@@ -2251,142 +2394,10 @@ Here be coffee
   */
 
 
-  $meestermatcherController = $('.meestermatcher-controller');
-
-  $meestermatcherList = $('.meestermatcher-list');
-
-  currentMeesterMatcherItem = 1;
-
-  meestermatcherListItemCount = $meestermatcherList.item().childElementCount;
-
-  $meesterMatcherArea = ($('#meestermatcher-modal .content')).item();
-
-  changeMeesterMatcherActiveScreen = function(index) {
-    var $newActiveControler, $newActiveItem, actives, iterator, length;
-
-    if (index < 1) {
-      return;
-    }
-    if (index > meestermatcherListItemCount) {
-      alert(index);
-      return;
-    }
-    actives = $meestermatcherController.$('.active');
-    actives = actives.concat($meestermatcherList.$('.active'));
-    length = actives.length;
-    iterator = -1;
-    while (++iterator < length) {
-      actives[iterator].classList.remove('active');
-    }
-    $newActiveItem = $meestermatcherList.$$('#step' + index);
-    $newActiveControler = $meestermatcherController.$$('[href="#step' + index + '"]');
-    $newActiveItem.classList.add('active');
-    $newActiveControler.parentElement.classList.add('active');
-    currentMeesterMatcherItem = index;
-    return void 0;
-  };
-
-  $meestermatcherController.item().on('click', function(event) {
-    var hash, index;
-
-    if ('a' !== event.target.tagName.toLowerCase()) {
-      return;
-    }
-    hash = event.target.hash;
-    index = +hash.slice(5);
-    event.preventDefault();
-    event.stopPropagation();
-    return changeMeesterMatcherActiveScreen(index);
-  });
-
-  Hammer($meesterMatcherArea).on('swipeleft', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    changeMeesterMatcherActiveScreen(currentMeesterMatcherItem + 1);
-    return void 0;
-  });
-
-  Hammer($meesterMatcherArea).on('swiperight', function() {
-    event.preventDefault();
-    event.stopPropagation();
-    changeMeesterMatcherActiveScreen(currentMeesterMatcherItem - 1);
-    return void 0;
-  });
-
   /*
   	Intro
   */
 
-
-  $walkthroughController = $('.walkthrough-controller');
-
-  $walkthroughList = $('.walkthrough-list');
-
-  $walkthroughModal = $$('#walkthrough-modal');
-
-  currentWalkthroughItem = 1;
-
-  walkthroughListItemCount = $walkthroughList.item().childElementCount;
-
-  $walkthroughArea = ($('#walkthrough-modal .content')).item();
-
-  exports.walkthrough = walkthrough = function(boolean) {
-    boolean === !!boolean || (boolean = !$walkthroughModal.classList.contains('active'));
-    $walkthroughModal.classList[boolean ? 'add' : 'remove']('active');
-    return $walkthroughModal;
-  };
-
-  changeWalkthroughActiveScreen = function(index) {
-    var $newActiveControler, $newActiveItem, actives, iterator, length;
-
-    if (index < 1) {
-      return;
-    }
-    if (index > walkthroughListItemCount) {
-      alert(index);
-      return;
-    }
-    actives = $walkthroughController.$('.active');
-    actives = actives.concat($walkthroughList.$('.active'));
-    length = actives.length;
-    iterator = -1;
-    while (++iterator < length) {
-      actives[iterator].classList.remove('active');
-    }
-    $newActiveItem = $walkthroughList.$$('#step' + index);
-    $newActiveControler = $walkthroughController.$$('[href="#step' + index + '"]');
-    $newActiveItem.classList.add('active');
-    $newActiveControler.parentElement.classList.add('active');
-    currentWalkthroughItem = index;
-    return void 0;
-  };
-
-  $walkthroughController.item().on('click', function(event) {
-    var hash, index;
-
-    if ('a' !== event.target.tagName.toLowerCase()) {
-      return;
-    }
-    hash = event.target.hash;
-    index = +hash.slice(5);
-    event.preventDefault();
-    event.stopPropagation();
-    return changeWalkthroughActiveScreen(index);
-  });
-
-  Hammer($walkthroughArea).on('swipeleft', function(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    changeWalkthroughActiveScreen(currentWalkthroughItem + 1);
-    return void 0;
-  });
-
-  Hammer($walkthroughArea).on('swiperight', function() {
-    event.preventDefault();
-    event.stopPropagation();
-    changeWalkthroughActiveScreen(currentWalkthroughItem - 1);
-    return void 0;
-  });
 
 }).call(this);
 ;
@@ -2429,7 +2440,7 @@ Here be coffee
 
 
 (function() {
-  var $infoModal, $planFrom, $planRoute, $planRouteModal, $planTo, LocationManager, app, exports, home, info, locationManager, waypointToString, waypoints;
+  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planRouteModal, $planTo, $walkthrough, LocationManager, app, carousel, exports, home, info, locationManager, meestermatcher, waypointToString, waypoints;
 
   exports = this;
 
@@ -2622,5 +2633,13 @@ Here be coffee
       info(true);
     }
   });
+
+  $walkthrough = $$('.walkthrough-modal .carousel');
+
+  carousel = new Carousel($walkthrough, true);
+
+  $meestermatcher = $$('.meestermatcher-modal .carousel');
+
+  meestermatcher = new Carousel($meestermatcher, true);
 
 }).call(this);

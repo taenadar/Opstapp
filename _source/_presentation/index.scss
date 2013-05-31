@@ -1,10 +1,12 @@
-.walkthrough-list .wrapper-outer
+.walkthrough-modal .wrapper-outer
 {
 	pointer-events:none;
 	position: relative;
 	margin-top: 1em;
 	margin-left: 1em;
 	margin-right: 1em;
+	margin: 12px;
+	border: 12px solid #343537;
 }
 
 .wrapper-outer .content-padded
@@ -14,49 +16,76 @@
 }
 
 
-.walkthrough-list .wrapper-inner
+.walkthrough-modal .wrapper-inner
 {
-	height: 20em;
+	height: 18em;
 }
 
-.walkthrough-list li
+.carousel-list.animate
 {
+	-webkit-transition: all .3s;
+}
+
+.carousel
+{
+	overflow: hidden;
+	max-width: 100%;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0) scale3d(1,1,1);
+	-webkit-transform-style: preserve-3d;
+}
+
+.carousel-list
+{
+	-webkit-transform: translate3d(0%,0,0) scale3d(1,1,1);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform-style: preserve-3d;
+	overflow: hidden;
+	position: relative;
+}
+
+.carousel-list > li
+{
+	background: transparent;
 	text-align: center;
 	padding: 1em 0;
+	float: left;
+	overflow: hidden;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transform: translate3d(0,0,0);
 }
 
-.walkthrough-list .img-wrapper
+.walkthrough-modal .carousel .img-wrapper
 {
 	padding: 24px;
 }
 
-.walkthrough-list p
+.walkthrough-modal .carousel p
 {
+	height: 4em;
 	margin: 0 24px;
 }
 
-.walkthrough-list img
+.walkthrough-modal .carousel img
 {
-	max-width: 100%;
+	max-height: 100%;
 }
 
-.meestermatcher-list
+.meestermatcher-modal .carousel-list
 {
 	margin-top: 24px;
 }
 
-.meestermatcher-list p
+.meestermatcher-modal .carousel-list p
 {
 	margin-bottom: 36px;
 	text-align: center
 }
 
-
 .meestermatcher-row
 {
 	text-align: justify;
-	margin-bottom: 48px;
-// 	font-size: 0
+	margin: 24px;
 }
 
 .meestermatcher-row::after
@@ -76,27 +105,20 @@
 
 .meestermatcher-row .img
 {
-// 	font-size: 12px;
 	width: 20%;
-// 	margin-right: 6.5%;
 	height: 48px;
 	background-size: cover;
 	display: inline-block;
-	
-// 	&.last
-// 	{
-// 		margin-right: 0;
-// 	}
 }
 
-.meestermatcher-list li
+.meestermatcher-modal .carousel-list li
 {
 	margin: 0;
 	padding: 0;
 	background: none;
 }
 
-.meestermatcher-controller, .walkthrough-controller
+.carousel-controller
 {
 	position: fixed;
 	bottom: 48px;
@@ -104,10 +126,9 @@
 	right: 0;
 	margin-top: 0;
 	text-align: center;
-	letter-spacing: 12px;
 }
 
-.meestermatcher-controller li,  .walkthrough-controller li
+.carousel-controller li
 {
 	display: inline-block;
 	overflow: hidden;
@@ -116,11 +137,15 @@
 	width: 12px;
 	height: 12px;
 	text-indent: 100%;
-	letter-spacing: 1em;
 	position: relative;
 }
 
-.meestermatcher-controller li a,  .walkthrough-controller li a
+.carousel-controller li + li
+{
+	margin-left: 10px;
+}
+
+.carousel-controller li a
 {
 	position: absolute;
 	left: 0;
@@ -130,33 +155,33 @@
 }
 
 
-.meestermatcher-controller li.active,  .walkthrough-controller li.active
+.carousel-controller li.active
 {
 	background-color: $color-primary;
 }
 
-.meestermatcher-list .segmented-controller-item, .walkthrough-list .segmented-controller-item
-{
-	position: fixed;
-	display: block;
-	top: 0;
-	opacity: 0;
-	z-index: 11; 
-	width: 100%;
-	-webkit-transform: translate3d( 200%, 0, 0 );
-	transform: translate3d( 200%, 0, 0 );
-	-webkit-transition: -webkit-transform .25s ease-in-out, opacity 1ms .25s;
-	transition: transform .25s ease-in-out, opacity 1ms .25s;
-}
+// .meestermatcher-list .segmented-controller-item
+// {
+// 	position: fixed;
+// 	display: block;
+// 	top: 0;
+// 	opacity: 0;
+// 	z-index: 11; 
+// 	width: 100%;
+// 	-webkit-transform: translate3d( 200%, 0, 0 );
+// 	transform: translate3d( 200%, 0, 0 );
+// 	-webkit-transition: -webkit-transform .25s ease-in-out, opacity 1ms .25s;
+// 	transition: transform .25s ease-in-out, opacity 1ms .25s;
+// }
 
-.meestermatcher-list .segmented-controller-item.active, .walkthrough-list .segmented-controller-item.active
-{
-	opacity: 1;
-	-webkit-transition: -webkit-transform .25s ease-in-out;
-	transition: transform .25 ease-in-out;
-	-webkit-transform: translate3d( 0, 0, 0 );
-	transform: translate3d( 0, 0, 0 );
-}
+// .meestermatcher-list .segmented-controller-item.active
+// {
+// 	opacity: 1;
+// 	-webkit-transition: -webkit-transform .25s ease-in-out;
+// 	transition: transform .25 ease-in-out;
+// 	-webkit-transform: translate3d( 0, 0, 0 );
+// 	transform: translate3d( 0, 0, 0 );
+// }
 
 .info-modal .img
 {

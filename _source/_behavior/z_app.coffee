@@ -190,3 +190,10 @@ window.on 'click', ( event ) ->
 		info true
 	
 	return
+
+	
+$walkthrough = $$ '.walkthrough-modal .carousel'
+carousel = new Carousel $walkthrough, true
+
+$meestermatcher = $$ '.meestermatcher-modal .carousel'
+meestermatcher = new Carousel $meestermatcher, true
