@@ -4,7 +4,7 @@
 /* General bar styles
 -------------------------------------------------- */
 [class*="bar-"] {
-  position: fixed;
+  position: absolute;
   right: 0;
   left: 0;
   z-index: 10;
@@ -256,7 +256,7 @@ a {
 
 /* Wrapper to be used around all content not in .bar-title and .bar-tab */
 .content {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
@@ -280,6 +280,9 @@ a {
 /* Utility wrapper to pad in components like forms, block buttons and segmented-controllers so they're not full-bleed */
 .content-padded {
   padding: 10px; }
+
+.content-extra-padded {
+  padding: 24px; }
 
 /* Pad top/bottom of content so it doesn't hide behind .bar-title and .bar-tab.
 	 Note: For these to work, content must come after both bars in the markup */
@@ -627,7 +630,6 @@ textarea {
 /* Right-aligned subcontent in lists (chevrons, buttons, counts and toggles)
 -------------------------------------------------- */
 .list .chevron,
-.list [class*="button"],
 .list [class*="count"],
 .list .toggle {
   position: absolute;
@@ -645,11 +647,6 @@ textarea {
   right: 30px; }
 
 /* Position buttons vertically centered on the right in list items */
-.list [class*="button"] {
-  left: auto;
-  margin-top: -14px;
-  /* Half height of button */ }
-
 .list .toggle {
   margin-top: -15px;
   /* Half height of toggle */ }
@@ -898,39 +895,67 @@ textarea {
   font-size: 20px;
   line-height: 44px; }
 
+.walkthrough-list .wrapper-outer {
+  pointer-events: none;
+  position: relative;
+  margin-top: 1em;
+  margin-left: 1em;
+  margin-right: 1em; }
+
+.wrapper-outer .content-padded {
+  margin-left: 0;
+  margin-right: 0; }
+
+.walkthrough-list .wrapper-inner {
+  height: 23em; }
+
+.walkthrough-list li {
+  text-align: center;
+  padding: 1em 0; }
+
+.walkthrough-list .img-wrapper {
+  padding: 24px; }
+
+.walkthrough-list p {
+  margin: 0 24px; }
+
+.walkthrough-list img {
+  max-width: 100%; }
+
 .meestermatcher-list {
   margin-top: 24px; }
-
-.meestermatcher-list .row {
-  margin-bottom: 48px;
-  font-size: 0; }
-
-.meestermatcher-list strong {
-  margin-top: 60px;
-  display: block;
-  width: 100%;
-  text-align: center; }
 
 .meestermatcher-list p {
   margin-bottom: 36px;
   text-align: center; }
 
-.meestermatcher-list .img {
-  font-size: 12px;
+.meestermatcher-row {
+  text-align: justify;
+  margin-bottom: 48px; }
+
+.meestermatcher-row::after {
+  display: inline-block;
+  width: 100%;
+  content: ""; }
+
+.meestermatcher-row strong {
+  margin-top: 60px;
+  display: block;
+  width: 100%;
+  text-align: center; }
+
+.meestermatcher-row .img {
   width: 20%;
-  margin-right: 6.5%;
   height: 48px;
   background-size: cover;
   display: inline-block; }
-  .meestermatcher-list .img.last {
-    margin-right: 0; }
 
 .meestermatcher-list li {
   margin: 0;
   padding: 0;
   background: none; }
 
-.meestermatcher-controller {
+.meestermatcher-controller, .walkthrough-controller {
   position: fixed;
   bottom: 48px;
   left: 0;
@@ -939,7 +964,7 @@ textarea {
   text-align: center;
   letter-spacing: 12px; }
 
-.meestermatcher-controller li {
+.meestermatcher-controller li, .walkthrough-controller li {
   display: inline-block;
   overflow: hidden;
   background-color: #343537;
@@ -950,17 +975,17 @@ textarea {
   letter-spacing: 1em;
   position: relative; }
 
-.meestermatcher-controller li a {
+.meestermatcher-controller li a, .walkthrough-controller li a {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0; }
 
-.meestermatcher-controller li.active {
+.meestermatcher-controller li.active, .walkthrough-controller li.active {
   background-color: #d55140; }
 
-.meestermatcher-list .segmented-controller-item {
+.meestermatcher-list .segmented-controller-item, .walkthrough-list .segmented-controller-item {
   position: fixed;
   display: block;
   top: 0;
@@ -972,7 +997,7 @@ textarea {
   -webkit-transition: -webkit-transform .25s ease-in-out, opacity 1ms .25s;
   transition: transform .25s ease-in-out, opacity 1ms .25s; }
 
-.meestermatcher-list .segmented-controller-item.active {
+.meestermatcher-list .segmented-controller-item.active, .walkthrough-list .segmented-controller-item.active {
   opacity: 1;
   -webkit-transition: -webkit-transform .25s ease-in-out;
   transition: transform .25 ease-in-out;

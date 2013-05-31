@@ -1,3 +1,5 @@
+exports = @
+
 getTargets = ( $target ) ->
 	$popovers = $ '.segmented-controller li a'
 
@@ -60,8 +62,9 @@ $meestermatcherController = $ '.meestermatcher-controller'
 $meestermatcherList = $ '.meestermatcher-list'
 currentMeesterMatcherItem = 1
 meestermatcherListItemCount = $meestermatcherList.item().childElementCount
+$meesterMatcherArea = do ( $ '#meestermatcher-modal .content' ).item
 
-changeActiveScreen = ( index ) ->
+changeMeesterMatcherActiveScreen = ( index ) ->
 	if index < 1
 		return
 	
@@ -86,11 +89,7 @@ changeActiveScreen = ( index ) ->
 	
 	currentMeesterMatcherItem = index
 	
-	# currentMeesterMatcherItem = index + 1
-	
 	undefined
-
-
 
 $meestermatcherController.item().on 'click', ( event ) ->
 	
@@ -102,31 +101,98 @@ $meestermatcherController.item().on 'click', ( event ) ->
 	do event.preventDefault
 	do event.stopPropagation
 	
-	changeActiveScreen index
+	changeMeesterMatcherActiveScreen index
 
-
-$el = do ( $ '#meestermatcher-modal .content' ).item
-
-Hammer( $el ).on 'swipeleft', ( event ) ->
+Hammer( $meesterMatcherArea ).on 'swipeleft', ( event ) ->
 	
 	do event.preventDefault
 	do event.stopPropagation
 	
-	changeActiveScreen currentMeesterMatcherItem + 1
+	changeMeesterMatcherActiveScreen currentMeesterMatcherItem + 1
 	
 	undefined
 
-Hammer( $el ).on 'swiperight', ->
+Hammer( $meesterMatcherArea ).on 'swiperight', ->
 	
 	do event.preventDefault
 	do event.stopPropagation
 	
-	changeActiveScreen currentMeesterMatcherItem - 1
+	changeMeesterMatcherActiveScreen currentMeesterMatcherItem - 1
 	
 	undefined
-
 
 ###
 	Intro
 ###
 
+$walkthroughController = $ '.walkthrough-controller'
+$walkthroughList = $ '.walkthrough-list'
+$walkthroughModal = $$ '#walkthrough-modal'
+currentWalkthroughItem = 1
+walkthroughListItemCount = $walkthroughList.item().childElementCount
+$walkthroughArea = do ( $ '#walkthrough-modal .content' ).item
+
+exports.walkthrough = walkthrough = ( boolean ) ->
+	boolean is !!boolean or boolean = !$walkthroughModal.classList.contains 'active'
+	
+	$walkthroughModal.classList[ if boolean then 'add' else 'remove' ] 'active'
+	
+	$walkthroughModal
+
+changeWalkthroughActiveScreen = ( index ) ->
+	if index < 1
+		return
+	
+	if index > walkthroughListItemCount
+		alert index
+		return
+	
+	actives = $walkthroughController.$ '.active'
+	actives = actives.concat $walkthroughList.$ '.active'
+	
+	length = actives.length
+	iterator = -1
+	
+	while ++iterator < length
+		actives[ iterator ].classList.remove 'active'
+	
+	$newActiveItem = $walkthroughList.$$ '#step' + index
+	$newActiveControler = $walkthroughController.$$ '[href="#step' + index + '"]'
+	
+	$newActiveItem.classList.add 'active'
+	$newActiveControler.parentElement.classList.add 'active'
+	
+	currentWalkthroughItem = index
+	
+	undefined
+
+$walkthroughController.item().on 'click', ( event ) ->
+	
+	if 'a' isnt event.target.tagName.toLowerCase() then return
+	
+	hash = event.target.hash
+	index = +hash.slice 5
+	
+	do event.preventDefault
+	do event.stopPropagation
+	
+	changeWalkthroughActiveScreen index
+
+
+Hammer( $walkthroughArea ).on 'swipeleft', ( event ) ->
+	
+	do event.preventDefault
+	do event.stopPropagation
+	
+	changeWalkthroughActiveScreen currentWalkthroughItem + 1
+	
+	undefined
+
+Hammer( $walkthroughArea ).on 'swiperight', ->
+	
+	do event.preventDefault
+	do event.stopPropagation
+	
+	changeWalkthroughActiveScreen currentWalkthroughItem - 1
+	
+	undefined

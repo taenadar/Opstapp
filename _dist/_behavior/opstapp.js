@@ -1429,6 +1429,7 @@ else {
 }
 })(this);
 eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('l s(){3.R=1b}s.n.J=l(a,c){3.m=A;3.o=[];3.u=[];3.D=[];3.B=[];5 b=A;9(a 1g O){b=a}v 9(a 1g H.E.1o){9(a.X){b=C O(a.X().1n());7(5 i=0;i<b.r;i++){b[i]=a.X().1v(i)}}v{b=C O(a.1u());7(5 j=0;j<b.r;j++){b[j]=a.1t(j)}}}3.1j(b,c);3.1i(b);3.1h();t(3.D.r<=3.B.r?3.D:3.B)};s.n.1j=l(c,d){5 a=C H.E.1c();7(5 i=0;i<c.r;i++){a.N(c[i])}5 b=a.1r();3.o.I(b.8());3.o.I(b.F(0,d).8());7(i=2;3.o[i-2]<a.w().8();i++){3.o.I(b.F(0,d*i).8())}7(i=1;3.o[1]>a.G().8();i++){3.o.17(b.F(W,d*i).8())}3.u.I(b.k());3.u.I(b.F(16,d).k());7(i=2;3.u[i-2]<a.w().k();i++){3.u.I(b.F(16,d*i).k())}7(i=1;3.u[1]>a.G().k();i++){3.u.17(b.F(1m,d*i).k())}3.m=C O(3.u.r);7(i=0;i<3.m.r;i++){3.m[i]=C O(3.o.r)}};s.n.1i=l(c){5 b=3.15(c[0]);3.M(b);7(5 i=1;i<c.r;i++){5 a=3.S(c[i],c[i-1],b);9(a[0]===b[0]&&a[1]===b[1]){1l}v 9((6.L(b[0]-a[0])===1&&b[1]===a[1])||(b[0]===a[0]&&6.L(b[1]-a[1])===1)){3.M(a)}v{3.14(c[i-1],c[i],b,a)}b=a}};s.n.15=l(a){7(5 x=0;3.u[x]<a.k();x++){}7(5 y=0;3.o[y]<a.8();y++){}t([x-1,y-1])};s.n.S=l(a,c,b){5 x,y;9(a.k()>c.k()){7(x=b[0];3.u[x+1]<a.k();x++){}}v{7(x=b[0];3.u[x]>a.k();x--){}}9(a.8()>c.8()){7(y=b[1];3.o[y+1]<a.8();y++){}}v{7(y=b[1];3.o[y]>a.8();y--){}}t([x,y])};s.n.14=l(a,h,c,e){5 f,K,i;5 g=a.1k(h);5 b=a;5 d=c;9(h.8()>a.8()){7(i=c[1]+1;i<=e[1];i++){f=3.13(a,g,3.o[i]);K=3.S(f,b,d);3.Q(d[0],K[0],i-1);b=f;d=K}3.Q(d[0],e[0],i-1)}v{7(i=c[1];i>e[1];i--){f=3.13(a,g,3.o[i]);K=3.S(f,b,d);3.Q(d[0],K[0],i);b=f;d=K}3.Q(d[0],e[0],i)}};s.n.13=l(a,c,b){5 d=3.R*((b.z()-a.8().z())/6.12(c.z()));t a.F(c,d)};s.n.Q=l(b,a,y){5 x;9(b<a){7(x=b;x<=a;x++){3.M([x,y])}}v{7(x=b;x>=a;x--){3.M([x,y])}}};s.n.M=l(a){5 x=a[0];5 y=a[1];3.m[x-1][y-1]=1;3.m[x][y-1]=1;3.m[x+1][y-1]=1;3.m[x-1][y]=1;3.m[x][y]=1;3.m[x+1][y]=1;3.m[x-1][y+1]=1;3.m[x][y+1]=1;3.m[x+1][y+1]=1};s.n.1h=l(){5 x,y,J;5 a=A;7(y=0;y<3.m[0].r;y++){7(x=0;x<3.m.r;x++){9(3.m[x][y]){J=3.V([x,y]);9(a){a.N(J.w())}v{a=J}}v{3.11(a);a=A}}3.11(a);a=A}7(x=0;x<3.m.r;x++){7(y=0;y<3.m[0].r;y++){9(3.m[x][y]){9(a){J=3.V([x,y]);a.N(J.w())}v{a=3.V([x,y])}}v{3.Z(a);a=A}}3.Z(a);a=A}};s.n.Z=l(a){9(a!==A){7(5 i=0;i<3.D.r;i++){9(3.D[i].w().k()===a.G().k()&&3.D[i].G().8()===a.G().8()&&3.D[i].w().8()===a.w().8()){3.D[i].N(a.w());t}}3.D.I(a)}};s.n.11=l(a){9(a!==A){7(5 i=0;i<3.B.r;i++){9(3.B[i].w().8()===a.G().8()&&3.B[i].G().k()===a.G().k()&&3.B[i].w().k()===a.w().k()){3.B[i].N(a.w());t}}3.B.I(a)}};s.n.V=l(a){t C H.E.1c(C H.E.P(3.o[a[1]],3.u[a[0]]),C H.E.P(3.o[a[1]+1],3.u[a[0]+1]))};H.E.P.n.F=l(f,a){5 R=1b;5 d=1s(a)/R;5 g=3.8().z(),1f=3.k().z();f=f.z();5 h=g+d*6.12(f);5 b=h-g;5 c=6.1d(6.U(h/2+6.p/4)/6.U(g/2+6.p/4));5 q=(6.L(b)>1e-10)?b/c:6.12(g);5 i=d*6.1q(f)/q;9(6.L(h)>6.p/2){h=h>0?6.p-h:-(6.p-h)}5 e=(1f+i+6.p)%(2*6.p)-6.p;9(1a(h)||1a(e)){t A}t C H.E.P(h.T(),e.T())};H.E.P.n.1k=l(a){5 b=(a.k()-3.k()).z();5 c=6.1d(6.U(a.8().z()/2+6.p/4)/6.U(3.8().z()/2+6.p/4));9(6.L(b)>6.p){b=b>0?-(2*6.p-b):(2*6.p+b)}t 6.1p(b,c).19()};Y.n.z=l(){t 3*6.p/W};Y.n.T=l(){t 3*W/6.p};Y.n.19=l(){t(3.T()+18)%18};',62,94,'|||this||var|Math|for|lat|if|||||||||||lng|function|grid_|prototype|latGrid_|PI||length|RouteBoxer|return|lngGrid_|else|getNorthEast|||toRad|null|boxesY_|new|boxesX_|maps|rhumbDestinationPoint|getSouthWest|google|push|box|edgeXY|abs|markCell_|extend|Array|LatLng|fillInGridSquares_||getGridCoordsFromHint_|toDeg|tan|getCellBounds_|180|getPath|Number|mergeBoxesX_||mergeBoxesY_|cos|getGridIntersect_|getGridIntersects_|getCellCoords_|90|unshift|360|toBrng|isNaN|6371|LatLngBounds|log||lon1|instanceof|mergeIntersectingCells_|findIntersectingCells_|buildGrid_|rhumbBearingTo|continue|270|getLength|Polyline|atan2|sin|getCenter|parseFloat|getVertex|getVertexCount|getAt'.split('|'),0,{}))
+
 /* ----------------------------------
  * SLIDER v1.0.0
  * Licensed under The MIT License
@@ -1690,7 +1691,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, locationsArray, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
+  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
 
   exports = this;
 
@@ -1865,8 +1866,6 @@ Here be coffee
   routeBoxer = new RouteBoxer;
 
   directionsService = new google.maps.DirectionsService;
-
-  exports.locationsArray = locationsArray = [new google.maps.LatLng(52.368268, 4.895656), new google.maps.LatLng(52.368289, 4.897228), new google.maps.LatLng(52.383324, 4.885024), new google.maps.LatLng(52.3722, 4.888433), new google.maps.LatLng(52.373058, 4.892864), new google.maps.LatLng(52.371473, 4.880612), new google.maps.LatLng(52.366085, 4.896727), new google.maps.LatLng(52.367238, 4.889554), new google.maps.LatLng(52.376595, 4.90222), new google.maps.LatLng(52.368856, 4.892843)];
 
   calcRoute = function(start, end, distance) {
     var destination, origin, request, waypts;
@@ -2192,7 +2191,9 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $el, $meestermatcherController, $meestermatcherList, changeActiveScreen, currentMeesterMatcherItem, getTargets, meestermatcherListItemCount;
+  var $meesterMatcherArea, $meestermatcherController, $meestermatcherList, $walkthroughArea, $walkthroughController, $walkthroughList, $walkthroughModal, changeMeesterMatcherActiveScreen, changeWalkthroughActiveScreen, currentMeesterMatcherItem, currentWalkthroughItem, exports, getTargets, meestermatcherListItemCount, walkthrough, walkthroughListItemCount;
+
+  exports = this;
 
   getTargets = function($target) {
     var $popovers, iterator, length;
@@ -2258,7 +2259,9 @@ Here be coffee
 
   meestermatcherListItemCount = $meestermatcherList.item().childElementCount;
 
-  changeActiveScreen = function(index) {
+  $meesterMatcherArea = ($('#meestermatcher-modal .content')).item();
+
+  changeMeesterMatcherActiveScreen = function(index) {
     var $newActiveControler, $newActiveItem, actives, iterator, length;
 
     if (index < 1) {
@@ -2293,22 +2296,20 @@ Here be coffee
     index = +hash.slice(5);
     event.preventDefault();
     event.stopPropagation();
-    return changeActiveScreen(index);
+    return changeMeesterMatcherActiveScreen(index);
   });
 
-  $el = ($('#meestermatcher-modal .content')).item();
-
-  Hammer($el).on('swipeleft', function(event) {
+  Hammer($meesterMatcherArea).on('swipeleft', function(event) {
     event.preventDefault();
     event.stopPropagation();
-    changeActiveScreen(currentMeesterMatcherItem + 1);
+    changeMeesterMatcherActiveScreen(currentMeesterMatcherItem + 1);
     return void 0;
   });
 
-  Hammer($el).on('swiperight', function() {
+  Hammer($meesterMatcherArea).on('swiperight', function() {
     event.preventDefault();
     event.stopPropagation();
-    changeActiveScreen(currentMeesterMatcherItem - 1);
+    changeMeesterMatcherActiveScreen(currentMeesterMatcherItem - 1);
     return void 0;
   });
 
@@ -2316,6 +2317,76 @@ Here be coffee
   	Intro
   */
 
+
+  $walkthroughController = $('.walkthrough-controller');
+
+  $walkthroughList = $('.walkthrough-list');
+
+  $walkthroughModal = $$('#walkthrough-modal');
+
+  currentWalkthroughItem = 1;
+
+  walkthroughListItemCount = $walkthroughList.item().childElementCount;
+
+  $walkthroughArea = ($('#walkthrough-modal .content')).item();
+
+  exports.walkthrough = walkthrough = function(boolean) {
+    boolean === !!boolean || (boolean = !$walkthroughModal.classList.contains('active'));
+    $walkthroughModal.classList[boolean ? 'add' : 'remove']('active');
+    return $walkthroughModal;
+  };
+
+  changeWalkthroughActiveScreen = function(index) {
+    var $newActiveControler, $newActiveItem, actives, iterator, length;
+
+    if (index < 1) {
+      return;
+    }
+    if (index > walkthroughListItemCount) {
+      alert(index);
+      return;
+    }
+    actives = $walkthroughController.$('.active');
+    actives = actives.concat($walkthroughList.$('.active'));
+    length = actives.length;
+    iterator = -1;
+    while (++iterator < length) {
+      actives[iterator].classList.remove('active');
+    }
+    $newActiveItem = $walkthroughList.$$('#step' + index);
+    $newActiveControler = $walkthroughController.$$('[href="#step' + index + '"]');
+    $newActiveItem.classList.add('active');
+    $newActiveControler.parentElement.classList.add('active');
+    currentWalkthroughItem = index;
+    return void 0;
+  };
+
+  $walkthroughController.item().on('click', function(event) {
+    var hash, index;
+
+    if ('a' !== event.target.tagName.toLowerCase()) {
+      return;
+    }
+    hash = event.target.hash;
+    index = +hash.slice(5);
+    event.preventDefault();
+    event.stopPropagation();
+    return changeWalkthroughActiveScreen(index);
+  });
+
+  Hammer($walkthroughArea).on('swipeleft', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    changeWalkthroughActiveScreen(currentWalkthroughItem + 1);
+    return void 0;
+  });
+
+  Hammer($walkthroughArea).on('swiperight', function() {
+    event.preventDefault();
+    event.stopPropagation();
+    changeWalkthroughActiveScreen(currentWalkthroughItem - 1);
+    return void 0;
+  });
 
 }).call(this);
 ;

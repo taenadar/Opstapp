@@ -78,25 +78,153 @@
 						Rembrandtroute
 						<span class="chevron"></span>
 					</li>
-					<li>
-						Van Goghroute
-						<span class="chevron"></span>
+				</ul>
+			</div>
+		</div>
+		<div id="walkthrough-modal" class="walkthrough-modal modal active">
+			<header class="bar-title">
+				<h3 class="title">
+					Introductie
+				</h3>
+				<a class="button" href="#walkthrough-modal">
+					Close
+				</a>
+			</header>
+			<div class="content content-extra-padded">
+				<ul class="list walkthrough-list">
+					<li id="step1" class="segmented-controller-item active">
+						<p>
+							Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum
+						</p>
+						<div class="wrapper-outer">
+							<div class="wrapper-inner">
+								<img alt="" src="./asset/image/walkthrough/icon.png"/>
+							</div>
+						</div>
+					</li>
+					<li id="step2" class="segmented-controller-item">
+						<p>
+							Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen
+						</p>
+						<div class="wrapper-outer">
+							<div class="wrapper-inner">
+								<header class="bar-title">
+									<h3 class="title">
+										Opstapp
+									</h3>
+								</header>
+								<div class="content content-padded">
+									<ul class="list">
+										<div class="input-group">
+											<div class="input-row">
+												<label>
+													Van
+												</label>
+												<input type="text" placeholder="Huidige locatie"/>
+											</div>
+											<div class="input-row">
+												<label>
+													Naar
+												</label>
+												<input type="text" value="Amsterdam Centraal"/>
+											</div>
+										</div>
+										<a class="button-primary button-block button-large">
+											Plan route
+										</a>
+										<a class="button-secondary button-block button-large">
+											Uitgestippeld
+										</a>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li id="step3" class="segmented-controller-item">
+						<p>
+							Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt.
+						</p>
+						<div class="wrapper-outer">
+							<div class="wrapper-inner">
+								<header class="bar-title">
+									<h3 class="title">
+										Uitgestippeld
+									</h3>
+								</header>
+								<div class="content content-padded">
+									<ul class="list">
+										<li style="padding-left: 10px;text-align: left;">
+											Rembrandtroute
+											<span class="chevron"></span>
+										</li>
+										<li style="padding-left: 10px;text-align: left;">
+											Van Goghroute
+											<span class="chevron"></span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li id="step4" class="segmented-controller-item">
+						<p>
+							Geen idee wat je wil zien? Meestermatcher zoekt op basis van jouw persoonlijkheid een toffe kunstenaar.
+						</p>
+						<div class="wrapper-outer">
+							<div class="wrapper-inner">
+								<header class="bar-title">
+									<h3 class="title">
+										Meestermatcher
+									</h3>
+								</header>
+								<div class="content content-padded">
+									<div class="meestermatcher-row">
+										<div class="img" style="background-image:url(./asset/image/slide/1.png)">
+											<strong>
+												zon
+											</strong>
+										</div>
+										<div class="img" style="background-image:url(./asset/image/slide/2.png)">
+											<strong>
+												zee
+											</strong>
+										</div>
+										<div class="img" style="background-image:url(./asset/image/slide/3.png)">
+											<strong>
+												strand
+											</strong>
+										</div>
+										<div class="img last" style="background-image:url(./asset/image/slide/1.png)">
+											<strong>
+												wind
+											</strong>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<ul id="walkthrough-controller" class="walkthrough-controller">
+					<li class="active">
+						<a href="#step1">
+							1
+						</a>
 					</li>
 					<li>
-						Oostroute
-						<span class="chevron"></span>
+						<a href="#step2">
+							2
+						</a>
 					</li>
 					<li>
-						Rembrandtroute
-						<span class="chevron"></span>
+						<a href="#step3">
+							3
+						</a>
 					</li>
 					<li>
-						Van Goghroute
-						<span class="chevron"></span>
-					</li>
-					<li>
-						Oostroute
-						<span class="chevron"></span>
+						<a href="#step4">
+							4
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -116,7 +244,7 @@
 						<p>
 							Hoe ziet een perfecte vakantie voor jou er uit?
 						</p>
-						<div class="row">
+						<div class="meestermatcher-row">
 							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
 								<strong>
 									zon
@@ -138,7 +266,7 @@
 								</strong>
 							</div>
 						</div>
-						<div class="row">
+						<div class="meestermatcher-row">
 							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
 								<strong>
 									zon
@@ -165,7 +293,7 @@
 						<p>
 							Liefde of lust?
 						</p>
-						<div class="row">
+						<div class="meestermatcher-row">
 							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
 								<strong>
 									zon
@@ -187,7 +315,7 @@
 								</strong>
 							</div>
 						</div>
-						<div class="row">
+						<div class="meestermatcher-row">
 							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
 								<strong>
 									zon
@@ -214,7 +342,7 @@
 						<p>
 							Magisch magenta or basic beige?
 						</p>
-						<div class="row">
+						<div class="meestermatcher-row">
 							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
 								<strong>
 									zee
@@ -236,7 +364,7 @@
 								</strong>
 							</div>
 						</div>
-						<div class="row">
+						<div class="meestermatcher-row">
 							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
 								<strong>
 									zon

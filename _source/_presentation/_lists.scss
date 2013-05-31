@@ -103,7 +103,7 @@
 /* Right-aligned subcontent in lists (chevrons, buttons, counts and toggles)
 -------------------------------------------------- */
 .list .chevron,
-.list [class*="button"],
+// .list [class*="button"],
 .list [class*="count"],
 .list .toggle {
 	position: absolute;
@@ -123,10 +123,10 @@
 }
 
 /* Position buttons vertically centered on the right in list items */
-.list [class*="button"] {
-	left: auto;
-	margin-top: -14px; /* Half height of button */
-}
+// .list [class*="button"] {
+// 	left: auto;
+// 	margin-top: -14px; /* Half height of button */
+// }
 
 .list .toggle {
 	margin-top: -15px; /* Half height of toggle */

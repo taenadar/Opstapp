@@ -92,6 +92,7 @@ $planRouteModal = do ( $ '#plan-route-modal' ).item
 
 # Show/hide.
 
+
 exports.home = home = ( boolean ) ->
 	boolean is !!boolean or boolean = !$planRouteModal.classList.contains 'active'
 	

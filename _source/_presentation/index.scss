@@ -1,20 +1,48 @@
+.walkthrough-list .wrapper-outer
+{
+	pointer-events:none;
+	position: relative;
+	margin-top: 1em;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.wrapper-outer .content-padded
+{
+	margin-left: 0;
+	margin-right: 0;
+}
+
+
+.walkthrough-list .wrapper-inner
+{
+	height: 20em;
+}
+
+.walkthrough-list li
+{
+	text-align: center;
+	padding: 1em 0;
+}
+
+.walkthrough-list .img-wrapper
+{
+	padding: 24px;
+}
+
+.walkthrough-list p
+{
+	margin: 0 24px;
+}
+
+.walkthrough-list img
+{
+	max-width: 100%;
+}
+
 .meestermatcher-list
 {
 	margin-top: 24px;
-}
-
-.meestermatcher-list .row
-{
-	margin-bottom: 48px;
-	font-size: 0
-}
-
-.meestermatcher-list strong
-{
-	margin-top: 60px;
-	display: block;
-	width: 100%;
-	text-align: center;
 }
 
 .meestermatcher-list p
@@ -23,19 +51,42 @@
 	text-align: center
 }
 
-.meestermatcher-list .img
+
+.meestermatcher-row
 {
-	font-size: 12px;
+	text-align: justify;
+	margin-bottom: 48px;
+// 	font-size: 0
+}
+
+.meestermatcher-row::after
+{
+	display: inline-block;
+	width: 100%;
+	content: ''
+}
+
+.meestermatcher-row strong
+{
+	margin-top: 60px;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+.meestermatcher-row .img
+{
+// 	font-size: 12px;
 	width: 20%;
-	margin-right: 6.5%;
+// 	margin-right: 6.5%;
 	height: 48px;
 	background-size: cover;
 	display: inline-block;
 	
-	&.last
-	{
-		margin-right: 0;
-	}
+// 	&.last
+// 	{
+// 		margin-right: 0;
+// 	}
 }
 
 .meestermatcher-list li
@@ -45,7 +96,7 @@
 	background: none;
 }
 
-.meestermatcher-controller
+.meestermatcher-controller, .walkthrough-controller
 {
 	position: fixed;
 	bottom: 48px;
@@ -56,7 +107,7 @@
 	letter-spacing: 12px;
 }
 
-.meestermatcher-controller li
+.meestermatcher-controller li,  .walkthrough-controller li
 {
 	display: inline-block;
 	overflow: hidden;
@@ -69,7 +120,7 @@
 	position: relative;
 }
 
-.meestermatcher-controller li a
+.meestermatcher-controller li a,  .walkthrough-controller li a
 {
 	position: absolute;
 	left: 0;
@@ -79,12 +130,12 @@
 }
 
 
-.meestermatcher-controller li.active
+.meestermatcher-controller li.active,  .walkthrough-controller li.active
 {
 	background-color: $color-primary;
 }
 
-.meestermatcher-list .segmented-controller-item
+.meestermatcher-list .segmented-controller-item, .walkthrough-list .segmented-controller-item
 {
 	position: fixed;
 	display: block;
@@ -98,7 +149,7 @@
 	transition: transform .25s ease-in-out, opacity 1ms .25s;
 }
 
-.meestermatcher-list .segmented-controller-item.active
+.meestermatcher-list .segmented-controller-item.active, .walkthrough-list .segmented-controller-item.active
 {
 	opacity: 1;
 	-webkit-transition: -webkit-transform .25s ease-in-out;

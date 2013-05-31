@@ -74,21 +74,64 @@ html
 				li
 					"Rembrandtroute"
 					span.chevron
-				li
-					"Van Goghroute"
-					span.chevron
-				li
-					"Oostroute"
-					span.chevron
-				li
-					"Rembrandtroute"
-					span.chevron
-				li
-					"Van Goghroute"
-					span.chevron
-				li
-					"Oostroute"
-					span.chevron
+		
+		#walkthrough-modal.walkthrough-modal.modal.active
+			header.bar-title
+				h3.title "Introductie"
+				a.button[href="#walkthrough-modal"] "Close"
+			.content.content-extra-padded
+				ul.list.walkthrough-list
+					li#step1.segmented-controller-item.active
+						p "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum"
+						.wrapper-outer > .wrapper-inner > img[alt=""][src="./asset/image/walkthrough/icon.png"]
+					li#step2.segmented-controller-item
+						p "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen"
+						.wrapper-outer > .wrapper-inner
+							header.bar-title
+								h3.title "Opstapp"
+							.content.content-padded > ul.list
+								.input-group
+									.input-row
+										label "Van"
+										input[type="text"][placeholder="Huidige locatie"]
+									.input-row
+										label "Naar"
+										input[type="text"][value="Amsterdam Centraal"]
+								a.button-primary.button-block.button-large "Plan route"
+								a.button-secondary.button-block.button-large "Uitgestippeld"
+					li#step3.segmented-controller-item
+						p "Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt."
+						.wrapper-outer > .wrapper-inner
+							header.bar-title
+								h3.title "Uitgestippeld"
+							.content.content-padded > ul.list
+								li[style="padding-left: 10px;text-align: left;"]
+									"Rembrandtroute"
+									span.chevron
+								li[style="padding-left: 10px;text-align: left;"]
+									"Van Goghroute"
+									span.chevron
+					li#step4.segmented-controller-item
+						p 'Geen idee wat je wil zien? Meestermatcher zoekt op basis van jouw persoonlijkheid een toffe kunstenaar.'
+						.wrapper-outer > .wrapper-inner
+							header.bar-title
+								h3.title "Meestermatcher"
+							.content.content-padded
+								.meestermatcher-row
+									.img[style="background-image:url(./asset/image/slide/1.png)"]
+										strong "zon"
+									.img[style="background-image:url(./asset/image/slide/2.png)"]
+										strong "zee"
+									.img[style="background-image:url(./asset/image/slide/3.png)"]
+										strong "strand"
+									.img.last[style="background-image:url(./asset/image/slide/1.png)"]
+										strong "wind"
+						
+				ul#walkthrough-controller.walkthrough-controller
+					li.active > a[href="#step1"] "1"
+					li > a[href="#step2"] "2"
+					li > a[href="#step3"] "3"
+					li > a[href="#step4"] "4"
 		
 		#meestermatcher-modal.meestermatcher-modal.modal
 			header.bar-title
@@ -98,7 +141,7 @@ html
 				ul.list.meestermatcher-list
 					li#step1.segmented-controller-item.active
 						p "Hoe ziet een perfecte vakantie voor jou er uit?"
-						.row
+						.meestermatcher-row
 							.img[style="background-image:url(./asset/image/slide/1.png)"]
 								strong "zon"
 							.img[style="background-image:url(./asset/image/slide/2.png)"]
@@ -107,7 +150,7 @@ html
 								strong "strand"
 							.img.last[style="background-image:url(./asset/image/slide/1.png)"]
 								strong "wind"
-						.row
+						.meestermatcher-row
 							.img[style="background-image:url(./asset/image/slide/2.png)"]
 								strong "zon"
 							.img[style="background-image:url(./asset/image/slide/3.png)"]
@@ -118,7 +161,7 @@ html
 								strong "wind"
 					li#step2.segmented-controller-item
 						p "Liefde of lust?"
-						.row
+						.meestermatcher-row
 							.img[style="background-image:url(./asset/image/slide/2.png)"]
 								strong "zon"
 							.img[style="background-image:url(./asset/image/slide/3.png)"]
@@ -127,7 +170,7 @@ html
 								strong "strand"
 							.img.last[style="background-image:url(./asset/image/slide/2.png)"]
 								strong "wind"
-						.row
+						.meestermatcher-row
 							.img[style="background-image:url(./asset/image/slide/1.png)"]
 								strong "zon"
 							.img[style="background-image:url(./asset/image/slide/2.png)"]
@@ -138,7 +181,7 @@ html
 								strong "wind"
 					li#step3.segmented-controller-item
 						p "Magisch magenta or basic beige?"
-						.row
+						.meestermatcher-row
 							.img[style="background-image:url(./asset/image/slide/3.png)"]
 								strong "zee"
 							.img[style="background-image:url(./asset/image/slide/2.png)"]
@@ -147,7 +190,7 @@ html
 								strong "wind"
 							.img.last[style="background-image:url(./asset/image/slide/1.png)"]
 								strong "strand"
-						.row
+						.meestermatcher-row
 							.img[style="background-image:url(./asset/image/slide/1.png)"]
 								strong "zon"
 							.img[style="background-image:url(./asset/image/slide/3.png)"]

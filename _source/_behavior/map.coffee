@@ -135,20 +135,6 @@ markerIcon =
 routeBoxer = new RouteBoxer
 directionsService = new google.maps.DirectionsService
 
-exports.locationsArray = locationsArray = [
-	  new google.maps.LatLng( 52.368268, 4.895656 )
-	, new google.maps.LatLng( 52.368289, 4.897228 )
-	, new google.maps.LatLng( 52.383324, 4.885024 )
-	, new google.maps.LatLng( 52.3722, 4.888433 )
-	, new google.maps.LatLng( 52.373058, 4.892864 )
-	, new google.maps.LatLng( 52.371473, 4.880612 )
-	, new google.maps.LatLng( 52.366085, 4.896727 )
-	, new google.maps.LatLng( 52.367238, 4.889554 )
-	, new google.maps.LatLng( 52.376595, 4.90222 )
-	, new google.maps.LatLng( 52.368856, 4.892843 )
-]
-
-
 calcRoute = ( start, end, distance ) ->
 	do clearMap
 	waypts = []

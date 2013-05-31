@@ -113,7 +113,7 @@ a {
 
 /* Wrapper to be used around all content not in .bar-title and .bar-tab */
 .content {
-	position: fixed;
+	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -141,8 +141,14 @@ a {
 }
 
 /* Utility wrapper to pad in components like forms, block buttons and segmented-controllers so they're not full-bleed */
-.content-padded {
+.content-padded
+{
 	padding: 10px;
+}
+
+.content-extra-padded
+{
+	padding: 24px;
 }
 
 /* Pad top/bottom of content so it doesn't hide behind .bar-title and .bar-tab.
