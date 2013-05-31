@@ -44,7 +44,7 @@ html
 				.input-group
 					.input-row
 						label "Van"
-						input#plan-route-from[type="text"][value="Huidige locatie"]
+						input#plan-route-from[type="text"][placeholder="Huidige locatie"]
 					.input-row
 						label "Naar"
 						input#plan-route-to[type="text"][value="Amsterdam Centraal"]
@@ -160,8 +160,6 @@ html
 					li.active > a[href="#step1"] "1"
 					li > a[href="#step2"] "2"
 					li > a[href="#step3"] "3"
-			header.bar-footer
-				a#meestermatcher-next.button-primary.button-block[href="#step2"] "Volgende stap"
 		
 		header.bar-title > h1.title "Opstapp"
 		.content

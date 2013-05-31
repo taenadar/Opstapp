@@ -102,7 +102,7 @@ app.data = [
 		"piece": "Standbeeld van Rembrandt op de Botermarkt",
 		"latitude": 52.366085,
 		"longitude": 4.896727,
-		"description": "In 1852 onthulde Koning Willem III op het plein een door Louis Royer ontworpen gietijzeren standbeeld van Rembrandt.Het is het oudste nog bestaande standbeeld in Amsterdam en werd gegoten in een stuk. In 1876 werd de naam Botermarkt gewijzigd in Rembrandtplein. Veel Amsterdammers spreken over het "Rembrandtsplein" met een tussen-s. Hoewel taalkundig misschien incorrect, stond deze naam tot 1985 ook op de straatnaamborden.",
+		"description": "In 1852 onthulde Koning Willem III op het plein een door Louis Royer ontworpen gietijzeren standbeeld van Rembrandt.Het is het oudste nog bestaande standbeeld in Amsterdam en werd gegoten in een stuk. In 1876 werd de naam Botermarkt gewijzigd in Rembrandtplein. Veel Amsterdammers spreken over het \"Rembrandtsplein\" met een tussen-s. Hoewel taalkundig misschien incorrect, stond deze naam tot 1985 ook op de straatnaamborden.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-F-F01710-B",
 		"info" : {
 			"title" : "Standbeeld van Rembrandt op de Botermarkt",

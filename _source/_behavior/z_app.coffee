@@ -114,7 +114,7 @@ $planRoute.on 'click', ( event ) ->
 	if origin is '' and destination is ''
 		alert 'Een begin- en eindpunt moet aanwezig zijn om een route te plannen'
 		return
-	else if 'huidige locatie' is do origin.toLowerCase
+	else if origin is '' or 'huidige locatie' is do origin.toLowerCase
 		listener = ( position ) ->
 			coords = [ position.coords.latitude, position.coords.longitude ]
 			home false

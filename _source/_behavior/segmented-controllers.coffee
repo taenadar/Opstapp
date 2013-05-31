@@ -52,11 +52,13 @@ window.on 'click', ( event ) ->
 	
 	$targetBody.classList.add className
 
+###
+	Meestermatcher
+###
 
 $meestermatcherController = $ '.meestermatcher-controller'
 $meestermatcherList = $ '.meestermatcher-list'
-$meestermatcherNext = $$ '#meestermatcher-next'
-
+currentMeesterMatcherItem = 1
 meestermatcherListItemCount = $meestermatcherList.item().childElementCount
 
 changeActiveScreen = ( index ) ->
@@ -66,7 +68,6 @@ changeActiveScreen = ( index ) ->
 	if index > meestermatcherListItemCount
 		alert index
 		return
-	
 	
 	actives = $meestermatcherController.$ '.active'
 	actives = actives.concat $meestermatcherList.$ '.active'
@@ -82,19 +83,14 @@ changeActiveScreen = ( index ) ->
 	
 	$newActiveItem.classList.add 'active'
 	$newActiveControler.parentElement.classList.add 'active'
-	$meestermatcherNext.hash = '#step' + ( index + 1 )
 	
+	currentMeesterMatcherItem = index
+	
+	# currentMeesterMatcherItem = index + 1
+	
+	undefined
 
 
-
-$meestermatcherNext.on 'click', ( event ) ->
-	hash = $meestermatcherNext.hash
-	index = +hash.slice 5
-	
-	do event.preventDefault
-	do event.stopPropagation
-	
-	changeActiveScreen index
 
 $meestermatcherController.item().on 'click', ( event ) ->
 	
@@ -112,13 +108,25 @@ $meestermatcherController.item().on 'click', ( event ) ->
 $el = do ( $ '#meestermatcher-modal .content' ).item
 
 Hammer( $el ).on 'swipeleft', ( event ) ->
+	
 	do event.preventDefault
 	do event.stopPropagation
-	# Go forward.
-	changeActiveScreen +$meestermatcherNext.hash.slice 5
+	
+	changeActiveScreen currentMeesterMatcherItem + 1
+	
+	undefined
 
 Hammer( $el ).on 'swiperight', ->
+	
 	do event.preventDefault
 	do event.stopPropagation
-	# Go back.
-	changeActiveScreen ( +$meestermatcherNext.hash.slice 5 ) - 2
+	
+	changeActiveScreen currentMeesterMatcherItem - 1
+	
+	undefined
+
+
+###
+	Intro
+###
+

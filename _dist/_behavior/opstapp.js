@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-30
+/*! opstapp - v0.0.1 - 2013-05-31
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -2192,7 +2192,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $el, $meestermatcherController, $meestermatcherList, $meestermatcherNext, changeActiveScreen, getTargets, meestermatcherListItemCount;
+  var $el, $meestermatcherController, $meestermatcherList, changeActiveScreen, currentMeesterMatcherItem, getTargets, meestermatcherListItemCount;
 
   getTargets = function($target) {
     var $popovers, iterator, length;
@@ -2245,11 +2245,16 @@ Here be coffee
     return $targetBody.classList.add(className);
   });
 
+  /*
+  	Meestermatcher
+  */
+
+
   $meestermatcherController = $('.meestermatcher-controller');
 
   $meestermatcherList = $('.meestermatcher-list');
 
-  $meestermatcherNext = $$('#meestermatcher-next');
+  currentMeesterMatcherItem = 1;
 
   meestermatcherListItemCount = $meestermatcherList.item().childElementCount;
 
@@ -2274,18 +2279,9 @@ Here be coffee
     $newActiveControler = $meestermatcherController.$$('[href="#step' + index + '"]');
     $newActiveItem.classList.add('active');
     $newActiveControler.parentElement.classList.add('active');
-    return $meestermatcherNext.hash = '#step' + (index + 1);
+    currentMeesterMatcherItem = index;
+    return void 0;
   };
-
-  $meestermatcherNext.on('click', function(event) {
-    var hash, index;
-
-    hash = $meestermatcherNext.hash;
-    index = +hash.slice(5);
-    event.preventDefault();
-    event.stopPropagation();
-    return changeActiveScreen(index);
-  });
 
   $meestermatcherController.item().on('click', function(event) {
     var hash, index;
@@ -2305,14 +2301,21 @@ Here be coffee
   Hammer($el).on('swipeleft', function(event) {
     event.preventDefault();
     event.stopPropagation();
-    return changeActiveScreen(+$meestermatcherNext.hash.slice(5));
+    changeActiveScreen(currentMeesterMatcherItem + 1);
+    return void 0;
   });
 
   Hammer($el).on('swiperight', function() {
     event.preventDefault();
     event.stopPropagation();
-    return changeActiveScreen((+$meestermatcherNext.hash.slice(5)) - 2);
+    changeActiveScreen(currentMeesterMatcherItem - 1);
+    return void 0;
   });
+
+  /*
+  	Intro
+  */
+
 
 }).call(this);
 ;
@@ -2483,7 +2486,7 @@ Here be coffee
     distance = 500;
     if (origin === '' && destination === '') {
       alert('Een begin- en eindpunt moet aanwezig zijn om een route te plannen');
-    } else if ('huidige locatie' === origin.toLowerCase()) {
+    } else if (origin === '' || 'huidige locatie' === origin.toLowerCase()) {
       listener = function(position) {
         var coords;
 

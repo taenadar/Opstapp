@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-30
+/*! opstapp - v0.0.1 - 2013-05-31
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /* General bar styles
@@ -932,11 +932,11 @@ textarea {
 
 .meestermatcher-controller {
   position: fixed;
-  bottom: 96px;
+  bottom: 48px;
   left: 0;
   right: 0;
+  margin-top: 0;
   text-align: center;
-  margin-top: 48px;
   letter-spacing: 12px; }
 
 .meestermatcher-controller li {
