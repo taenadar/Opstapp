@@ -40,6 +40,9 @@
 	width: 1.8rem;
 	height: 1.8rem;
 	-webkit-transition: -webkit-transform 0.1s ease-in-out, border 0.1s ease-in-out;
+	-moz-transition: -moz-transform 0.1s ease-in-out, border 0.1s ease-in-out;
+	-ms-transition: -ms-transform 0.1s ease-in-out, border 0.1s ease-in-out;
+	-o-transition: -o-transform 0.1s ease-in-out, border 0.1s ease-in-out;
 	transition: transform 0.1s ease-in-out, border 0.1s ease-in-out;
 	background-color: $color-lighter;
 }
@@ -47,6 +50,9 @@
 .toggle.active .toggle-handle
 {
 	-webkit-transform: translate3d( 3.2rem, 0, 0 );
+	-moz-transform: translate3d( 3.2rem, 0, 0);
+	-ms-transform: translate3d( 3.2rem, 0, 0);
+	-o-transform: translate3d( 3.2rem, 0, 0);
 	transform: translate3d( 3.2rem, 0, 0 );
 }
 

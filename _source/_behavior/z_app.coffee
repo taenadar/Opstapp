@@ -50,6 +50,19 @@ LocationManager::on = ( listener ) ->
 	@listeners.push listener
 	@
 
+LocationManager::once = ( listener ) ->
+	if @position
+		listener @position
+		return @
+	
+	listener_ = ( position ) =>
+		listener @position
+		@off listener_
+	
+	@listeners.push listener_
+	
+	@
+
 LocationManager::off = ( listener ) ->
 	
 	iterator = -1
@@ -57,7 +70,7 @@ LocationManager::off = ( listener ) ->
 	
 	while ++iterator < length
 		if @listeners[ iterator ] is listener
-			delete @listeners[ iterator ]
+			@listeners[ iterator ] = null
 			return true
 	
 	false
@@ -108,24 +121,28 @@ window.on 'load', -> do locationManager.request
 
 $planRoute.on 'click', ( event ) ->
 	
-	origin = $planFrom.value
-	destination = $planTo.value
-	distance = 500
+	origin = do $planFrom.value.toLowerCase
+	destination = do $planTo.value.toLowerCase
+	distance = 0.5
 	
-	if origin is '' and destination is ''
-		alert 'Een begin- en eindpunt moet aanwezig zijn om een route te plannen'
-		return
-	else if origin is '' or 'huidige locatie' is do origin.toLowerCase
-		listener = ( position ) ->
-			coords = [ position.coords.latitude, position.coords.longitude ]
+	origin or origin = 'huidige locatie'
+	destination or destination = 'huidige locatie'
+	
+	callback = ( error ) ->
+		if error
+			alert "Sorry. Er trad een fout op in de applicatie: #{error}"
+			console.log 'ERROR!', arguments
+		else
 			home false
-			calcRoute coords, destination, distance
-			locationManager.off listener
-		
-		locationManager.on listener
+	
+	if origin is 'huidige locatie' or destination is 'huidige locatie'
+		locationManager.once ( position ) ->
+			coords = [ position.coords.latitude, position.coords.longitude ]
+			if origin is 'huidige locatie' then origin = coords
+			if destination is 'huidige locatie' then destination = coords
+			calcRoute origin, destination, distance, callback
 	else
-		home false
-		calcRoute origin, destination, distance
+		calcRoute origin, destination, distance, callback
 
 $infoModal = do ( $ '#info-modal' ).item
 

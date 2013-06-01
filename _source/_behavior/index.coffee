@@ -5,6 +5,9 @@ Here be coffee
 # Store scope; probably `window`.
 exports = @
 
+exports.console or exports.console = {}
+exports.console.log or exports.console.log = ->
+
 # Store the slice method in Array.prototype.
 __slice__ = Array::slice
 
@@ -112,11 +115,12 @@ vendorsLength = vendors.length
 exports.supports = supports = ( prop ) ->
 	iterator = vendorsLength
 	
+	if prop of $div.style then return prop
+	
 	prop = prop.replace /^[a-z]/, ( value ) ->
 		return do value.toUpperCase
 	
-	if prop of $div.style
-		return prop
+	if prop of $div.style then return prop
 	
 	while iterator--
 		prop_ = vendors[ iterator ] + prop

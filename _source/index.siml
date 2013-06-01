@@ -47,7 +47,7 @@ html
 						input#plan-route-from[type="text"][placeholder="Huidige locatie"]
 					.input-row
 						label "Naar"
-						input#plan-route-to[type="text"][value="Amsterdam Centraal"]
+						input#plan-route-to[type="text"][placeholder="Huidige locatie"]
 				
 				a#plan-route.button-primary.button-block.button-large "Plan route"
 				a#plan-uitgestippeld.button-secondary.button-block.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
@@ -58,8 +58,6 @@ html
 			header.bar-title
 				h3.title "Uitgestippeld"
 				a.button[href="#uitgestippeld-modal"] "Close"
-			.bar-standard.bar-header-secondary
-				a.button-secondary.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 				
 			.content > ul.list
 				li
@@ -74,6 +72,9 @@ html
 				li
 					"Rembrandtroute"
 					span.chevron
+			
+			footer.bar-footer
+				a.button-secondary.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
 		#walkthrough-modal.walkthrough-modal.modal.active
 			header.bar-title
@@ -82,10 +83,10 @@ html
 			.content.carousel
 				ul.list.carousel-list
 					li
-						p "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum"
+						p "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum."
 						.wrapper-outer > .wrapper-inner > img[alt=""][src="./asset/image/walkthrough/icon.png"]
 					li
-						p "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen"
+						p "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen."
 						.wrapper-outer > .wrapper-inner
 							header.bar-title
 								h3.title "Opstapp"
@@ -93,10 +94,10 @@ html
 								.input-group
 									.input-row
 										label "Van"
-										input[type="text"][placeholder="Huidige locatie"]
+										input#plan-route-from[type="text"][placeholder="Huidige locatie"]
 									.input-row
 										label "Naar"
-										input[type="text"][value="Amsterdam Centraal"]
+										input#plan-route-to[type="text"][placeholder="Huidige locatie"]
 								a.button-primary.button-block.button-large "Plan route"
 								a.button-secondary.button-block.button-large "Uitgestippeld"
 					li

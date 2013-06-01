@@ -13,8 +13,14 @@
 	background-color: $color-accent-medium-light;
 	opacity: 0;
 	-webkit-transform: translate3d(0, -15px, 0);
+	-moz-transform: translate3d(0, -15px, 0);
+	-ms-transform: translate3d(0, -15px, 0);
+	-o-transform: translate3d(0, -15px, 0);
 	transform: translate3d(0, -15px, 0);
 	-webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	-moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	-ms-transition: -ms-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+	-o-transition: -o-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 	transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
@@ -38,6 +44,9 @@
 .popover.visible {
 	opacity: 1;
 	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
 }
 
@@ -73,18 +82,34 @@
 	min-height: 100%;
 	overflow: hidden;
 	background-color: #fff;	
+	
 	-webkit-transform: translate3d(0, 100%, 0);
+	-moz-transform: translate3d(0, 100%, 0);
+	-ms-transform: translate3d(0, 100%, 0);
+	-o-transform: translate3d(0, 100%, 0);
 	transform: translate3d(0, 100%, 0);
-	-webkit-transition: -webkit-transform .25s ease-in-out, opacity 1ms .25s;
-	transition: transform .25s ease-in-out, opacity 1ms .25s;
+	
+	-webkit-transition: -webkit-transform 0.25s ease-in-out, opacity 1ms 0.25s;
+	-moz-transition: -moz-transform 0.25s ease-in-out, opacity 1ms 0.25s;
+	-ms-transition: -ms-transform 0.25s ease-in-out, opacity 1ms 0.25s;
+	-o-transition: -o-transform 0.25s ease-in-out, opacity 1ms 0.25s;
+	transition: transform 0.25s ease-in-out, opacity 1ms 0.25s;
 }
 
 /* Modal - When active -------------------------------------------------- */
 .modal.active {
 	opacity: 1;
 	height: 100%;
-	-webkit-transition: -webkit-transform .25s ease-in-out;
-	transition: transform .25 ease-in-out;
+	
 	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
 	transform: translate3d(0, 0, 0);
+
+	-webkit-transition: -webkit-transform 0.25s ease-in-out;
+	-moz-transition: -moz-transform 0.25s ease-in-out;
+	-ms-transition: -ms-transform 0.25s ease-in-out;
+	-o-transition: -o-transform 0.25s ease-in-out;
+	transition: transform 0.25s ease-in-out;
 }

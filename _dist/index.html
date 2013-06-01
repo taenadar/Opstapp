@@ -34,7 +34,7 @@
 						<label>
 							Naar
 						</label>
-						<input id="plan-route-to" type="text" value="Amsterdam Centraal"/>
+						<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
 					</div>
 				</div>
 				<a id="plan-route" class="button-primary button-block button-large">
@@ -55,11 +55,6 @@
 					Close
 				</a>
 			</header>
-			<div class="bar-standard bar-header-secondary">
-				<a class="button-secondary button-block" href="#meestermatcher-modal">
-					Meestermatcher
-				</a>
-			</div>
 			<div class="content">
 				<ul class="list">
 					<li>
@@ -80,6 +75,11 @@
 					</li>
 				</ul>
 			</div>
+			<footer class="bar-footer">
+				<a class="button-secondary button-block" href="#meestermatcher-modal">
+					Meestermatcher
+				</a>
+			</footer>
 		</div>
 		<div id="walkthrough-modal" class="walkthrough-modal modal active">
 			<header class="bar-title">
@@ -94,7 +94,7 @@
 				<ul class="list carousel-list">
 					<li>
 						<p>
-							Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum
+							Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum.
 						</p>
 						<div class="wrapper-outer">
 							<div class="wrapper-inner">
@@ -104,7 +104,7 @@
 					</li>
 					<li>
 						<p>
-							Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen
+							Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen.
 						</p>
 						<div class="wrapper-outer">
 							<div class="wrapper-inner">
@@ -120,13 +120,13 @@
 												<label>
 													Van
 												</label>
-												<input type="text" placeholder="Huidige locatie"/>
+												<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
 											</div>
 											<div class="input-row">
 												<label>
 													Naar
 												</label>
-												<input type="text" value="Amsterdam Centraal"/>
+												<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
 											</div>
 										</div>
 										<a class="button-primary button-block button-large">

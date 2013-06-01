@@ -135,27 +135,31 @@ markerIcon =
 routeBoxer = new RouteBoxer
 directionsService = new google.maps.DirectionsService
 
-calcRoute = ( start, end, distance ) ->
+calcRoute = ( start, end, distance, callback ) ->
 	do clearMap
-	waypts = []
 	origin = do start.toString
 	destination = do end.toString
 	
 	request =
 		'origin' : origin
 		'destination' : destination
-		'waypoints' : waypts
-		'optimizeWaypoints' : true
 		'travelMode' : google.maps.TravelMode.WALKING
 
 	directionsService.route request, ( response, status ) ->
-		if status isnt google.maps.DirectionsStatus.OK then return
+		if status isnt google.maps.DirectionsStatus.OK
+			console.log 'uncatched error in `calcRoute`', response, status
+			callback response
+			return
 		
-		path = response.routes[ 0 ].overview_path
-		findPointsOnRoute path, origin, destination, distance
+		findPointsOnRoute response, origin, destination, distance, callback
 
 
-findPointsOnRoute = ( path, origin, destination, distance ) ->
+latLongRegExp = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/
+
+findPointsOnRouteCount = 0
+findPointsOnRoute = ( response, origin, destination, distance, callback ) ->
+	path = response.routes[ 0 ].overview_path
+	findPointsOnRouteCount++
 	boxes = routeBoxer.box path, distance
 	waypts = []
 	
@@ -176,15 +180,26 @@ findPointsOnRoute = ( path, origin, destination, distance ) ->
 					'location' : waypoints[ iterator_ ]
 					'stopover' : true
 	
-	if waypts.length > 8 and distance > 0
-		findPointsOnRoute path, origin, destination, distance - 0.1
-	else if waypts.length < 2 and distance < 5
-		findPointsOnRoute path, origin, destination, distance + 0.1
+	if waypts.length > 8 and distance > 0.1
+		findPointsOnRoute response, origin, destination, distance - 0.1, callback
+	else if waypts.length < 5 and distance < 10
+		findPointsOnRoute response, origin, destination, distance + 0.1, callback
 	else
 		if waypts.length > 8
-			waypoints = waypoints.slice 0, 8
+			waypts = waypts.slice 0, 8
+		else if waypts.length < 1
+			origin = origin.replace latLongRegExp, 'huidige locatie'
+			destination = destination.replace latLongRegExp, 'huidige locatie'
+			summary = response.routes[ 0 ].summary
+			
+			if origin is destination
+				callback "De applicatie kon geen punten vinden in de buurt van \"#{summary}\"."
+			else
+				callback "De applicatie kon geen punten vinden tussen \"#{origin}\" en \"#{destination}\""
+			
+			return
 		
-		drawNewRoute waypts, origin, destination, distance
+		drawNewRoute waypts, origin, destination, distance, callback
 	
 	@
 
@@ -294,7 +309,7 @@ google.maps.event.addListener map, 'click', ->
 		do currentMarker.info.close
 		currentMarker = null
 
-drawNewRoute = ( waypts, origin, destination, distance ) ->
+drawNewRoute = ( waypts, origin, destination, distance, callback ) ->
 	app.locationManager.on onLocationUpdate
 	
 	request =
@@ -305,7 +320,10 @@ drawNewRoute = ( waypts, origin, destination, distance ) ->
 		'travelMode' : google.maps.TravelMode.WALKING
 	
 	directionsService.route request, ( response, status ) ->
-		if status isnt google.maps.DirectionsStatus.OK then return
+		if status isnt google.maps.DirectionsStatus.OK
+			console.log 'Uncatched error in drawNewRoute', arguments
+			return
+		do callback
 		
 		directionsRenderer.setDirections response
 		

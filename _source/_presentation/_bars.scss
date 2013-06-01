@@ -25,6 +25,7 @@
 .bar-footer {
 	height: 37px;
 	bottom: 0;
+	position: fixed;
 }
 
 /* Title bar
@@ -104,7 +105,7 @@
 	height: 100%;
 	list-style: none;
 	-webkit-box-orient: horizontal;
-					box-orient: horizontal;
+	box-orient: horizontal;
 }
 
 /* Navigational tab */
@@ -114,7 +115,7 @@
 	text-align: center;
 	box-sizing: border-box;
 	-webkit-box-flex: 1;
-					box-flex: 1;
+	box-flex: 1;
 }
 
 /* Active state for tab */

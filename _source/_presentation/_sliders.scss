@@ -13,6 +13,7 @@
 	overflow: hidden;
 }
 
+
 /* Inner wrapper for slider (width of all slides together) */
 .slider > ul {
 	height: 100%;
@@ -20,6 +21,9 @@
 	font-size: 0;
 	white-space: nowrap;
 	-webkit-transition: all 0 linear;
+	-moz-transition: all 0 linear;
+	-ms-transition: all 0 linear;
+	-o-transition: all 0 linear;
 	transition: all 0 linear;
 }
 

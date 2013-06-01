@@ -24,22 +24,48 @@
 .carousel-list.animate
 {
 	-webkit-transition: all .3s;
+	-moz-transition: all .3s;;
+	-ms-transition: all .3s;;
+	-o-transition: all .3s;;
+	transition: all .3s;;
 }
 
 .carousel
 {
 	overflow: hidden;
 	max-width: 100%;
+	
 	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	
 	-webkit-transform: translate3d(0,0,0) scale3d(1,1,1);
+	-moz-transition: translate3d(0,0,0) scale3d(1,1,1);
+	-ms-transition: translate3d(0,0,0) scale3d(1,1,1);
+	-o-transition: translate3d(0,0,0) scale3d(1,1,1);
+	transition: translate3d(0,0,0) scale3d(1,1,1);
+	
 	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
 }
 
 .carousel-list
 {
 	-webkit-transform: translate3d(0%,0,0) scale3d(1,1,1);
+	-moz-transition: translate3d(0%,0,0) scale3d(1,1,1);
+	-ms-transition: translate3d(0%,0,0) scale3d(1,1,1);
+	-o-transition: translate3d(0%,0,0) scale3d(1,1,1);
+	transition: translate3d(0%,0,0) scale3d(1,1,1);
+	
 	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	backface-visibility: hidden;
+	
 	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	
 	overflow: hidden;
 	position: relative;
 }
@@ -51,8 +77,17 @@
 	padding: 1em 0;
 	float: left;
 	overflow: hidden;
+	
 	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	
 	-webkit-transform: translate3d(0,0,0);
+	-moz-transition: translate3d(0,0,0);
+	-ms-transition: translate3d(0,0,0);
+	-o-transition: translate3d(0,0,0);
+	transition: translate3d(0,0,0);
+	
 }
 
 .walkthrough-modal .carousel .img-wrapper
@@ -159,29 +194,6 @@
 {
 	background-color: $color-primary;
 }
-
-// .meestermatcher-list .segmented-controller-item
-// {
-// 	position: fixed;
-// 	display: block;
-// 	top: 0;
-// 	opacity: 0;
-// 	z-index: 11; 
-// 	width: 100%;
-// 	-webkit-transform: translate3d( 200%, 0, 0 );
-// 	transform: translate3d( 200%, 0, 0 );
-// 	-webkit-transition: -webkit-transform .25s ease-in-out, opacity 1ms .25s;
-// 	transition: transform .25s ease-in-out, opacity 1ms .25s;
-// }
-
-// .meestermatcher-list .segmented-controller-item.active
-// {
-// 	opacity: 1;
-// 	-webkit-transition: -webkit-transform .25s ease-in-out;
-// 	transition: transform .25 ease-in-out;
-// 	-webkit-transform: translate3d( 0, 0, 0 );
-// 	transform: translate3d( 0, 0, 0 );
-// }
 
 .info-modal .img
 {

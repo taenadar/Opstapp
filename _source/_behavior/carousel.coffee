@@ -86,7 +86,11 @@ Carousel::showPane = ( index ) ->
 Carousel::setContainerOffset = ( percent, animate ) ->
 	
 	@$container.classList[ if animate then 'add' else 'remove' ] 'animate'
-	@$container.style[ '-webkit-transform' ] = "translate3d(#{percent}%,0,0) scale3d(1,1,1)"
+	
+	if transform = supports 'transform'
+		@$container.style[ transform  ] = "translate3d(#{percent}%,0,0) scale3d(1,1,1)"
+	else
+		@$container.style.left = "#{percent * @paneCount}%"
 	
 	@
 

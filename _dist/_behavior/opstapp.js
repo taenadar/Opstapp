@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-05-31
+/*! opstapp - v0.0.1 - 2013-06-01
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -1627,8 +1627,14 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
   };
 
   Carousel.prototype.setContainerOffset = function(percent, animate) {
+    var transform;
+
     this.$container.classList[animate ? 'add' : 'remove']('animate');
-    this.$container.style['-webkit-transform'] = "translate3d(" + percent + "%,0,0) scale3d(1,1,1)";
+    if (transform = supports('transform')) {
+      this.$container.style[transform] = "translate3d(" + percent + "%,0,0) scale3d(1,1,1)";
+    } else {
+      this.$container.style.left = "" + (percent * this.paneCount) + "%";
+    }
     return this;
   };
 
@@ -1697,6 +1703,10 @@ Here be coffee
   var $, $$, $div, exports, supports, vendors, vendorsLength, __slice__;
 
   exports = this;
+
+  exports.console || (exports.console = {});
+
+  exports.console.log || (exports.console.log = function() {});
 
   __slice__ = Array.prototype.slice;
 
@@ -1812,6 +1822,9 @@ Here be coffee
     var iterator, prop_, prop__;
 
     iterator = vendorsLength;
+    if (prop in $div.style) {
+      return prop;
+    }
     prop = prop.replace(/^[a-z]/, function(value) {
       return value.toUpperCase();
     });
@@ -1834,7 +1847,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
+  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, findPointsOnRouteCount, latLongRegExp, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
 
   exports = this;
 
@@ -2010,34 +2023,36 @@ Here be coffee
 
   directionsService = new google.maps.DirectionsService;
 
-  calcRoute = function(start, end, distance) {
-    var destination, origin, request, waypts;
+  calcRoute = function(start, end, distance, callback) {
+    var destination, origin, request;
 
     clearMap();
-    waypts = [];
     origin = start.toString();
     destination = end.toString();
     request = {
       'origin': origin,
       'destination': destination,
-      'waypoints': waypts,
-      'optimizeWaypoints': true,
       'travelMode': google.maps.TravelMode.WALKING
     };
     return directionsService.route(request, function(response, status) {
-      var path;
-
       if (status !== google.maps.DirectionsStatus.OK) {
+        console.log('uncatched error in `calcRoute`', response, status);
+        callback(response);
         return;
       }
-      path = response.routes[0].overview_path;
-      return findPointsOnRoute(path, origin, destination, distance);
+      return findPointsOnRoute(response, origin, destination, distance, callback);
     });
   };
 
-  findPointsOnRoute = function(path, origin, destination, distance) {
-    var bounds, boxes, boxpolys, iterator, iterator_, length, length_, waypts;
+  latLongRegExp = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/;
 
+  findPointsOnRouteCount = 0;
+
+  findPointsOnRoute = function(response, origin, destination, distance, callback) {
+    var bounds, boxes, boxpolys, iterator, iterator_, length, length_, path, summary, waypts;
+
+    path = response.routes[0].overview_path;
+    findPointsOnRouteCount++;
     boxes = routeBoxer.box(path, distance);
     waypts = [];
     iterator = -1;
@@ -2056,15 +2071,25 @@ Here be coffee
         }
       }
     }
-    if (waypts.length > 8 && distance > 0) {
-      findPointsOnRoute(path, origin, destination, distance - 0.1);
-    } else if (waypts.length < 2 && distance < 5) {
-      findPointsOnRoute(path, origin, destination, distance + 0.1);
+    if (waypts.length > 8 && distance > 0.1) {
+      findPointsOnRoute(response, origin, destination, distance - 0.1, callback);
+    } else if (waypts.length < 5 && distance < 10) {
+      findPointsOnRoute(response, origin, destination, distance + 0.1, callback);
     } else {
       if (waypts.length > 8) {
-        waypoints = waypoints.slice(0, 8);
+        waypts = waypts.slice(0, 8);
+      } else if (waypts.length < 1) {
+        origin = origin.replace(latLongRegExp, 'huidige locatie');
+        destination = destination.replace(latLongRegExp, 'huidige locatie');
+        summary = response.routes[0].summary;
+        if (origin === destination) {
+          callback("De applicatie kon geen punten vinden in de buurt van \"" + summary + "\".");
+        } else {
+          callback("De applicatie kon geen punten vinden tussen \"" + origin + "\" en \"" + destination + "\"");
+        }
+        return;
       }
-      drawNewRoute(waypts, origin, destination, distance);
+      drawNewRoute(waypts, origin, destination, distance, callback);
     }
     return this;
   };
@@ -2186,7 +2211,7 @@ Here be coffee
     }
   });
 
-  drawNewRoute = function(waypts, origin, destination, distance) {
+  drawNewRoute = function(waypts, origin, destination, distance, callback) {
     var request;
 
     app.locationManager.on(onLocationUpdate);
@@ -2201,8 +2226,10 @@ Here be coffee
       var address, iterator, leg, legs, length, route, waypoint;
 
       if (status !== google.maps.DirectionsStatus.OK) {
+        console.log('Uncatched error in drawNewRoute', arguments);
         return;
       }
+      callback();
       directionsRenderer.setDirections(response);
       route = response.routes[0];
       legs = route.legs;
@@ -2389,16 +2416,6 @@ Here be coffee
     return $targetBody.classList.add(className);
   });
 
-  /*
-  	Meestermatcher
-  */
-
-
-  /*
-  	Intro
-  */
-
-
 }).call(this);
 ;
 (function() {
@@ -2501,6 +2518,22 @@ Here be coffee
     return this;
   };
 
+  LocationManager.prototype.once = function(listener) {
+    var listener_,
+      _this = this;
+
+    if (this.position) {
+      listener(this.position);
+      return this;
+    }
+    listener_ = function(position) {
+      listener(_this.position);
+      return _this.off(listener_);
+    };
+    this.listeners.push(listener_);
+    return this;
+  };
+
   LocationManager.prototype.off = function(listener) {
     var iterator, length;
 
@@ -2508,7 +2541,7 @@ Here be coffee
     length = this.listeners.length;
     while (++iterator < length) {
       if (this.listeners[iterator] === listener) {
-        delete this.listeners[iterator];
+        this.listeners[iterator] = null;
         return true;
       }
     }
@@ -2561,26 +2594,36 @@ Here be coffee
   });
 
   $planRoute.on('click', function(event) {
-    var destination, distance, listener, origin;
+    var callback, destination, distance, origin;
 
-    origin = $planFrom.value;
-    destination = $planTo.value;
-    distance = 500;
-    if (origin === '' && destination === '') {
-      alert('Een begin- en eindpunt moet aanwezig zijn om een route te plannen');
-    } else if (origin === '' || 'huidige locatie' === origin.toLowerCase()) {
-      listener = function(position) {
+    origin = $planFrom.value.toLowerCase();
+    destination = $planTo.value.toLowerCase();
+    distance = 0.5;
+    origin || (origin = 'huidige locatie');
+    destination || (destination = 'huidige locatie');
+    callback = function(error) {
+      if (error) {
+        alert("Sorry. Er trad een fout op in de applicatie: " + error);
+        return console.log('ERROR!', arguments);
+      } else {
+        return home(false);
+      }
+    };
+    if (origin === 'huidige locatie' || destination === 'huidige locatie') {
+      return locationManager.once(function(position) {
         var coords;
 
         coords = [position.coords.latitude, position.coords.longitude];
-        home(false);
-        calcRoute(coords, destination, distance);
-        return locationManager.off(listener);
-      };
-      return locationManager.on(listener);
+        if (origin === 'huidige locatie') {
+          origin = coords;
+        }
+        if (destination === 'huidige locatie') {
+          destination = coords;
+        }
+        return calcRoute(origin, destination, distance, callback);
+      });
     } else {
-      home(false);
-      return calcRoute(origin, destination, distance);
+      return calcRoute(origin, destination, distance, callback);
     }
   });
 
