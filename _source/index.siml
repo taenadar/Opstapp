@@ -61,7 +61,7 @@ html
 					span.chevron
 			
 			footer.bar-footer
-				a.button-secondary.button-block[href="#meestermatcher-modal"] "Meestermatcher"
+				a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
 		#walkthrough-modal.walkthrough-modal.modal
 			header.bar-title
@@ -188,10 +188,10 @@ html
 		footer.planner
 			.input-group
 				.input-row
-					label "Van"
+					label[for="plan-route-from"] "Van"
 					input#plan-route-from[type="text"][placeholder="Huidige locatie"]
 				.input-row
-					label "Naar"
+					label[for="plan-route-to"] "Naar"
 					input#plan-route-to[type="text"][placeholder="Huidige locatie"]
 			
 			.row

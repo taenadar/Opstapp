@@ -14,13 +14,14 @@
 .planner.animate
 {
 	-webkit-transition: all .3s;
-	-moz-transition: all .3s;;
-	-ms-transition: all .3s;;
-	-o-transition: all .3s;;
-	transition: all .3s;;
+	-moz-transition: all .3s;
+	-ms-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
 }
 
-.planner:after, .planner:before {
+.planner:after, .planner:before
+{
 	bottom: 100%;
 	border: solid transparent;
 	content: " ";
@@ -31,12 +32,15 @@
 	border-color: transparent;
 }
 
-.planner:after {
+.planner:after
+{
 	border-bottom-color: $color-dark;
 	border-width: 30px;
 	margin-left: -30px;
 }
-.planner:before {
+
+.planner:before
+{
 	border-bottom-color: $color-primary;
 	border-width: 37px;
 	margin-left: -37px;

@@ -29,12 +29,23 @@ Planner::setContainerOffset = ( delta, animate ) ->
 	
 	@
 
+Planner::show = ->
+	
+	@setContainerOffset -@nodeHeight, true
+	
+	@
+
+Planner::hide = ->
+	
+	@setContainerOffset 0, true
+	
+	@
+
 Planner::handleHammer = ( event ) ->
 	
 	# disable browser scrolling
 	do event.gesture.preventDefault
 	do event.preventDefault
-	# do event.preventDefault
 	
 	type = event.type
 	direction = event.gesture.direction
@@ -42,19 +53,15 @@ Planner::handleHammer = ( event ) ->
 	if type is 'dragup' or type is 'dragdown'
 		@setContainerOffset -( @height - event.gesture.center.pageY )
 	else if type is 'swipeup'
-		@setContainerOffset -@nodeHeight, true
+		do @show
 	else if type is 'swipedown'
-		@setContainerOffset 0, true
+		do @hide
 	else if type is 'release'
 		
-		# more then 50% moved, navigate.
 		if @nodeHeight / 2 < Math.abs event.gesture.deltaY
-			if direction is 'down'
-				@setContainerOffset 0, true
-			else
-				@setContainerOffset -@nodeHeight, true
+			if direction is 'down' then do @hide else do @show
 		else
-			@setContainerOffset -@nodeHeight, true
+			do @show
 	
 	@
 

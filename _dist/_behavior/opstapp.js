@@ -2330,6 +2330,16 @@ Here be coffee
     return this;
   };
 
+  Planner.prototype.show = function() {
+    this.setContainerOffset(-this.nodeHeight, true);
+    return this;
+  };
+
+  Planner.prototype.hide = function() {
+    this.setContainerOffset(0, true);
+    return this;
+  };
+
   Planner.prototype.handleHammer = function(event) {
     var direction, type;
 
@@ -2340,18 +2350,18 @@ Here be coffee
     if (type === 'dragup' || type === 'dragdown') {
       this.setContainerOffset(-(this.height - event.gesture.center.pageY));
     } else if (type === 'swipeup') {
-      this.setContainerOffset(-this.nodeHeight, true);
+      this.show();
     } else if (type === 'swipedown') {
-      this.setContainerOffset(0, true);
+      this.hide();
     } else if (type === 'release') {
       if (this.nodeHeight / 2 < Math.abs(event.gesture.deltaY)) {
         if (direction === 'down') {
-          this.setContainerOffset(0, true);
+          this.hide();
         } else {
-          this.setContainerOffset(-this.nodeHeight, true);
+          this.show();
         }
       } else {
-        this.setContainerOffset(-this.nodeHeight, true);
+        this.show();
       }
     }
     return this;
@@ -2643,17 +2653,13 @@ Here be coffee
 
   $planRouteModal = ($('#plan-route-modal')).item();
 
-  $planner = ($('.planner')).item();
+  $planner = $$('.planner');
 
-  $planner.on('click', function() {
-    return console.log(this, arguments);
-  });
+  $planRoute = $$('#plan-route');
 
-  $planRoute = ($('#plan-route')).item();
+  $planTo = $$('#plan-route-to');
 
-  $planTo = ($('#plan-route-to')).item();
-
-  $planFrom = ($('#plan-route-from')).item();
+  $planFrom = $$('#plan-route-from');
 
   window.on('load', function() {
     return locationManager.request();
@@ -2671,6 +2677,8 @@ Here be coffee
       if (error) {
         alert("Sorry. Er trad een fout op in de applicatie: " + error);
         return console.log('ERROR!', arguments);
+      } else {
+        return planner.hide();
       }
     };
     if (origin === 'huidige locatie' || destination === 'huidige locatie') {
@@ -2750,6 +2758,10 @@ Here be coffee
   meestermatcher = new Carousel($meestermatcher, true);
 
   planner = new Planner($planner);
+
+  planner.show();
+
+  $planner.style.height = '100%';
 
   exports.planner = planner;
 
