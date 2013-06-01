@@ -39,19 +39,6 @@ html
 		// Include the compiled CSS
 		stylesheet[href="./_presentation/opstapp.css"]
 	body
-		#plan-route-modal.plan-route-modal.modal.active
-			.content.content-padded
-				.input-group
-					.input-row
-						label "Van"
-						input#plan-route-from[type="text"][placeholder="Huidige locatie"]
-					.input-row
-						label "Naar"
-						input#plan-route-to[type="text"][placeholder="Huidige locatie"]
-				
-				a#plan-route.button-primary.button-block.button-large "Plan route"
-				a#plan-uitgestippeld.button-secondary.button-block.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
-		
 		#info-modal.info-modal.modal
 		
 		#uitgestippeld-modal.uitgestippeld-modal.modal
@@ -76,7 +63,7 @@ html
 			footer.bar-footer
 				a.button-secondary.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
-		#walkthrough-modal.walkthrough-modal.modal.active
+		#walkthrough-modal.walkthrough-modal.modal
 			header.bar-title
 				h3.title "Introductie"
 				a.button[href="#walkthrough-modal"] "Close"
@@ -94,10 +81,10 @@ html
 								.input-group
 									.input-row
 										label "Van"
-										input#plan-route-from[type="text"][placeholder="Huidige locatie"]
+										input[type="text"][placeholder="Huidige locatie"]
 									.input-row
 										label "Naar"
-										input#plan-route-to[type="text"][placeholder="Huidige locatie"]
+										input[type="text"][placeholder="Huidige locatie"]
 								a.button-primary.button-block.button-large "Plan route"
 								a.button-secondary.button-block.button-large "Uitgestippeld"
 					li
@@ -198,8 +185,18 @@ html
 		header.bar-title > h1.title "Opstapp"
 		.content
 			#map-canvas
-		header.bar-footer
-			a.button-primary.button-block[href="#plan-route-modal"] "Route aanpassen"
+		footer.planner
+			.input-group
+				.input-row
+					label "Van"
+					input#plan-route-from[type="text"][placeholder="Huidige locatie"]
+				.input-row
+					label "Naar"
+					input#plan-route-to[type="text"][placeholder="Huidige locatie"]
+			
+			.row
+				a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
+				a#plan-route.button.button-primary.button-large "Opstapp!"
 
 		// Include the compiled JS
 		script[src="./_behavior/opstapp.js"]

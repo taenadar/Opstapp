@@ -2296,6 +2296,72 @@ Here be coffee
 }).call(this);
 ;
 (function() {
+  var Planner, exports;
+
+  exports = this;
+
+  Planner = function($node, insertController) {
+    var $hammer,
+      _this = this;
+
+    this.$node = $node;
+    this.height = window.innerHeight;
+    this.nodeHeight = $node.getBoundingClientRect().height;
+    $hammer = Hammer($node, {
+      'drag_lock_to_axis': true
+    });
+    $hammer.on('swipedown swipeup dragup dragdown release', function() {
+      return _this.handleHammer.apply(_this, arguments);
+    });
+    return this;
+  };
+
+  Planner.prototype.setContainerOffset = function(delta, animate) {
+    var offset;
+
+    this.$node.classList[animate ? 'add' : 'remove']('animate');
+    if (delta > 0) {
+      delta = delta * 0.3;
+    } else if (delta < -this.nodeHeight) {
+      delta = -this.nodeHeight + ((this.nodeHeight + delta) * 0.3);
+    }
+    offset = (-delta / this.height) * 100;
+    this.$node.style.top = "" + (100 - offset) + "%";
+    return this;
+  };
+
+  Planner.prototype.handleHammer = function(event) {
+    var direction, type;
+
+    event.gesture.preventDefault();
+    event.preventDefault();
+    type = event.type;
+    direction = event.gesture.direction;
+    if (type === 'dragup' || type === 'dragdown') {
+      this.setContainerOffset(-(this.height - event.gesture.center.pageY));
+    } else if (type === 'swipeup') {
+      this.setContainerOffset(-this.nodeHeight, true);
+    } else if (type === 'swipedown') {
+      this.setContainerOffset(0, true);
+    } else if (type === 'release') {
+      if (this.nodeHeight / 2 < Math.abs(event.gesture.deltaY)) {
+        if (direction === 'down') {
+          this.setContainerOffset(0, true);
+        } else {
+          this.setContainerOffset(-this.nodeHeight, true);
+        }
+      } else {
+        this.setContainerOffset(-this.nodeHeight, true);
+      }
+    }
+    return this;
+  };
+
+  exports.Planner = Planner;
+
+}).call(this);
+;
+(function() {
   var $backdrop, getTargets, onPopoverHidden, transitionEnd;
 
   transitionEnd = {
@@ -2457,7 +2523,7 @@ Here be coffee
 
 
 (function() {
-  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planRouteModal, $planTo, $walkthrough, LocationManager, app, carousel, exports, home, info, locationManager, meestermatcher, waypointToString, waypoints;
+  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planRouteModal, $planTo, $planner, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, waypointToString, waypoints;
 
   exports = this;
 
@@ -2577,11 +2643,11 @@ Here be coffee
 
   $planRouteModal = ($('#plan-route-modal')).item();
 
-  exports.home = home = function(boolean) {
-    boolean === !!boolean || (boolean = !$planRouteModal.classList.contains('active'));
-    $planRouteModal.classList[boolean ? 'add' : 'remove']('active');
-    return $planRouteModal;
-  };
+  $planner = ($('.planner')).item();
+
+  $planner.on('click', function() {
+    return console.log(this, arguments);
+  });
 
   $planRoute = ($('#plan-route')).item();
 
@@ -2605,8 +2671,6 @@ Here be coffee
       if (error) {
         alert("Sorry. Er trad een fout op in de applicatie: " + error);
         return console.log('ERROR!', arguments);
-      } else {
-        return home(false);
       }
     };
     if (origin === 'huidige locatie' || destination === 'huidige locatie') {
@@ -2684,5 +2748,9 @@ Here be coffee
   $meestermatcher = $$('.meestermatcher-modal .carousel');
 
   meestermatcher = new Carousel($meestermatcher, true);
+
+  planner = new Planner($planner);
+
+  exports.planner = planner;
 
 }).call(this);

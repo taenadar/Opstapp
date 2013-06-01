@@ -106,12 +106,9 @@ $planRouteModal = do ( $ '#plan-route-modal' ).item
 # Show/hide.
 
 
-exports.home = home = ( boolean ) ->
-	boolean is !!boolean or boolean = !$planRouteModal.classList.contains 'active'
-	
-	$planRouteModal.classList[ if boolean then 'add' else 'remove' ] 'active'
-	
-	$planRouteModal
+$planner = do ( $ '.planner' ).item
+
+$planner.on 'click', -> console.log @, arguments
 
 $planRoute = do ( $ '#plan-route' ).item
 $planTo = do ( $ '#plan-route-to' ).item
@@ -132,8 +129,6 @@ $planRoute.on 'click', ( event ) ->
 		if error
 			alert "Sorry. Er trad een fout op in de applicatie: #{error}"
 			console.log 'ERROR!', arguments
-		else
-			home false
 	
 	if origin is 'huidige locatie' or destination is 'huidige locatie'
 		locationManager.once ( position ) ->
@@ -214,3 +209,7 @@ carousel = new Carousel $walkthrough, true
 
 $meestermatcher = $$ '.meestermatcher-modal .carousel'
 meestermatcher = new Carousel $meestermatcher, true
+
+planner = new Planner $planner
+
+exports.planner = planner

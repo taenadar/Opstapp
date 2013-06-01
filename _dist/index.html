@@ -21,30 +21,6 @@
 		<link rel="stylesheet" href="./_presentation/opstapp.css"/>
 	</head>
 	<body>
-		<div id="plan-route-modal" class="plan-route-modal modal active">
-			<div class="content content-padded">
-				<div class="input-group">
-					<div class="input-row">
-						<label>
-							Van
-						</label>
-						<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
-					</div>
-					<div class="input-row">
-						<label>
-							Naar
-						</label>
-						<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
-					</div>
-				</div>
-				<a id="plan-route" class="button-primary button-block button-large">
-					Plan route
-				</a>
-				<a id="plan-uitgestippeld" class="button-secondary button-block button-large" href="#uitgestippeld-modal">
-					Uitgestippeld
-				</a>
-			</div>
-		</div>
 		<div id="info-modal" class="info-modal modal"></div>
 		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal">
 			<header class="bar-title">
@@ -81,7 +57,7 @@
 				</a>
 			</footer>
 		</div>
-		<div id="walkthrough-modal" class="walkthrough-modal modal active">
+		<div id="walkthrough-modal" class="walkthrough-modal modal">
 			<header class="bar-title">
 				<h3 class="title">
 					Introductie
@@ -120,13 +96,13 @@
 												<label>
 													Van
 												</label>
-												<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
+												<input type="text" placeholder="Huidige locatie"/>
 											</div>
 											<div class="input-row">
 												<label>
 													Naar
 												</label>
-												<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
+												<input type="text" placeholder="Huidige locatie"/>
 											</div>
 										</div>
 										<a class="button-primary button-block button-large">
@@ -376,11 +352,30 @@
 		<div class="content">
 			<div id="map-canvas"></div>
 		</div>
-		<header class="bar-footer">
-			<a class="button-primary button-block" href="#plan-route-modal">
-				Route aanpassen
-			</a>
-		</header>
+		<footer class="planner">
+			<div class="input-group">
+				<div class="input-row">
+					<label>
+						Van
+					</label>
+					<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
+				</div>
+				<div class="input-row">
+					<label>
+						Naar
+					</label>
+					<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
+				</div>
+			</div>
+			<div class="row">
+				<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
+					Uitgestippeld
+				</a>
+				<a id="plan-route" class="button button-primary button-large">
+					Opstapp!
+				</a>
+			</div>
+		</footer>
 		<script src="./_behavior/opstapp.js"></script>
 	</body>
 </html>
