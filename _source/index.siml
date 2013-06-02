@@ -63,7 +63,7 @@ html
 			footer.bar-footer
 				a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
-		#walkthrough-modal.walkthrough-modal.modal
+		#walkthrough-modal.walkthrough-modal.modal.active
 			header.bar-title
 				h3.title "Introductie"
 				a.button[href="#walkthrough-modal"] "Close"

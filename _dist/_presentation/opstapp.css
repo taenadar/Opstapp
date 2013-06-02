@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-06-01
+/*! opstapp - v0.0.1 - 2013-06-03
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /* General bar styles
@@ -269,15 +269,10 @@ a {
   -webkit-transition-duration: .2s, .2s;
   transition-duration: .2s, .2s;
   -webkit-transition-timing-function: linear, linear;
-  transition-timing-function: linear, linear;
-  -webkit-overflow-scrolling: touch; }
+  transition-timing-function: linear, linear; }
 
 /* Hack to force all relatively and absolutely positioned elements still render while scrolling
 	 Note: This is a bug for "-webkit-overflow-scrolling: touch" */
-.content > * {
-  -webkit-transform: translateZ(0px);
-  transform: translateZ(0px); }
-
 /* Utility wrapper to pad in components like forms, block buttons and segmented-controllers so they're not full-bleed */
 .content-padded {
   padding: 10px; }
@@ -718,8 +713,7 @@ textarea {
 -------------------------------------------------- */
 .popover .list {
   width: auto;
-  max-height: 250px;
-  -webkit-overflow-scrolling: touch; }
+  max-height: 250px; }
 
 /* Modals -------------------------------------------------- */
 .modal {

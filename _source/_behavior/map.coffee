@@ -238,7 +238,6 @@ onLocationUpdate = ( position ) ->
 			'animation' : google.maps.Animation.DROP
 			'flat' : true
 	
-	do updateBounds
 	undefined
 
 clearMap = ->
@@ -285,15 +284,23 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 	
 	if point.waypoint
 		data = point.waypoint
-		content = "<b>#{data.piece}</b><br/>#{data.artist}<br/><a class=\"button-primary button-block button-large button-map\" href=\"#{data.link}\" data-id=\"#{data.info.id}\">Meer info »</a>"
+		# <a class=\"button-primary button-block button-large button-map\" href=\"#{data.link}\" data-id=\"#{data.info.id}\">Meer info »</a>
+		content = "<b>#{data.piece}</b><br/>#{data.artist}<br/>"
 	else
 		content = "<b>#{address}</b>"
 		
 	window.setTimeout ->
 			marker = makeMarker point, icon, title
 			
-			marker.info = new google.maps.InfoWindow
+			# marker.info = new google.maps.InfoWindow
+			# 	'content' : content
+			
+			marker.info = infoBox = new InfoBox
+				'map' : map
+				'latlng' : point
 				'content' : content
+			
+			marker.info.intent
 			
 			google.maps.event.addListener marker, 'click', ->
 				if currentMarker
@@ -301,7 +308,7 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 				
 				marker.info.open map, marker
 				currentMarker = marker
-			
+				
 		, index * 200
 
 google.maps.event.addListener map, 'click', ->

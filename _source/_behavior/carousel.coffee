@@ -85,12 +85,19 @@ Carousel::showPane = ( index ) ->
 
 Carousel::setContainerOffset = ( percent, animate ) ->
 	
-	@$container.classList[ if animate then 'add' else 'remove' ] 'animate'
+	if animate
+		@$container.classList.add 'animate'
 	
 	if transform = supports 'transform'
-		@$container.style[ transform  ] = "translate3d(#{percent}%,0,0) scale3d(1,1,1)"
+		if animate
+			@$container.style[ transform  ] = "translate3d(#{percent}%,0,0) scale3d(1,1,1)"
+		else
+			@$container.style[ transform  ] = "translate3d(#{percent}%,0,0) scale3d(0.95,0.95,1)"
 	else
 		@$container.style.left = "#{percent * @paneCount}%"
+	
+	unless animate
+		@$container.classList.remove 'animate'
 	
 	@
 

@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-06-01
+/*! opstapp - v0.0.1 - 2013-06-03
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -1629,11 +1629,20 @@ eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a
   Carousel.prototype.setContainerOffset = function(percent, animate) {
     var transform;
 
-    this.$container.classList[animate ? 'add' : 'remove']('animate');
+    if (animate) {
+      this.$container.classList.add('animate');
+    }
     if (transform = supports('transform')) {
-      this.$container.style[transform] = "translate3d(" + percent + "%,0,0) scale3d(1,1,1)";
+      if (animate) {
+        this.$container.style[transform] = "translate3d(" + percent + "%,0,0) scale3d(1,1,1)";
+      } else {
+        this.$container.style[transform] = "translate3d(" + percent + "%,0,0) scale3d(0.95,0.95,1)";
+      }
     } else {
       this.$container.style.left = "" + (percent * this.paneCount) + "%";
+    }
+    if (!animate) {
+      this.$container.classList.remove('animate');
     }
     return this;
   };
@@ -1843,6 +1852,157 @@ Here be coffee
     }
     return false;
   };
+
+}).call(this);
+;
+(function() {
+  var F, InfoBox, exports;
+
+  exports = this;
+
+  /*
+  An InfoBox is like an info window, but it displays
+  under the marker, opens quicker, and has flexible styling.
+  @param {GLatLng} latlng Point to place bar at
+  @param {Map} map The map on which to display this InfoBox.
+  @param {Object} opts Passes configuration options - content,
+  	 offsetVertical, offsetHorizontal, className, height, width
+  */
+
+
+  InfoBox = function(options) {
+    google.maps.OverlayView.call(this);
+    this.point = options.latlng;
+    this.content = options.content;
+    this.height = 150;
+    this.width = 150;
+    this.offsetVertical = -185;
+    this.offsetHorizontal = -25;
+    return this;
+  };
+
+  F = function() {};
+
+  F.prototype = google.maps.OverlayView.prototype;
+
+  InfoBox.prototype = new F;
+
+  InfoBox.prototype.remove = function() {
+    return this.close();
+  };
+
+  InfoBox.prototype.close = function() {
+    console.log('close', this, this.$node);
+    if (this.$node) {
+      this.$node.parentNode.removeChild(this.$node);
+      this.$node = null;
+    }
+    this.setMap(null);
+    return this;
+  };
+
+  InfoBox.prototype.open = function(map) {
+    var _this = this;
+
+    this.onboundsChange = google.maps.event.addListener(map, 'bounds_changed', function() {
+      return _this.panMap();
+    });
+    this.setMap(map);
+    return this;
+  };
+
+  InfoBox.prototype.draw = function() {
+    var pixPosition;
+
+    this.createElement();
+    if (!this.$node) {
+      return;
+    }
+    pixPosition = this.getProjection().fromLatLngToDivPixel(this.point);
+    if (!pixPosition) {
+      return;
+    }
+    this.$node.style.width = "" + this.width + "px";
+    this.$node.style.left = "" + (pixPosition.x + this.offsetHorizontal) + "px";
+    this.$node.style.height = "" + this.height + "px";
+    this.$node.style.top = "" + (pixPosition.y + this.offsetVertical) + "px";
+    return this.$node.style.display = 'table';
+  };
+
+  InfoBox.prototype.createElement = function() {
+    var $content, $node, panes;
+
+    panes = this.getPanes();
+    $node = this.$node;
+    if ($node) {
+      console.log($node.parentNode, panes.floatPane);
+    }
+    if (!$node) {
+      console.log('not node', this, $node);
+      $node = this.$node = document.createElement('div');
+      $node.style.position = 'absolute';
+      $node.style.backgroundColor = 'white';
+      $node.style.textAlign = 'center';
+      $node.style.boxShadow = '0 0 0 5px rgba(0,0,0,.5)';
+      $node.style.textTransform = 'uppercase';
+      $node.style.borderRadius = "100%";
+      $content = document.createElement('div');
+      $content.innerHTML = this.content;
+      $content.style.display = 'table-cell';
+      $content.style.verticalAlign = 'middle';
+      $content.style.padding = '0 0.5em';
+      $node.appendChild($content);
+      $node.style.display = 'none';
+      panes.floatPane.appendChild($node);
+      return this.panMap();
+    } else if ($node.parentNode !== panes.floatPane) {
+      console.log('else if', this);
+      return panes.floatPane.appendChild($node.parentNode.removeChild($node));
+    } else {
+      return console.log('else');
+    }
+  };
+
+  InfoBox.prototype.panMap = function() {
+    var bounds, boxEastLng, boxNorthLat, boxOffsetX, boxOffsetY, boxPaddingX, boxPaddingY, boxSouthLat, boxWestLng, center, centerX, centerY, degreesPixelX, degreesPixelY, map, mapDiv, mapEastLng, mapHeight, mapNorthLat, mapSouthLat, mapWestLng, mapWidth, position, shiftLat, shiftLng, spanBounds, spanLat, spanLong;
+
+    map = this.map;
+    bounds = map.getBounds();
+    if (!bounds) {
+      return;
+    }
+    position = this.point;
+    boxOffsetX = this.offsetHorizontal;
+    boxOffsetY = this.offsetVertical;
+    boxPaddingX = 40;
+    boxPaddingY = 40;
+    mapDiv = map.getDiv();
+    mapWidth = mapDiv.offsetWidth;
+    mapHeight = mapDiv.offsetHeight;
+    spanBounds = bounds.toSpan();
+    spanLong = spanBounds.lng();
+    spanLat = spanBounds.lat();
+    degreesPixelX = spanLong / mapWidth;
+    degreesPixelY = spanLat / mapHeight;
+    mapWestLng = bounds.getSouthWest().lng();
+    mapEastLng = bounds.getNorthEast().lng();
+    mapNorthLat = bounds.getNorthEast().lat();
+    mapSouthLat = bounds.getSouthWest().lat();
+    boxWestLng = position.lng() + (boxOffsetX - boxPaddingX) * degreesPixelX;
+    boxEastLng = position.lng() + (boxOffsetX + this.width + boxPaddingX) * degreesPixelX;
+    boxNorthLat = position.lat() - (boxOffsetY - boxPaddingY) * degreesPixelY;
+    boxSouthLat = position.lat() - (boxOffsetY + this.height + boxPaddingY) * degreesPixelY;
+    shiftLng = (boxWestLng < mapWestLng ? mapWestLng - boxWestLng : 0) + (boxEastLng > mapEastLng ? mapEastLng - boxEastLng : 0);
+    shiftLat = (boxNorthLat > mapNorthLat ? mapNorthLat - boxNorthLat : 0) + (boxSouthLat < mapSouthLat ? mapSouthLat - boxSouthLat : 0);
+    center = map.getCenter();
+    centerX = center.lng() - shiftLng;
+    centerY = center.lat() - shiftLat;
+    map.panTo(new google.maps.LatLng(centerY, centerX));
+    google.maps.event.removeListener(this.onboundsChange);
+    return this.onboundsChange = null;
+  };
+
+  exports.InfoBox = InfoBox;
 
 }).call(this);
 ;
@@ -2133,7 +2293,6 @@ Here be coffee
         'flat': true
       });
     }
-    updateBounds();
     return void 0;
   };
 
@@ -2183,17 +2342,20 @@ Here be coffee
     }
     if (point.waypoint) {
       data = point.waypoint;
-      content = "<b>" + data.piece + "</b><br/>" + data.artist + "<br/><a class=\"button-primary button-block button-large button-map\" href=\"" + data.link + "\" data-id=\"" + data.info.id + "\">Meer info »</a>";
+      content = "<b>" + data.piece + "</b><br/>" + data.artist + "<br/>";
     } else {
       content = "<b>" + address + "</b>";
     }
     return window.setTimeout(function() {
-      var marker;
+      var infoBox, marker;
 
       marker = makeMarker(point, icon, title);
-      marker.info = new google.maps.InfoWindow({
+      marker.info = infoBox = new InfoBox({
+        'map': map,
+        'latlng': point,
         'content': content
       });
+      marker.info.intent;
       return google.maps.event.addListener(marker, 'click', function() {
         if (currentMarker) {
           currentMarker.info.close();
