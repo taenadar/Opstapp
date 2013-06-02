@@ -384,24 +384,23 @@ app.data = [
 			"description" : "De Torensluis met de Jan Roodenpoortstoren te Amsterdam. De toren is in 1829 afgebroken.",
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1018"
 		}
-	}
-	// },
-	// {
-		// "artist": "",
-		// "piece": "",
-		// "latitude": "",
-		// "longitude": "",
-		// "description": "",
-		// "link": "https://www.rijksmuseum.nl/nl/collectie/",
-		// "info" : {
-			// "title" : "",
-			// "type" : "",
-			// "id" : "",
-			// "date" : "",
-			// "description" : "",
-			// "image": "https://www.rijksmuseum.nl/assetimage2.jsp?id="
-		// }
-	// },
+	},
+	{
+		"artist": "Rembrandt van Rijn",
+		"piece": "Gezicht op de Nieuwezijds Voorburgwal",
+		"latitude": "52.373451",
+		"longitude": "4.890522",
+		"description": "De Nieuwezijds Voorburgwal is een gedempte gracht. Oorspronkelijk was de Nieuwezijds Voorburgwal een langs een gracht aangelegde burgwal. De gracht Nieuwezijds Voorburgwal is in 1884 gedempt.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1930-64",
+		"info" : {
+			"title" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
+			"type" : "tekening",
+			"id" : "RP-T-1930-64",
+			"date" : "1657 - 1659",
+			"description" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1930-64"
+		}
+	},
 	// {
 		// "artist": "",
 		// "piece": "",
