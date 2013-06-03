@@ -19,8 +19,6 @@ Planner::setContainerOffset = ( delta, animate ) ->
 	
 	@$node.classList[ if animate then 'add' else 'remove' ] 'animate'
 	
-	console.log delta
-	
 	if delta > 0
 		delta = ( delta * 0.3 )
 	else if delta < -@nodeHeight
