@@ -2495,7 +2495,6 @@ Here be coffee
     var offset;
 
     this.$node.classList[animate ? 'add' : 'remove']('animate');
-    console.log(delta);
     if (delta > 0) {
       delta = delta * 0.3;
     } else if (delta < -this.nodeHeight) {
@@ -2713,7 +2712,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planTo, $planner, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, waypointToString, waypoints;
+  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planTo, $planner, $uitgestippeld, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, uitgestippeld, waypointToString, waypoints;
 
   exports = this;
 
@@ -2932,6 +2931,10 @@ Here be coffee
   $meestermatcher = $$('.meestermatcher-modal .carousel');
 
   meestermatcher = new Carousel($meestermatcher, true);
+
+  $uitgestippeld = $$('.uitgestippeld-modal .carousel');
+
+  uitgestippeld = new Carousel($uitgestippeld, true);
 
   planner = new Planner($planner);
 

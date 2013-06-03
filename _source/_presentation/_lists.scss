@@ -23,13 +23,13 @@
 }
 
 /* If a list of links, make sure the child <a> takes up full list item tap area (want to avoid selecting child buttons though) */
-.list li > a:not([class*="button"]) {
-	position: relative;
-	display: block;
-	padding: inherit;
-	margin: -20px -60px -20px -10px;
-	color: inherit;
-}
+// .list li > a:not([class*="button"]) {
+// 	position: relative;
+// 	display: block;
+// 	padding: inherit;
+// 	margin: -20px -60px -20px -10px;
+// 	color: inherit;
+// }
 
 .list + *
 {

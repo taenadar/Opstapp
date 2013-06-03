@@ -18,11 +18,12 @@
 		<link rel="apple-touch-startup-image" href="./asset/image/startup_image/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"/>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgzRd9CQLIBHuB8j_Yy7msfopuDeXzQ8&amp;amp;v=3.exp&amp;sensor=false"></script>
 		<script src="./asset/data/data.js"></script>
+		<script src="./asset/data/route.js"></script>
 		<link rel="stylesheet" href="./_presentation/opstapp.css"/>
 	</head>
 	<body>
 		<div id="info-modal" class="info-modal modal"></div>
-		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal">
+		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal active">
 			<header class="bar-title">
 				<h3 class="title">
 					Uitgestippeld
@@ -31,23 +32,31 @@
 					Close
 				</a>
 			</header>
-			<div class="content">
-				<ul class="list">
+			<div class="content carousel">
+				<ul class="list carousel-list">
 					<li>
-						Rembrandtroute
-						<span class="chevron"></span>
+						<a class="uitgestippeld-item" data-id="opstapp-rembrandt" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)">
+							<div class="uitgestippeld-content">
+								<h1>
+									Rembrandtroute
+								</h1>
+								<p>
+									Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein.
+								</p>
+							</div>
+						</a>
 					</li>
 					<li>
-						Van Goghroute
-						<span class="chevron"></span>
-					</li>
-					<li>
-						Oostroute
-						<span class="chevron"></span>
-					</li>
-					<li>
-						Rembrandtroute
-						<span class="chevron"></span>
+						<a class="uitgestippeld-item" data-id="opstapp-breitner" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)">
+							<div class="uitgestippeld-content">
+								<h1>
+									Breitnerroute
+								</h1>
+								<p>
+									Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein.
+								</p>
+							</div>
+						</a>
 					</li>
 				</ul>
 			</div>
@@ -57,7 +66,7 @@
 				</a>
 			</footer>
 		</div>
-		<div id="walkthrough-modal" class="walkthrough-modal modal active">
+		<div id="walkthrough-modal" class="walkthrough-modal modal">
 			<header class="bar-title">
 				<h3 class="title">
 					Introductie

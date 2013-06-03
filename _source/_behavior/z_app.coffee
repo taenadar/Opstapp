@@ -202,6 +202,9 @@ carousel = new Carousel $walkthrough, true
 $meestermatcher = $$ '.meestermatcher-modal .carousel'
 meestermatcher = new Carousel $meestermatcher, true
 
+$uitgestippeld = $$ '.uitgestippeld-modal .carousel'
+uitgestippeld = new Carousel $uitgestippeld, true
+
 planner = new Planner $planner
 do planner.show
 

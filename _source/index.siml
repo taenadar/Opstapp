@@ -35,35 +35,35 @@ html
 		
 		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgzRd9CQLIBHuB8j_Yy7msfopuDeXzQ8&amp;v=3.exp&sensor=false"]
 		script[src="./asset/data/data.js"]
+		script[src="./asset/data/route.js"]
 
 		// Include the compiled CSS
 		stylesheet[href="./_presentation/opstapp.css"]
 	body
 		#info-modal.info-modal.modal
 		
-		#uitgestippeld-modal.uitgestippeld-modal.modal
+		#uitgestippeld-modal.uitgestippeld-modal.modal.active
 			header.bar-title
 				h3.title "Uitgestippeld"
 				a.button[href="#uitgestippeld-modal"] "Close"
 				
-			.content > ul.list
-				li
-					"Rembrandtroute"
-					span.chevron
-				li
-					"Van Goghroute"
-					span.chevron
-				li
-					"Oostroute"
-					span.chevron
-				li
-					"Rembrandtroute"
-					span.chevron
+			.content.carousel
+				ul.list.carousel-list
+					li
+						a.uitgestippeld-item[data-id="opstapp-rembrandt"][style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)"]
+							.uitgestippeld-content
+								h1 "Rembrandtroute"
+								p "Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein."
+					li
+						a.uitgestippeld-item[data-id="opstapp-breitner"][style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)"]
+							.uitgestippeld-content
+								h1 "Breitnerroute"
+								p "Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein."
 			
 			footer.bar-footer
 				a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
-		#walkthrough-modal.walkthrough-modal.modal.active
+		#walkthrough-modal.walkthrough-modal.modal
 			header.bar-title
 				h3.title "Introductie"
 				a.button[href="#walkthrough-modal"] "Close"

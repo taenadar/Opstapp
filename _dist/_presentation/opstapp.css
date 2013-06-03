@@ -599,13 +599,6 @@ textarea {
 
 /* Give top border to first list items */
 /* If a list of links, make sure the child <a> takes up full list item tap area (want to avoid selecting child buttons though) */
-.list li > a:not([class*="button"]) {
-  position: relative;
-  display: block;
-  padding: inherit;
-  margin: -20px -60px -20px -10px;
-  color: inherit; }
-
 .list + * {
   margin-top: .5rem; }
 
@@ -1178,6 +1171,35 @@ textarea {
   margin-right: 74px;
   overflow: hidden;
   text-overflow: ellipsis; }
+
+.uitgestippeld-modal .carousel-list {
+  height: 80%; }
+
+.uitgestippeld-modal .carousel-controller {
+  bottom: initial;
+  top: 85%; }
+
+.uitgestippeld-modal .carousel-list li {
+  display: block;
+  height: 100%;
+  padding: 1em 0; }
+
+.uitgestippeld-item {
+  color: inherit;
+  padding: 2em 2em 3em 2em;
+  background-size: cover;
+  margin-left: 1em;
+  margin-right: 1em;
+  height: 100%;
+  display: table; }
+
+.uitgestippeld-content {
+  margin: 1em;
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  padding: 1em;
+  background: rgba(0, 0, 0, 0.5); }
 
 body > .content {
   overflow: hidden;
