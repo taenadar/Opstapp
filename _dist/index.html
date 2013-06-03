@@ -23,7 +23,7 @@
 	</head>
 	<body>
 		<div id="info-modal" class="info-modal modal"></div>
-		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal active">
+		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal">
 			<header class="bar-title">
 				<h3 class="title">
 					Uitgestippeld
@@ -35,7 +35,7 @@
 			<div class="content carousel">
 				<ul class="list carousel-list">
 					<li>
-						<a class="uitgestippeld-item" data-id="opstapp-rembrandt" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)">
+						<div class="uitgestippeld-item" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)">
 							<div class="uitgestippeld-content">
 								<h1>
 									Rembrandtroute
@@ -43,11 +43,14 @@
 								<p>
 									Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein.
 								</p>
+								<a class="button-block button-primary button-large uitgestippeld-link" data-id="opstapp-rembrandt">
+									Opstapp!
+								</a>
 							</div>
-						</a>
+						</div>
 					</li>
 					<li>
-						<a class="uitgestippeld-item" data-id="opstapp-breitner" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)">
+						<div class="uitgestippeld-item" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)">
 							<div class="uitgestippeld-content">
 								<h1>
 									Breitnerroute
@@ -55,18 +58,16 @@
 								<p>
 									Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein.
 								</p>
+								<a class="button-block button-primary button-large uitgestippeld-link" data-id="opstapp-breitner">
+									Opstapp!
+								</a>
 							</div>
-						</a>
+						</div>
 					</li>
 				</ul>
 			</div>
-			<footer class="bar-footer">
-				<a class="button-secondary button-large button-block" href="#meestermatcher-modal">
-					Meestermatcher
-				</a>
-			</footer>
 		</div>
-		<div id="walkthrough-modal" class="walkthrough-modal modal">
+		<div id="walkthrough-modal" class="walkthrough-modal modal active">
 			<header class="bar-title">
 				<h3 class="title">
 					Introductie

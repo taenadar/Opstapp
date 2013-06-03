@@ -2010,7 +2010,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, findPointsOnRouteCount, latLongRegExp, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
+  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, latLongRegExp, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
 
   exports = this;
 
@@ -2210,13 +2210,10 @@ Here be coffee
 
   latLongRegExp = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/;
 
-  findPointsOnRouteCount = 0;
-
   findPointsOnRoute = function(response, origin, destination, distance, callback) {
     var bounds, boxes, boxpolys, iterator, iterator_, length, length_, path, summary, waypts;
 
     path = response.routes[0].overview_path;
-    findPointsOnRouteCount++;
     boxes = routeBoxer.box(path, distance);
     waypts = [];
     iterator = -1;
@@ -2253,7 +2250,8 @@ Here be coffee
         }
         return;
       }
-      drawNewRoute(waypts, origin, destination, distance, callback);
+      console.log(waypts);
+      drawNewRoute(waypts, origin, destination, callback);
     }
     return this;
   };
@@ -2359,7 +2357,7 @@ Here be coffee
         'latlng': point,
         'content': content,
         'onclick': function(event) {
-          if (app.markerIntent) {
+          if (data && app.markerIntent) {
             event.data = {
               'id': data.info.id,
               'link': data.link
@@ -2386,9 +2384,10 @@ Here be coffee
     }
   });
 
-  drawNewRoute = function(waypts, origin, destination, distance, callback) {
+  drawNewRoute = function(waypts, origin, destination, callback) {
     var request;
 
+    clearMap();
     app.locationManager.on(onLocationUpdate);
     request = {
       'origin': origin,
@@ -2429,6 +2428,8 @@ Here be coffee
   };
 
   exports.calcRoute = calcRoute;
+
+  exports.drawNewRoute = drawNewRoute;
 
 }).call(this);
 ;
@@ -2712,7 +2713,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planTo, $planner, $uitgestippeld, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, uitgestippeld, waypointToString, waypoints;
+  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planTo, $planner, $uitgestippeld, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, routes, uitgestippeld, waypointToString, waypoints;
 
   exports = this;
 
@@ -2924,15 +2925,83 @@ Here be coffee
     return void 0;
   };
 
-  $walkthrough = $$('.walkthrough-modal .carousel');
+  routes = {};
 
-  carousel = new Carousel($walkthrough, true);
+  (function() {
+    var data, data_, iterator, iterator_, length, length_, route, route_, waypoint, waypoints_;
+
+    iterator = -1;
+    data = app.route;
+    length = data.length;
+    while (++iterator < length) {
+      route = data[iterator];
+      waypoints_ = [];
+      route_ = {
+        'image': route.image,
+        'name': route.name,
+        'description': route.description
+      };
+      iterator_ = -1;
+      data_ = route.route;
+      length_ = data_.length;
+      while (++iterator_ < length_) {
+        waypoint = data_[iterator_];
+        if (waypoint.id && waypoints[waypoint.id]) {
+          waypoints_.push(waypoints[waypoint.id]);
+        }
+      }
+      route_.origin = waypoints_[0];
+      route_.destination = waypoints_[waypoints_.length - 1];
+      route_.waypoints = waypoints_.slice(1, waypoints_.length - 1);
+      routes[route.id] = route_;
+    }
+    return void 0;
+  })();
+
+  window.on('click', function(event) {
+    var $target, $uitgestippeldModal, destination, id, iterator, length, origin, route, waypoint;
+
+    $target = event.target;
+    if (!$target.classList.contains('uitgestippeld-link')) {
+      return;
+    }
+    id = $target.dataset.id;
+    route = routes[id];
+    if (!(id || route)) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    iterator = -1;
+    length = route.waypoints.length;
+    waypoints = [];
+    while (++iterator < length) {
+      waypoint = route.waypoints[iterator];
+      waypoints.push({
+        'location': new google.maps.LatLng(waypoint.latitude, waypoint.longitude),
+        'stopover': true
+      });
+    }
+    origin = new google.maps.LatLng(route.origin.latitude, route.origin.longitude);
+    destination = new google.maps.LatLng(route.destination.latitude, route.destination.longitude);
+    drawNewRoute(waypoints, origin, destination, function() {
+      return console.log('callback!');
+    });
+    planner.hide();
+    $uitgestippeldModal = $$('.uitgestippeld-modal');
+    $uitgestippeldModal.classList.remove('active');
+    return void 0;
+  });
+
+  $walkthrough = $$('.walkthrough-modal .carousel');
 
   $meestermatcher = $$('.meestermatcher-modal .carousel');
 
-  meestermatcher = new Carousel($meestermatcher, true);
-
   $uitgestippeld = $$('.uitgestippeld-modal .carousel');
+
+  carousel = new Carousel($walkthrough, true);
+
+  meestermatcher = new Carousel($meestermatcher, true);
 
   uitgestippeld = new Carousel($uitgestippeld, true);
 

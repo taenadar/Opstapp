@@ -157,10 +157,8 @@ calcRoute = ( start, end, distance, callback ) ->
 
 latLongRegExp = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/
 
-findPointsOnRouteCount = 0
 findPointsOnRoute = ( response, origin, destination, distance, callback ) ->
 	path = response.routes[ 0 ].overview_path
-	findPointsOnRouteCount++
 	boxes = routeBoxer.box path, distance
 	waypts = []
 	
@@ -200,7 +198,8 @@ findPointsOnRoute = ( response, origin, destination, distance, callback ) ->
 			
 			return
 		
-		drawNewRoute waypts, origin, destination, distance, callback
+		console.log waypts
+		drawNewRoute waypts, origin, destination, callback
 	
 	@
 
@@ -301,7 +300,7 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 				'latlng' : point
 				'content' : content
 				'onclick' : ( event ) ->
-					if app.markerIntent
+					if data and app.markerIntent
 						event.data =
 							'id' : data.info.id
 							'link' : data.link
@@ -327,7 +326,9 @@ google.maps.event.addListener map, 'click', ->
 		do currentMarker.info.close
 		currentMarker = null
 
-drawNewRoute = ( waypts, origin, destination, distance, callback ) ->
+drawNewRoute = ( waypts, origin, destination, callback ) ->
+	do clearMap
+	
 	app.locationManager.on onLocationUpdate
 	
 	request =
@@ -372,3 +373,4 @@ drawNewRoute = ( waypts, origin, destination, distance, callback ) ->
 # $map.style.height = '150%'
 
 exports.calcRoute = calcRoute
+exports.drawNewRoute = drawNewRoute

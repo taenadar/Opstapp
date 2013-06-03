@@ -42,7 +42,7 @@ html
 	body
 		#info-modal.info-modal.modal
 		
-		#uitgestippeld-modal.uitgestippeld-modal.modal.active
+		#uitgestippeld-modal.uitgestippeld-modal.modal
 			header.bar-title
 				h3.title "Uitgestippeld"
 				a.button[href="#uitgestippeld-modal"] "Close"
@@ -50,20 +50,22 @@ html
 			.content.carousel
 				ul.list.carousel-list
 					li
-						a.uitgestippeld-item[data-id="opstapp-rembrandt"][style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)"]
+						.uitgestippeld-item[style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)"]
 							.uitgestippeld-content
 								h1 "Rembrandtroute"
 								p "Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein."
+								a.button-block.button-primary.button-large.uitgestippeld-link[data-id="opstapp-rembrandt"] "Opstapp!"
 					li
-						a.uitgestippeld-item[data-id="opstapp-breitner"][style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)"]
+						.uitgestippeld-item[style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)"]
 							.uitgestippeld-content
 								h1 "Breitnerroute"
 								p "Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein."
+								a.button-block.button-primary.button-large.uitgestippeld-link[data-id="opstapp-breitner"] "Opstapp!"
 			
-			footer.bar-footer
-				a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
+			// footer.bar-footer
+			// 	a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
-		#walkthrough-modal.walkthrough-modal.modal
+		#walkthrough-modal.walkthrough-modal.modal.active
 			header.bar-title
 				h3.title "Introductie"
 				a.button[href="#walkthrough-modal"] "Close"

@@ -195,14 +195,93 @@ app.markerIntent = ( event ) ->
 	
 	undefined
 
+
+routes = {}
+
+do ->
+	iterator = -1
+	data = app.route
+	length = data.length
+	
+	while ++iterator < length
+		route = data[ iterator ]
+		waypoints_ = []
+		
+		route_ =
+			'image' : route.image
+			'name' : route.name
+			'description' : route.description
+			
+		iterator_ = -1
+		data_ = route.route
+		length_ = data_.length
+		
+		while ++iterator_ < length_
+			waypoint = data_[ iterator_ ]
+			
+			if waypoint.id and waypoints[ waypoint.id ]
+				waypoints_.push waypoints[ waypoint.id ]
+		
+		route_.origin = waypoints_[ 0 ]
+		route_.destination = waypoints_[ waypoints_.length - 1 ]
+		route_.waypoints = waypoints_.slice 1, waypoints_.length - 1
+		routes[ route.id ] = route_
+	
+	undefined
+
+
+window.on 'click', ( event ) ->
+	$target = event.target
+	
+	# while $target isnt document.body
+	# 	if $target.classList.contains 'uitgestippeld-link' then break
+	# 	
+	# 	$target = $target.parentElement
+	# 
+	unless $target.classList.contains 'uitgestippeld-link' then return
+	
+	id = $target.dataset.id
+	route = routes[ id ]
+	
+	unless id or route then return
+	
+	do event.preventDefault
+	do event.stopPropagation
+	
+	iterator = -1
+	length = route.waypoints.length
+	
+	waypoints = []
+	
+	while ++iterator < length
+		waypoint = route.waypoints[ iterator ]
+		
+		waypoints.push
+			'location' : new google.maps.LatLng waypoint.latitude, waypoint.longitude
+			'stopover' : true
+	
+	origin = new google.maps.LatLng route.origin.latitude, route.origin.longitude
+	destination = new google.maps.LatLng route.destination.latitude, route.destination.longitude
+	
+	drawNewRoute waypoints, origin, destination, ->
+		console.log 'callback!'
+	
+	do planner.hide
+	$uitgestippeldModal = $$ '.uitgestippeld-modal'
+	$uitgestippeldModal.classList.remove 'active'
+	
+	undefined
+
+# Initialization.
 	
 $walkthrough = $$ '.walkthrough-modal .carousel'
+$meestermatcher = $$ '.meestermatcher-modal .carousel'
+$uitgestippeld = $$ '.uitgestippeld-modal .carousel'
+
 carousel = new Carousel $walkthrough, true
 
-$meestermatcher = $$ '.meestermatcher-modal .carousel'
 meestermatcher = new Carousel $meestermatcher, true
 
-$uitgestippeld = $$ '.uitgestippeld-modal .carousel'
 uitgestippeld = new Carousel $uitgestippeld, true
 
 planner = new Planner $planner
@@ -210,3 +289,5 @@ do planner.show
 
 # Overwrite height.
 $planner.style.height = '100%'
+
+
