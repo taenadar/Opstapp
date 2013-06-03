@@ -269,10 +269,15 @@ a {
   -webkit-transition-duration: .2s, .2s;
   transition-duration: .2s, .2s;
   -webkit-transition-timing-function: linear, linear;
-  transition-timing-function: linear, linear; }
+  transition-timing-function: linear, linear;
+  -webkit-overflow-scrolling: touch; }
 
 /* Hack to force all relatively and absolutely positioned elements still render while scrolling
 	 Note: This is a bug for "-webkit-overflow-scrolling: touch" */
+.content > * {
+  -webkit-transform: translateZ(0px);
+  transform: translateZ(0px); }
+
 /* Utility wrapper to pad in components like forms, block buttons and segmented-controllers so they're not full-bleed */
 .content-padded {
   padding: 10px; }
@@ -1168,7 +1173,7 @@ textarea {
   overflow: hidden;
   text-overflow: ellipsis; }
 
-body .content {
+body > .content {
   overflow: hidden; }
 
 #map-canvas {

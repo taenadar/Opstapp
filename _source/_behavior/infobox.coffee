@@ -13,7 +13,7 @@ InfoBox = ( options ) ->
 	google.maps.OverlayView.call @
 	@point = options.latlng
 	@content = options.content
-	
+	@onclick = options.onclick
 	@height = 150
 	@width = 150
 	@offsetVertical = -185
@@ -32,8 +32,6 @@ InfoBox::remove = ->
 
 # Creates the $node representing this InfoBox.
 InfoBox::close = ->
-	
-	console.log 'close', @, @$node
 	
 	if @$node
 		@$node.parentNode.removeChild @$node
@@ -78,7 +76,7 @@ InfoBox::draw = ->
 
 # Creates the $node representing this InfoBox in the floatPane. If the panes
 # object, retrieved by calling getPanes, is null, remove the element from the
-# DOM.	If the $node exists, but its parent is not the floatPane, move the $node
+# DOM. If the $node exists, but its parent is not the floatPane, move the $node
 # to the new pane.
 # Called from within draw. Alternatively, this can be called specifically on
 # a panes_changed event.
@@ -86,11 +84,7 @@ InfoBox::createElement = ->
 	panes = do @getPanes
 	$node = @$node
 	
-	if $node
-		console.log $node.parentNode, panes.floatPane
-	
 	if not $node
-		console.log 'not node', @, $node
 		# This does not handle changing panes. You can set the map to be null 
 		# and then reset the map to move the $node.
 		$node = @$node = document.createElement 'div'
@@ -100,6 +94,12 @@ InfoBox::createElement = ->
 		$node.style.boxShadow = '0 0 0 5px rgba(0,0,0,.5)'
 		$node.style.textTransform = 'uppercase'
 		$node.style.borderRadius = "100%"
+		$node.style.zIndex = "999"
+		
+		$node.onclick = =>
+			if @onclick
+				@onclick.apply this, arguments
+			@
 		
 		$content = document.createElement 'div'
 		$content.innerHTML = @content
@@ -115,10 +115,8 @@ InfoBox::createElement = ->
 		
 	else if $node.parentNode isnt panes.floatPane
 		# The panes have changed. Move the $node.
-		console.log 'else if', @
 		panes.floatPane.appendChild $node.parentNode.removeChild $node
 	else
-		console.log 'else'
 		# The panes have not changed, so no need to create or move the $node.
 
 # Pan the map to fit the InfoBox.

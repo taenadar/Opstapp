@@ -1874,6 +1874,7 @@ Here be coffee
     google.maps.OverlayView.call(this);
     this.point = options.latlng;
     this.content = options.content;
+    this.onclick = options.onclick;
     this.height = 150;
     this.width = 150;
     this.offsetVertical = -185;
@@ -1892,7 +1893,6 @@ Here be coffee
   };
 
   InfoBox.prototype.close = function() {
-    console.log('close', this, this.$node);
     if (this.$node) {
       this.$node.parentNode.removeChild(this.$node);
       this.$node = null;
@@ -1930,15 +1930,12 @@ Here be coffee
   };
 
   InfoBox.prototype.createElement = function() {
-    var $content, $node, panes;
+    var $content, $node, panes,
+      _this = this;
 
     panes = this.getPanes();
     $node = this.$node;
-    if ($node) {
-      console.log($node.parentNode, panes.floatPane);
-    }
     if (!$node) {
-      console.log('not node', this, $node);
       $node = this.$node = document.createElement('div');
       $node.style.position = 'absolute';
       $node.style.backgroundColor = 'white';
@@ -1946,6 +1943,13 @@ Here be coffee
       $node.style.boxShadow = '0 0 0 5px rgba(0,0,0,.5)';
       $node.style.textTransform = 'uppercase';
       $node.style.borderRadius = "100%";
+      $node.style.zIndex = "999";
+      $node.onclick = function() {
+        if (_this.onclick) {
+          _this.onclick.apply(_this, arguments);
+        }
+        return _this;
+      };
       $content = document.createElement('div');
       $content.innerHTML = this.content;
       $content.style.display = 'table-cell';
@@ -1956,10 +1960,9 @@ Here be coffee
       panes.floatPane.appendChild($node);
       return this.panMap();
     } else if ($node.parentNode !== panes.floatPane) {
-      console.log('else if', this);
       return panes.floatPane.appendChild($node.parentNode.removeChild($node));
     } else {
-      return console.log('else');
+
     }
   };
 
@@ -2353,14 +2356,23 @@ Here be coffee
       marker.info = infoBox = new InfoBox({
         'map': map,
         'latlng': point,
-        'content': content
+        'content': content,
+        'onclick': function(event) {
+          if (app.markerIntent) {
+            event.data = {
+              'id': data.info.id,
+              'link': data.link
+            };
+            app.markerIntent.apply(this, arguments);
+          }
+          return this;
+        }
       });
-      marker.info.intent;
       return google.maps.event.addListener(marker, 'click', function() {
         if (currentMarker) {
           currentMarker.info.close();
         }
-        marker.info.open(map, marker);
+        marker.info.open(map);
         return currentMarker = marker;
       });
     }, index * 200);
@@ -2689,11 +2701,6 @@ Here be coffee
 
 }).call(this);
 ;
-/*
-Here be coffee
-*/
-
-
 (function() {
   var $infoModal, $meestermatcher, $planFrom, $planRoute, $planRouteModal, $planTo, $planner, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, waypointToString, waypoints;
 
@@ -2891,25 +2898,21 @@ Here be coffee
     return "<header class=\"bar-title\">\n	<h3 class=\"title\"><div class=\"overflow-wrapper\">" + data.piece + "</div></h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(" + data.info.image + ")\">\n		<img class=\"hidden\" alt=\"\" src=\"" + data.info.image + "\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + data.info.title + "</h1>\n		<h2>" + data.artist + "</h2>\n		<p>" + data.info.description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + data.link + "\">Op naar het Rijks!</a>\n	</div>\n</div>";
   };
 
-  window.on('click', function(event) {
-    var $target, id, waypoint;
+  app.markerIntent = function(event) {
+    var $target, data, waypoint;
 
     $target = event.target;
-    if ($target.classList.contains('button-map')) {
-      event.preventDefault();
-      event.stopPropagation();
-      id = $target.dataset.id;
-      if (id === 'undefined') {
-        id = null;
-      }
-      waypoint = waypoints[id];
-      if (!(id || waypoint)) {
-        return;
-      }
-      $infoModal.innerHTML = waypointToString(waypoint);
-      info(true);
+    event.preventDefault();
+    event.stopPropagation();
+    data = event.data;
+    waypoint = waypoints[data.id];
+    if (!(data.id || waypoint)) {
+      return;
     }
-  });
+    $infoModal.innerHTML = waypointToString(waypoint);
+    info(true);
+    return void 0;
+  };
 
   $walkthrough = $$('.walkthrough-modal .carousel');
 

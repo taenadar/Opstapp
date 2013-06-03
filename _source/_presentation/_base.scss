@@ -130,15 +130,15 @@ a {
 	-webkit-transition-timing-function: linear, linear;
 	transition-timing-function: linear, linear;
 
-	// 	-webkit-overflow-scrolling: touch;
+	-webkit-overflow-scrolling: touch;
 }
 
 /* Hack to force all relatively and absolutely positioned elements still render while scrolling
 	 Note: This is a bug for "-webkit-overflow-scrolling: touch" */
-// .content > * {
-// 	-webkit-transform: translateZ(0px);
-// 	transform: translateZ(0px);
-// }
+.content > * {
+	-webkit-transform: translateZ(0px);
+	transform: translateZ(0px);
+}
 
 /* Utility wrapper to pad in components like forms, block buttons and segmented-controllers so they're not full-bleed */
 .content-padded

@@ -3,7 +3,7 @@ this.app || ( this.app = {} );
 app.data = [
 	{
 		"artist": "Rembrandt van Rijn",
-		"piece": "Nachtwacht",
+		"piece": "De Nachtwacht",
 		"latitude": 52.368268,
 		"longitude": 4.895656,
 		"description": "Het bekendste schilderij van Rembrandt van Rijn is op deze plek gemaakt. Rembrandt van Rijn heeft de Nachtwacht geschilderd tussen de jaren 1639 en 1642.",
@@ -35,7 +35,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "Buurtje in de Amsterdamse Jordaan",
+		"piece": "Een Buurtje in de Jordaan",
 		"latitude": 52.383324,
 		"longitude": 4.885024,
 		"description": "De straat waar u nu staat is gemaakt op basis van deze straat in de tijd van Breitner.",
@@ -67,7 +67,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "De Dam te Amsterdam",
+		"piece": "De Dam",
 		"latitude": 52.373058,
 		"longitude": 4.892864,
 		"description": "Breitner heeft dit schilderij gebaseerd op de taferelen die zich afspeelde in zijn tijd op de dam.",
@@ -99,7 +99,7 @@ app.data = [
 	// },
 	{
 		"artist": "Onbekend",
-		"piece": "Standbeeld van Rembrandt op de Botermarkt",
+		"piece": "Het Standbeeld van Rembrandt",
 		"latitude": 52.366085,
 		"longitude": 4.896727,
 		"description": "In 1852 onthulde Koning Willem III op het plein een door Louis Royer ontworpen gietijzeren standbeeld van Rembrandt.Het is het oudste nog bestaande standbeeld in Amsterdam en werd gegoten in een stuk. In 1876 werd de naam Botermarkt gewijzigd in Rembrandtplein. Veel Amsterdammers spreken over het \"Rembrandtsplein\" met een tussen-s. Hoewel taalkundig misschien incorrect, stond deze naam tot 1985 ook op de straatnaamborden.",
@@ -115,7 +115,7 @@ app.data = [
 	},
 	{
 		"artist": "Beerstraten",
-		"piece": "Heiligewegspoort te Amsterdam in de winter",
+		"piece": "De Heiligewegspoort",
 		"latitude": 52.367238,
 		"longitude": 4.889554,
 		"description": "De Heiligewegspoort is een voormalige stadspoort van Amsterdam.",
@@ -131,7 +131,7 @@ app.data = [
 	},
 	{
 		"artist": "Beerstraten",
-		"piece": "Schreijerstoren te Amsterdam",
+		"piece": "De Schreijerstoren",
 		"latitude": 52.376595,
 		"longitude": 4.90222,
 		"description": "De tekening is van de toren die u hier voor u ziet.",
@@ -147,7 +147,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "Het Rokin in Amsterdam",
+		"piece": "Het Rokin",
 		"latitude": 52.368856,
 		"longitude": 4.892843,
 		"description": "Dit was het beeld dat George Hendrik Breitner had op het Rokin in 1897.",
@@ -163,7 +163,7 @@ app.data = [
 	},
 	{
 		"artist": "Johannes Jelgerhuis",
-		"piece": "De Amsterdamse buitensingel bij de Leidsepoort",
+		"piece": "De Buitensingel bij de Leidsepoort",
 		"latitude": 52.363585,
 		"longitude": 4.882028,
 		"description": "Het beeld zoals Johannes Jelgerhuis het zag in zijn tijd. ",
@@ -179,7 +179,7 @@ app.data = [
 	},
 	{
 		"artist": "Jan van der Heyden",
-		"piece": "Amsterdams stadsgezicht met huizen aan de Herengracht",
+		"piece": "De Herengracht",
 		"latitude": 52.379149,
 		"longitude": 4.89177,
 		"description": "Dit is het stadsgezicht zoals Jan van der Heyden dat zag in zijn tijd. ",
@@ -195,7 +195,7 @@ app.data = [
 	},
 	{
 		"artist": "Gerrit Adriaensz. Berckheyde",
-		"piece": "De Gouden Bocht in de Herengracht",
+		"piece": "De Gouden Bocht",
 		"latitude": 52.363893,
 		"longitude": 4.892188,
 		"description": "",
@@ -211,7 +211,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "Trampaarden op de Dam te Amsterdam",
+		"piece": "De Trampaarden op de Dam",
 		"latitude": 52.372812,
 		"longitude": 4.892961,
 		"description": "Vroeger werd de tram nog voorgeduwt door paarden. Dat is goed te zien op deze tekening. ",
@@ -227,7 +227,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "Gezicht op het Leidseplein in Amsterdam",
+		"piece": "Het Leidseplein",
 		"latitude": 52.363640,
 		"longitude": 4.882237,
 		"description": "Dit is wat Breitner zag op het Leidseplein in zijn tijd.",
@@ -243,7 +243,7 @@ app.data = [
 	},
 	{
 		"artist": "Johan Conrad Greive",
-		"piece": "Gezicht op het standbeeld van Vondel in het Vondelpark",
+		"piece": "Het standbeeld van Vondel",
 		"latitude": 52.360021,
 		"longitude": 4.873949,
 		"description": "Het Vondelpark met het standbeeld van Joost van den Vondel, ontworpen door beeldhouwer Louis Royer.",
@@ -259,7 +259,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "Gezicht op het Oosterpark",
+		"piece": "Het Oosterpark",
 		"latitude": "52.359405",
 		"longitude": "4.920391",
 		"description": "Dit is wat George Hendrik Breitner zag toen hij op het besneeuwde Oosterpark in Amsterdam bekeek.",
@@ -275,7 +275,7 @@ app.data = [
 	},
 	{
 		"artist": "Jan Goeree",
-		"piece": "Regulierspoort en de herberg de Munt",
+		"piece": "Regulierspoort en de Munt",
 		"latitude": "52.367655",
 		"longitude": "4.894014",
 		"description": "Het onderste deel van de Munttoren is overgebleven van een oude verdedigingstoren die bij brand grotendeels verwoest werd. In 1672 en 1673 werden hier munten geslage, vandaar de naam: Munttoren.",
@@ -307,7 +307,7 @@ app.data = [
 	},
 	{
 		"artist": "George Hendrik Breitner",
-		"piece": "Bouwterrein in Amsterdam",
+		"piece": "Bouwterrein",
 		"latitude": "52.352984",
 		"longitude": "4.882368",
 		"description": "Dit is mogelijk de plaats waar dit schilderij op is gebaseerd. ",
@@ -323,7 +323,7 @@ app.data = [
 	},
 	{
 		"artist": "Bartholomeus van der Helst",
-		"piece": "Schuttersmaaltijd ",
+		"piece": "Schuttersmaaltijd",
 		"latitude": "52.367659",
 		"longitude": "4.889551",
 		"description": "Op de plek van de Voetboogdoelen bevindt zich nu het moderne hoofdgebouw van de Universiteitsbibliotheek van Amsterdam.",
@@ -338,8 +338,8 @@ app.data = [
 		}
 	},
 	{
-		"artist": "",
-		"piece": "Zandafgraving te Amsterdam",
+		"artist": "Richard Roland Holst",
+		"piece": "Zandafgraving",
 		"latitude": "52.369206",
 		"longitude": "4.879548",
 		"description": "Waar u nu loopt was vroeger een gracht. Vandaar ook de naam 'Elandsgrachts'. Dit schilderij weergeeft het dempen van deze gracht.",
@@ -385,22 +385,24 @@ app.data = [
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1018"
 		}
 	},
-	{
-		"artist": "Rembrandt van Rijn",
-		"piece": "Gezicht op de Nieuwezijds Voorburgwal",
-		"latitude": "52.373451",
-		"longitude": "4.890522",
-		"description": "De Nieuwezijds Voorburgwal is een gedempte gracht. Oorspronkelijk was de Nieuwezijds Voorburgwal een langs een gracht aangelegde burgwal. De gracht Nieuwezijds Voorburgwal is in 1884 gedempt.",
-		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1930-64",
-		"info" : {
-			"title" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
-			"type" : "tekening",
-			"id" : "RP-T-1930-64",
-			"date" : "1657 - 1659",
-			"description" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1930-64"
-		}
-	},
+	// For some reason... Theres a bug in routeboxer—the following latitude 
+	// crashes the whole thing.
+	// {
+	// 	"artist": "Rembrandt van Rijn",
+	// 	"piece": "Gezicht op de Nieuwezijds Voorburgwal",
+	// 	"latitude": "52.373451",
+	// 	"longitude": "4.890522",
+	// 	"description": "De Nieuwezijds Voorburgwal is een gedempte gracht. Oorspronkelijk was de Nieuwezijds Voorburgwal een langs een gracht aangelegde burgwal. De gracht Nieuwezijds Voorburgwal is in 1884 gedempt.",
+	// 	"link": "https://www.rijksmuseum.nl/nl/collectie/RP-T-1930-64",
+	// 	"info" : {
+	// 		"title" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
+	// 		"type" : "tekening",
+	// 		"id" : "RP-T-1930-64",
+	// 		"date" : "1657 - 1659",
+	// 		"description" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
+	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1930-64"
+	// 	}
+	// },
 	// {
 		// "artist": "",
 		// "piece": "",

@@ -1,7 +1,3 @@
-###
-Here be coffee
-###
-
 # Store scope; probably `window`.
 exports = @
 
@@ -184,23 +180,21 @@ waypointToString = ( data ) ->
 	"""
 
 
-window.on 'click', ( event ) ->
+app.markerIntent = ( event ) ->
 	$target = event.target
 	
-	if $target.classList.contains 'button-map'
-		do event.preventDefault
-		do event.stopPropagation
-		
-		id = $target.dataset.id
-		if id is 'undefined' then id = null
-		waypoint = waypoints[ id ]
-		
-		unless id or waypoint then return
-		
-		$infoModal.innerHTML = waypointToString waypoint
-		info true
+	do event.preventDefault
+	do event.stopPropagation
 	
-	return
+	data = event.data
+	waypoint = waypoints[ data.id ]
+	
+	unless data.id or waypoint then return
+	
+	$infoModal.innerHTML = waypointToString waypoint
+	info true
+	
+	undefined
 
 	
 $walkthrough = $$ '.walkthrough-modal .carousel'

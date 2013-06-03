@@ -299,14 +299,24 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 				'map' : map
 				'latlng' : point
 				'content' : content
-			
-			marker.info.intent
+				'onclick' : ( event ) ->
+					if app.markerIntent
+						event.data =
+							'id' : data.info.id
+							'link' : data.link
+						app.markerIntent.apply @, arguments
+					@
 			
 			google.maps.event.addListener marker, 'click', ->
 				if currentMarker
 					do currentMarker.info.close
 				
-				marker.info.open map, marker
+				marker.info.open map
+				# marker.info.$node.classList.add 'button-map'
+				# marker.info.$node.dataset.id = data.info.id
+				# marker.info.addListener 'click', ->
+				# 	console.log 'click', @, arguments
+				
 				currentMarker = marker
 				
 		, index * 200
