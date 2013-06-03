@@ -403,6 +403,22 @@ app.data = [
 	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1930-64"
 	// 	}
 	// },
+	{
+		"artist": "Rembrandt van Rijn",
+		"piece": "Apostel Paulus",
+		"latitude": "52.369455",
+		"longitude": "4.901315",
+		"description": "Dit is de vroegere woonplaatst geweest van Rembrandt. Hier heeft hij ook dit zelfprotret geschilderd.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-4050",
+		"info" : {
+			"title" : "Zelfportret als de apostel Paulus",
+			"type" : "schilderij",
+			"id" : "SK-A-4050",
+			"date" : "1661",
+			"description" : "Zelfportret van Rembrandt als de apostel Paulus. Ten halven lijve naar links, het gelaat naar de kijker gewend. Met openstaande mantel die zicht geeft op het zwaard dat op de borst wordt gedragen, op het hoofd een witte tulband. In de handen een opengevouwen bundel zendbrieven.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4050"
+		}
+	}
 	// {
 		// "artist": "",
 		// "piece": "",
