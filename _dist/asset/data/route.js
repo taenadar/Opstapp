@@ -8,16 +8,19 @@ app.route = [
 		'image' : 'https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691',
 		'route' : [
 			{
-				'id' : 'RP-T-1930-64'
+				"id" : "RP-T-1930-64"
 			},
 			{
-				'id' : 'SK-C-5',
+				"id" : "SK-C-5"
 			},
 			{
-				'id' : 'SK-C-6',
+				"id" : "SK-C-6"
 			},
 			{
-				'id' : 'RP-F-F01710-B',
+				"id" : "RP-F-F01710-B"
+			},
+			{
+				"id" : "SK-A-4050"
 			}
 		]
 	},
@@ -28,19 +31,19 @@ app.route = [
 		'image' : 'https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925',
 		'route' : [
 			{
-				'id' : 'SK-A-3529',
+				"id" : "SK-A-3529"
 			},
 			{
-				'id' : 'SK-A-2879',
+				"id" : "SK-A-2879"
 			},
 			{
-				'id' : 'SK-A-3659',
+				"id" : "SK-A-3659"
 			},
 			{
-				'id' : 'SK-A-3580',
+				"id" : "SK-A-3580"
 			},
 			{
-				'id' : 'RP-F-K89477',
+				"id" : "RP-F-K89477"
 			}
 		]
 	}
