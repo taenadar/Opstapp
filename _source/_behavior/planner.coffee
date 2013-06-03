@@ -19,6 +19,8 @@ Planner::setContainerOffset = ( delta, animate ) ->
 	
 	@$node.classList[ if animate then 'add' else 'remove' ] 'animate'
 	
+	console.log delta
+	
 	if delta > 0
 		delta = ( delta * 0.3 )
 	else if delta < -@nodeHeight
@@ -26,7 +28,7 @@ Planner::setContainerOffset = ( delta, animate ) ->
 	
 	offset = ( -delta / @height ) * 100
 	
-	@$node.style.top = "#{100 - offset}%"
+	@$node.style.bottom = "#{100 - offset}%"
 	
 	@
 
@@ -61,15 +63,15 @@ Planner::handleHammer = ( event ) ->
 	direction = event.gesture.direction
 
 	if type is 'dragup' or type is 'dragdown'
-		@setContainerOffset -( @height - event.gesture.center.pageY )
-	else if type is 'swipeup'
-		do @show
+		@setContainerOffset -1 * event.gesture.center.pageY
 	else if type is 'swipedown'
+		do @show
+	else if type is 'swipeup'
 		do @hide
 	else if type is 'release'
 		
 		if @nodeHeight / 2 < Math.abs event.gesture.deltaY
-			if direction is 'down' then do @hide else do @show
+			if direction is 'up' then do @hide else do @show
 		else
 			do @show
 	

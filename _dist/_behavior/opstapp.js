@@ -2495,13 +2495,14 @@ Here be coffee
     var offset;
 
     this.$node.classList[animate ? 'add' : 'remove']('animate');
+    console.log(delta);
     if (delta > 0) {
       delta = delta * 0.3;
     } else if (delta < -this.nodeHeight) {
       delta = -this.nodeHeight + ((this.nodeHeight + delta) * 0.3);
     }
     offset = (-delta / this.height) * 100;
-    this.$node.style.top = "" + (100 - offset) + "%";
+    this.$node.style.bottom = "" + (100 - offset) + "%";
     return this;
   };
 
@@ -2532,14 +2533,14 @@ Here be coffee
     type = event.type;
     direction = event.gesture.direction;
     if (type === 'dragup' || type === 'dragdown') {
-      this.setContainerOffset(-(this.height - event.gesture.center.pageY));
-    } else if (type === 'swipeup') {
-      this.show();
+      this.setContainerOffset(-1 * event.gesture.center.pageY);
     } else if (type === 'swipedown') {
+      this.show();
+    } else if (type === 'swipeup') {
       this.hide();
     } else if (type === 'release') {
       if (this.nodeHeight / 2 < Math.abs(event.gesture.deltaY)) {
-        if (direction === 'down') {
+        if (direction === 'up') {
           this.hide();
         } else {
           this.show();

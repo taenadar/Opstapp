@@ -1,14 +1,22 @@
 .planner
 {
-	position: absolute;
+	position: fixed;
 	right: 0;
 	left: 0;
 	z-index: 10;
 	box-sizing: border-box;
-	top: 100%;
+	bottom: 100%;
 	background-color: $color-dark;
-	border-top: 5px solid $color-primary;
-	padding: 1em;
+	border-bottom: 5px solid $color-primary;
+	display: table;
+	width: 100%;
+}
+
+.planner-container
+{
+	display: table-cell;
+	vertical-align: bottom;
+	padding: 1em 1em 1.5em 1em;
 }
 
 .planner.animate
@@ -22,7 +30,7 @@
 
 .planner:after, .planner:before
 {
-	bottom: 100%;
+	top: 100%;
 	border: solid transparent;
 	content: " ";
 	height: 0;
@@ -34,16 +42,16 @@
 
 .planner:after
 {
-	border-bottom-color: $color-dark;
-	border-width: 30px;
-	margin-left: -30px;
+	border-top-color: $color-dark;
+	border-width: 40px;
+	margin-left: -40px;
 }
 
 .planner:before
 {
-	border-bottom-color: $color-primary;
-	border-width: 37px;
-	margin-left: -37px;
+	border-top-color: $color-primary;
+	border-width: 47px;
+	margin-left: -47px;
 }
 
 .planner .row

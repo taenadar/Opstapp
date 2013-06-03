@@ -348,27 +348,29 @@
 			<div id="map-canvas"></div>
 		</div>
 		<footer class="planner">
-			<div class="input-group">
-				<div class="input-row">
-					<label for="plan-route-from">
-						Van
-					</label>
-					<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
+			<div class="planner-container">
+				<div class="input-group">
+					<div class="input-row">
+						<label for="plan-route-from">
+							Van
+						</label>
+						<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
+					</div>
+					<div class="input-row">
+						<label for="plan-route-to">
+							Naar
+						</label>
+						<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
+					</div>
 				</div>
-				<div class="input-row">
-					<label for="plan-route-to">
-						Naar
-					</label>
-					<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
+				<div class="row">
+					<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
+						Uitgestippeld
+					</a>
+					<a id="plan-route" class="button button-primary button-large">
+						Opstapp!
+					</a>
 				</div>
-			</div>
-			<div class="row">
-				<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
-					Uitgestippeld
-				</a>
-				<a id="plan-route" class="button button-primary button-large">
-					Opstapp!
-				</a>
 			</div>
 		</footer>
 		<script src="./_behavior/opstapp.js"></script>
