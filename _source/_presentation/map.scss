@@ -1,12 +1,13 @@
 body > .content
 {
 	overflow: hidden;
+	height: 110%;
 }
 
 #map-canvas
 {
 	// Hide google logo.
-	height: 105%;
+	height: 100%;
 
 	/* Overwrites Google Maps loading style */
 	background-color: transparent !important;

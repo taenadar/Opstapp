@@ -97,11 +97,7 @@ locationManager = app.locationManager = new LocationManager
 Plan-my-route modal.
 ###
 
-$planRouteModal = do ( $ '#plan-route-modal' ).item
-
-# Show/hide.
-
-
+# $planRouteModal = do ( $ '#plan-route-modal' ).item
 $planner = $$ '.planner'
 $planRoute = $$ '#plan-route'
 $planTo = $$ '#plan-route-to'
@@ -110,6 +106,9 @@ $planFrom = $$ '#plan-route-from'
 window.on 'load', -> do locationManager.request
 
 $planRoute.on 'click', ( event ) ->
+	
+	do event.preventDefault
+	do event.stopPropagation
 	
 	origin = do $planFrom.value.toLowerCase
 	destination = do $planTo.value.toLowerCase
@@ -208,5 +207,3 @@ do planner.show
 
 # Overwrite height.
 $planner.style.height = '100%'
-
-exports.planner = planner

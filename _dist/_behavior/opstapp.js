@@ -2120,6 +2120,7 @@ Here be coffee
     'zoom': 14,
     'streetViewControl': false,
     'center': new google.maps.LatLng(52.359903, 4.884131),
+    'disableDefaultUI': true,
     'mapTypeControlOptions': {
       'mapTypeIds': [google.maps.MapTypeId.ROADMAP, 'map_style']
     }
@@ -2484,7 +2485,7 @@ Here be coffee
     $hammer = Hammer($node, {
       'drag_lock_to_axis': true
     });
-    $hammer.on('swipedown swipeup dragup dragdown release', function() {
+    $hammer.on('touch swipedown swipeup dragup dragdown release', function() {
       return _this.handleHammer.apply(_this, arguments);
     });
     return this;
@@ -2506,17 +2507,26 @@ Here be coffee
 
   Planner.prototype.show = function() {
     this.setContainerOffset(-this.nodeHeight, true);
+    if (this.onshow) {
+      this.onshow(this);
+    }
     return this;
   };
 
   Planner.prototype.hide = function() {
     this.setContainerOffset(0, true);
+    if (this.onhide) {
+      this.onhide(this);
+    }
     return this;
   };
 
   Planner.prototype.handleHammer = function(event) {
     var direction, type;
 
+    if (event.target !== this.$node) {
+      return;
+    }
     event.gesture.preventDefault();
     event.preventDefault();
     type = event.type;
@@ -2702,7 +2712,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planRouteModal, $planTo, $planner, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, waypointToString, waypoints;
+  var $infoModal, $meestermatcher, $planFrom, $planRoute, $planTo, $planner, $walkthrough, LocationManager, app, carousel, exports, info, locationManager, meestermatcher, planner, waypointToString, waypoints;
 
   exports = this;
 
@@ -2820,8 +2830,6 @@ Here be coffee
   */
 
 
-  $planRouteModal = ($('#plan-route-modal')).item();
-
   $planner = $$('.planner');
 
   $planRoute = $$('#plan-route');
@@ -2837,6 +2845,8 @@ Here be coffee
   $planRoute.on('click', function(event) {
     var callback, destination, distance, origin;
 
+    event.preventDefault();
+    event.stopPropagation();
     origin = $planFrom.value.toLowerCase();
     destination = $planTo.value.toLowerCase();
     distance = 0.5;
@@ -2927,7 +2937,5 @@ Here be coffee
   planner.show();
 
   $planner.style.height = '100%';
-
-  exports.planner = planner;
 
 }).call(this);

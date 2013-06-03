@@ -182,7 +182,7 @@ html
 							.img.last[style="background-image:url(./asset/image/slide/2.png)"]
 								strong "wind"
 		
-		header.bar-title > h1.title "Opstapp"
+		// header.bar-title > h1.title "Opstapp"
 		.content
 			#map-canvas
 		footer.planner

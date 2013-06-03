@@ -9,7 +9,8 @@ Planner = ( $node, insertController ) ->
 	$hammer = Hammer $node,
 		'drag_lock_to_axis' : true
 	
-	$hammer.on 'swipedown swipeup dragup dragdown release', =>
+	$hammer.on 'touch swipedown swipeup dragup dragdown release', =>
+		
 		@handleHammer.apply @, arguments
 	
 	@
@@ -33,15 +34,24 @@ Planner::show = ->
 	
 	@setContainerOffset -@nodeHeight, true
 	
+	if @onshow
+		@onshow @
+	
 	@
 
 Planner::hide = ->
 	
 	@setContainerOffset 0, true
 	
+	if @onhide
+		@onhide @
+	
 	@
 
 Planner::handleHammer = ( event ) ->
+	
+	# Dont catch on children.
+	if event.target isnt @$node then return
 	
 	# disable browser scrolling
 	do event.gesture.preventDefault

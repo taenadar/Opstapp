@@ -82,6 +82,7 @@ map = new google.maps.Map $map,
 	'zoom' : 14
 	'streetViewControl' : false
 	'center' : new google.maps.LatLng 52.359903, 4.884131
+	'disableDefaultUI' : true
 	'mapTypeControlOptions' :
 		'mapTypeIds' : [ google.maps.MapTypeId.ROADMAP, 'map_style' ]
 
@@ -368,5 +369,6 @@ drawNewRoute = ( waypts, origin, destination, distance, callback ) ->
 		
 		do updateBounds
 		
+# $map.style.height = '150%'
 
 exports.calcRoute = calcRoute

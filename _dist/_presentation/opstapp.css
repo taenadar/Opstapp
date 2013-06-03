@@ -1174,10 +1174,11 @@ textarea {
   text-overflow: ellipsis; }
 
 body > .content {
-  overflow: hidden; }
+  overflow: hidden;
+  height: 110%; }
 
 #map-canvas {
-  height: 105%;
+  height: 100%;
   /* Overwrites Google Maps loading style */
   background-color: transparent !important;
   color: #202327; }
