@@ -105,7 +105,7 @@ InfoBox::createElement = ->
 		$content.innerHTML = @content
 		$content.style.display = 'table-cell'
 		$content.style.verticalAlign = 'middle'
-		$content.style.padding = '0 0.5em'
+		$content.style.padding = '0 0.75em'
 		
 		$node.appendChild $content
 		$node.style.display = 'none'

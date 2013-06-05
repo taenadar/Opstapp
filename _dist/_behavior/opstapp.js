@@ -2778,7 +2778,7 @@ Here be coffee
         }
       }
     }
-    if (points.length > 8 && distance > 0.1) {
+    if (points.length > 8 && distance >= 0.2) {
       this.findPointsOnRoute(response, origin, destination, distance - 0.1, callback);
     } else if (points.length < 4 && distance < 10) {
       this.findPointsOnRoute(response, origin, destination, distance + 0.1, callback);
@@ -2940,7 +2940,7 @@ Here be coffee
         icon = this.getIcon();
       }
     } else {
-      icon = this.getIcon(index + 1);
+      icon = this.getIcon(index);
     }
     title = point.piece;
     if (point.artist) {
@@ -2949,9 +2949,18 @@ Here be coffee
       content = "<b>" + point.piece + "</b>";
     }
     window.setTimeout(function() {
-      var infoWindow, marker;
+      var marker;
 
-      infoWindow = new InfoBox({
+      marker = new google.maps.Marker({
+        'position': point.latLng,
+        'map': _this._map,
+        'icon': icon,
+        'title': title,
+        'animation': google.maps.Animation.DROP,
+        'flat': true,
+        'optimized': false
+      });
+      marker.infoWindow = new InfoBox({
         'map': _this._map,
         'latlng': point.latLng,
         'content': content,
@@ -2962,25 +2971,13 @@ Here be coffee
           }
         }
       });
-      marker = new google.maps.Marker({
-        'position': point.latLng,
-        'map': _this._map,
-        'icon': icon,
-        'title': title,
-        'animation': google.maps.Animation.DROP,
-        'flat': true,
-        'optimized': false
-      });
-      marker.infoWindow = infoWindow;
       _this._markers.push(marker);
       return google.maps.event.addListener(marker, 'click', function() {
-        if (_this._marker) {
-          _this._marker.infoWindow.close();
-        }
-        infoWindow.open(_this._map);
+        _this.onClick();
         _this._marker = marker;
+        marker.infoWindow.open(_this._map);
       });
-    }, index * 200);
+    }, index * 300);
     return this;
   };
 
@@ -3131,7 +3128,7 @@ Here be coffee
       $content.innerHTML = this.content;
       $content.style.display = 'table-cell';
       $content.style.verticalAlign = 'middle';
-      $content.style.padding = '0 0.5em';
+      $content.style.padding = '0 0.75em';
       $node.appendChild($content);
       $node.style.display = 'none';
       panes.floatPane.appendChild($node);
@@ -3501,7 +3498,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $info, $meestermatcherCarousel, $planFrom, $planRoute, $planTo, $planner, $uitgestippeld, $uitgestippeldCarousel, $walkthroughCarousel, app, exports, planner;
+  var $info, $planFrom, $planRoute, $planTo, $planner, $uitgestippeld, $uitgestippeldCarousel, $walkthroughCarousel, app, exports, planner;
 
   exports = this;
 
@@ -3526,8 +3523,6 @@ Here be coffee
   $uitgestippeld = $$('.uitgestippeld-modal');
 
   $walkthroughCarousel = $$('.walkthrough-modal .carousel');
-
-  $meestermatcherCarousel = $$('.meestermatcher-modal .carousel');
 
   $uitgestippeldCarousel = $$('.uitgestippeld-modal .carousel');
 
@@ -3558,6 +3553,7 @@ Here be coffee
 
     event.preventDefault();
     event.stopPropagation();
+    $planRoute.classList.add('loading');
     origin = $planFrom.value.toLowerCase();
     destination = $planTo.value.toLowerCase();
     distance = 0.5;
@@ -3566,10 +3562,11 @@ Here be coffee
     callback = function(error) {
       if (error) {
         alert("Sorry. Er trad een fout op in de applicatie: " + error);
-        return console.log('ERROR!', arguments);
+        console.log('ERROR!', arguments);
       } else {
-        return planner.hide();
+        planner.hide();
       }
+      $planRoute.classList.remove('loading');
     };
     if (origin === 'huidige locatie' || destination === 'huidige locatie') {
       app.locationManager.once(function(position) {
@@ -3603,15 +3600,21 @@ Here be coffee
     }
     event.preventDefault();
     event.stopPropagation();
-    app.mapView.calculateRoute(route.waypoints, route.origin.latLng, route.destination.latLng);
-    planner.hide();
-    $uitgestippeld.classList.remove('active');
+    $target.classList.add('loading');
+    app.mapView.calculateRoute(route.waypoints, route.origin.latLng, route.destination.latLng, function(error) {
+      if (error) {
+        alert("Sorry. Er trad een fout op in de applicatie: " + error);
+        return console.log('ERROR!', arguments);
+      } else {
+        $target.classList.remove('loading');
+        planner.hide();
+        return $uitgestippeld.classList.remove('active');
+      }
+    });
     return void 0;
   });
 
   new Carousel($walkthroughCarousel, true);
-
-  new Carousel($meestermatcherCarousel, true);
 
   new Carousel($uitgestippeldCarousel, true);
 

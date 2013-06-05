@@ -43,8 +43,11 @@
 								<p>
 									Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein.
 								</p>
-								<a class="button-block button-primary button-large uitgestippeld-link" data-id="opstapp-rembrandt">
-									Opstapp!
+								<a class="button-block button-primary button-large button-spinner uitgestippeld-link" data-id="opstapp-rembrandt">
+									<div class="label">
+										Opstapp!
+									</div>
+									<span class="spinner"></span>
 								</a>
 							</div>
 						</div>
@@ -58,7 +61,7 @@
 								<p>
 									Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein.
 								</p>
-								<a class="button-block button-primary button-large uitgestippeld-link" data-id="opstapp-breitner">
+								<a class="button-block button-primary button-large button-spinner uitgestippeld-link" data-id="opstapp-breitner">
 									Opstapp!
 								</a>
 							</div>
@@ -67,7 +70,7 @@
 				</ul>
 			</div>
 		</div>
-		<div id="walkthrough-modal" class="walkthrough-modal modal">
+		<div id="walkthrough-modal" class="walkthrough-modal modal active">
 			<header class="bar-title">
 				<h3 class="title">
 					Introductie
@@ -80,49 +83,11 @@
 				<ul class="list carousel-list">
 					<li>
 						<p>
-							Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum.
+							Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum. Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen.
 						</p>
 						<div class="wrapper-outer">
 							<div class="wrapper-inner">
 								<img alt="" src="./asset/image/walkthrough/icon.png"/>
-							</div>
-						</div>
-					</li>
-					<li>
-						<p>
-							Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen.
-						</p>
-						<div class="wrapper-outer">
-							<div class="wrapper-inner">
-								<header class="bar-title">
-									<h3 class="title">
-										Opstapp
-									</h3>
-								</header>
-								<div class="content content-padded">
-									<ul class="list">
-										<div class="input-group">
-											<div class="input-row">
-												<label>
-													Van
-												</label>
-												<input type="text" placeholder="Huidige locatie"/>
-											</div>
-											<div class="input-row">
-												<label>
-													Naar
-												</label>
-												<input type="text" placeholder="Huidige locatie"/>
-											</div>
-										</div>
-										<a class="button-primary button-block button-large">
-											Plan route
-										</a>
-										<a class="button-secondary button-block button-large">
-											Uitgestippeld
-										</a>
-									</ul>
-								</div>
 							</div>
 						</div>
 					</li>
@@ -152,205 +117,6 @@
 							</div>
 						</div>
 					</li>
-					<li>
-						<p>
-							Geen idee wat je wil zien? Meestermatcher zoekt op basis van jouw persoonlijkheid een toffe kunstenaar.
-						</p>
-						<div class="wrapper-outer">
-							<div class="wrapper-inner">
-								<header class="bar-title">
-									<h3 class="title">
-										Meestermatcher
-									</h3>
-								</header>
-								<div class="content content-padded">
-									<div class="meestermatcher-row">
-										<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-											<strong>
-												zon
-											</strong>
-										</div>
-										<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-											<strong>
-												zee
-											</strong>
-										</div>
-										<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-											<strong>
-												strand
-											</strong>
-										</div>
-										<div class="img last" style="background-image:url(./asset/image/slide/1.png)">
-											<strong>
-												wind
-											</strong>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div id="meestermatcher-modal" class="meestermatcher-modal modal">
-			<header class="bar-title">
-				<h3 class="title">
-					Meestermatcher
-				</h3>
-				<a class="button" href="#meestermatcher-modal">
-					Close
-				</a>
-			</header>
-			<div class="content carousel">
-				<ul class="list carousel-list">
-					<li>
-						<p>
-							Hoe ziet een perfecte vakantie voor jou er uit?
-						</p>
-						<div class="meestermatcher-row">
-							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									zon
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									zee
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-								<strong>
-									strand
-								</strong>
-							</div>
-							<div class="img last" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									wind
-								</strong>
-							</div>
-						</div>
-						<div class="meestermatcher-row">
-							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									zon
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-								<strong>
-									zee
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									strand
-								</strong>
-							</div>
-							<div class="img last" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									wind
-								</strong>
-							</div>
-						</div>
-					</li>
-					<li>
-						<p>
-							Liefde of lust?
-						</p>
-						<div class="meestermatcher-row">
-							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									zon
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-								<strong>
-									zee
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									strand
-								</strong>
-							</div>
-							<div class="img last" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									wind
-								</strong>
-							</div>
-						</div>
-						<div class="meestermatcher-row">
-							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									zon
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									zee
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-								<strong>
-									strand
-								</strong>
-							</div>
-							<div class="img last" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									wind
-								</strong>
-							</div>
-						</div>
-					</li>
-					<li>
-						<p>
-							Hoe ziet een perfecte vakantie voor jou er uit?
-						</p>
-						<div class="meestermatcher-row">
-							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									zon
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									zee
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-								<strong>
-									strand
-								</strong>
-							</div>
-							<div class="img last" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									wind
-								</strong>
-							</div>
-						</div>
-						<div class="meestermatcher-row">
-							<div class="img" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									zon
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/3.png)">
-								<strong>
-									zee
-								</strong>
-							</div>
-							<div class="img" style="background-image:url(./asset/image/slide/1.png)">
-								<strong>
-									strand
-								</strong>
-							</div>
-							<div class="img last" style="background-image:url(./asset/image/slide/2.png)">
-								<strong>
-									wind
-								</strong>
-							</div>
-						</div>
-					</li>
 				</ul>
 			</div>
 		</div>
@@ -364,21 +130,24 @@
 						<label for="plan-route-from">
 							Van
 						</label>
-						<input id="plan-route-from" type="text" placeholder="Huidige locatie" value="Amsterdam Centraal"/>
+						<input id="plan-route-from" type="text" placeholder="Huidige locatie" value="Centraal"/>
 					</div>
 					<div class="input-row">
 						<label for="plan-route-to">
 							Naar
 						</label>
-						<input id="plan-route-to" type="text" placeholder="Huidige locatie" value="Museumplein Amsterdam"/>
+						<input id="plan-route-to" type="text" placeholder="Huidige locatie" value="Museumplein"/>
 					</div>
 				</div>
 				<div class="row">
 					<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
 						Uitgestippeld
 					</a>
-					<a id="plan-route" class="button button-primary button-large">
-						Opstapp!
+					<a id="plan-route" class="button button-primary button-large button-spinner">
+						<div class="label">
+							Opstapp
+						</div>
+						<span class="spinner"></span>
 					</a>
 				</div>
 			</div>

@@ -14,7 +14,7 @@ $planFrom               = $$ '#plan-route-from'
 $info                   = $$ '.info-modal'
 $uitgestippeld          = $$ '.uitgestippeld-modal'
 $walkthroughCarousel    = $$ '.walkthrough-modal .carousel'
-$meestermatcherCarousel = $$ '.meestermatcher-modal .carousel'
+# $meestermatcherCarousel = $$ '.meestermatcher-modal .carousel'
 $uitgestippeldCarousel  = $$ '.uitgestippeld-modal .carousel'
 
 app.pointToString = ( point ) ->
@@ -70,6 +70,8 @@ $planRoute.on 'click', ( event ) ->
 	do event.preventDefault
 	do event.stopPropagation
 	
+	$planRoute.classList.add 'loading'
+	
 	# Set origin and destination based on input.
 	origin = do $planFrom.value.toLowerCase
 	destination = do $planTo.value.toLowerCase
@@ -87,6 +89,10 @@ $planRoute.on 'click', ( event ) ->
 			console.log 'ERROR!', arguments
 		else
 			do planner.hide
+		
+		$planRoute.classList.remove 'loading'
+		
+		return
 	
 	# When origin and/or destination are based on the users current location, 
 	# request the location from `locationManager`, and calculate a route based 
@@ -121,25 +127,33 @@ window.on 'click', ( event ) ->
 	do event.preventDefault
 	do event.stopPropagation
 	
+	$target.classList.add 'loading'
+		
 	# Draw a new route between all `waypoints` on route, starting at `origin`, 
 	# and ending at `destination`.
-	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng
-	
-	# Hide the planner.
-	do planner.hide
-	
-	# Hide `uitgestippeld`.
-	$uitgestippeld.classList.remove 'active'
-	
+	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng, ( error ) ->
+		if error
+			alert "Sorry. Er trad een fout op in de applicatie: #{error}"
+			console.log 'ERROR!', arguments
+		else
+			
+			$target.classList.remove 'loading'
+			
+			# Hide the planner.
+			do planner.hide
+			
+			# Hide `uitgestippeld`.
+			$uitgestippeld.classList.remove 'active'
+
 	undefined
 
 
 # Initialization.
 
-# Instanciate the walkthrough, meestermatcher, and uitgestippeld modals as 
+# Instanciate the walkthrough and uitgestippeld modals as 
 # carousels.
 new Carousel $walkthroughCarousel, true
-new Carousel $meestermatcherCarousel, true
+# new Carousel $meestermatcherCarousel, true
 new Carousel $uitgestippeldCarousel, true
 
 # Instanciate planner.

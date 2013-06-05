@@ -294,7 +294,7 @@ MapView::findPointsOnRoute = ( response, origin, destination, distance, callback
 			
 			if box.contains point.latLng then points.push point.waypoint
 	
-	if points.length > 8 and distance > 0.1
+	if points.length > 8 and distance >= 0.2
 		@findPointsOnRoute response, origin, destination, distance - 0.1, callback
 	else if points.length < 4 and distance < 10
 		@findPointsOnRoute response, origin, destination, distance + 0.1, callback
@@ -449,7 +449,7 @@ MapView::renderPoint = ( point, index, length ) ->
 		else
 			icon = do @getIcon
 	else
-		icon = @getIcon index + 1
+		icon = @getIcon index
 	
 	title = point.piece
 	
@@ -460,7 +460,16 @@ MapView::renderPoint = ( point, index, length ) ->
 	
 	window.setTimeout =>
 			
-			infoWindow = new InfoBox
+			marker = new google.maps.Marker
+				'position' : point.latLng
+				'map' : @_map
+				'icon' : icon
+				'title' : title
+				'animation' : google.maps.Animation.DROP
+				'flat' : true
+				'optimized' : false
+			
+			marker.infoWindow = new InfoBox
 				'map' : @_map
 				'latlng' : point.latLng
 				'content' : content
@@ -471,29 +480,17 @@ MapView::renderPoint = ( point, index, length ) ->
 					
 					return
 			
-			marker = new google.maps.Marker
-				'position' : point.latLng
-				'map' : @_map
-				'icon' : icon
-				'title' : title
-				'animation' : google.maps.Animation.DROP
-				'flat' : true
-				'optimized' : false
-			
-			marker.infoWindow = infoWindow
-			
 			@_markers.push marker
 			
 			google.maps.event.addListener marker, 'click', =>
-				if @_marker then do @_marker.infoWindow.close
-				
-				infoWindow.open @_map
+				do @onClick
 				
 				@_marker = marker
+				marker.infoWindow.open @_map
 				
 				return
 				
-		, index * 200
+		, index * 300
 	
 	@
 
