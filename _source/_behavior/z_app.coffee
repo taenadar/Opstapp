@@ -13,9 +13,11 @@ $planTo                 = $$ '#plan-route-to'
 $planFrom               = $$ '#plan-route-from'
 $info                   = $$ '.info-modal'
 $uitgestippeld          = $$ '.uitgestippeld-modal'
+$walkthrough            = $$ '.walkthrough-modal'
 $walkthroughCarousel    = $$ '.walkthrough-modal .carousel'
-# $meestermatcherCarousel = $$ '.meestermatcher-modal .carousel'
 $uitgestippeldCarousel  = $$ '.uitgestippeld-modal .carousel'
+$startupImage           = $$ '.startup-image'
+$map                    = $$ '.home-modal'
 
 app.pointToString = ( point ) ->
 	"""
@@ -59,9 +61,6 @@ app.infoWindowIntent = ( event ) ->
 	
 	undefined
 
-
-# Request geolocation on load.
-window.on 'load', -> do app.locationManager.request
 
 # When the user selects the button to plan a route...
 $planRoute.on 'click', ( event ) ->
@@ -153,7 +152,6 @@ window.on 'click', ( event ) ->
 # Instanciate the walkthrough and uitgestippeld modals as 
 # carousels.
 new Carousel $walkthroughCarousel, true
-# new Carousel $meestermatcherCarousel, true
 new Carousel $uitgestippeldCarousel, true
 
 # Instanciate planner.
@@ -162,7 +160,22 @@ planner = new Planner $planner
 # Show the planner.
 do planner.show
 
-# Overwrite height.
-$planner.style.height = '100%'
+window.setTimeout ( -> $startupImage.classList.add 'hidden' ), 500
+window.setTimeout ( -> $walkthrough.classList.add 'active' ), 800
+window.setTimeout ( -> $startupImage.style.display = 'none' ), 1100
+window.setTimeout ->
+		$planner.style.height = '100%'
+		$map.classList.add 'active'
+	, 1000
 
+# Request geolocation on load.
+window.on 'load', -> do app.locationManager.request
+	
+	
+	# $startupImage.classList.add 'hidden'
+	# window.setTimeout ( -> $startupImage.style.display = 'none' ), 500
+	# 
+	# 
+	# if $walkthrough
+	
 

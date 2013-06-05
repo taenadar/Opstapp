@@ -3498,7 +3498,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $info, $planFrom, $planRoute, $planTo, $planner, $uitgestippeld, $uitgestippeldCarousel, $walkthroughCarousel, app, exports, planner;
+  var $info, $map, $planFrom, $planRoute, $planTo, $planner, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $walkthrough, $walkthroughCarousel, app, exports, planner;
 
   exports = this;
 
@@ -3522,9 +3522,15 @@ Here be coffee
 
   $uitgestippeld = $$('.uitgestippeld-modal');
 
+  $walkthrough = $$('.walkthrough-modal');
+
   $walkthroughCarousel = $$('.walkthrough-modal .carousel');
 
   $uitgestippeldCarousel = $$('.uitgestippeld-modal .carousel');
+
+  $startupImage = $$('.startup-image');
+
+  $map = $$('.home-modal');
 
   app.pointToString = function(point) {
     return "<header class=\"bar-title\">\n	<h3 class=\"title\"><div class=\"overflow-wrapper\">" + point.piece + "</div></h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(./asset/image/data/" + point.info.id + "_large.jpg)\">\n		<img class=\"hidden\" alt=\"\" src=\"./asset/image/data/" + point.info.id + "_large.jpg\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + point.info.title + "</h1>\n		<h2>" + point.artist + "</h2>\n		<p>" + point.info.description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + point.link + "\">Op naar het Rijks!</a>\n	</div>\n</div>";
@@ -3543,10 +3549,6 @@ Here be coffee
     $info.classList.add('active');
     return void 0;
   };
-
-  window.on('load', function() {
-    return app.locationManager.request();
-  });
 
   $planRoute.on('click', function(event) {
     var callback, destination, distance, origin;
@@ -3622,6 +3624,25 @@ Here be coffee
 
   planner.show();
 
-  $planner.style.height = '100%';
+  window.setTimeout((function() {
+    return $startupImage.classList.add('hidden');
+  }), 500);
+
+  window.setTimeout((function() {
+    return $walkthrough.classList.add('active');
+  }), 800);
+
+  window.setTimeout((function() {
+    return $startupImage.style.display = 'none';
+  }), 1100);
+
+  window.setTimeout(function() {
+    $planner.style.height = '100%';
+    return $map.classList.add('active');
+  }, 1000);
+
+  window.on('load', function() {
+    return app.locationManager.request();
+  });
 
 }).call(this);

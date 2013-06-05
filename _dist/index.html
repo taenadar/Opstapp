@@ -23,6 +23,40 @@
 	</head>
 	<body>
 		<div id="info-modal" class="info-modal modal"></div>
+		<div class="home-modal modal">
+			<div class="content">
+				<div id="map-canvas"></div>
+			</div>
+			<footer class="planner">
+				<div class="planner-container">
+					<div class="input-group">
+						<div class="input-row">
+							<label for="plan-route-from">
+								Van
+							</label>
+							<input id="plan-route-from" type="text" placeholder="Huidige locatie" value="Centraal"/>
+						</div>
+						<div class="input-row">
+							<label for="plan-route-to">
+								Naar
+							</label>
+							<input id="plan-route-to" type="text" placeholder="Huidige locatie" value="Museumplein"/>
+						</div>
+					</div>
+					<div class="row">
+						<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
+							Uitgestippeld
+						</a>
+						<a id="plan-route" class="button button-primary button-large button-spinner">
+							<div class="label">
+								Opstapp
+							</div>
+							<span class="spinner"></span>
+						</a>
+					</div>
+				</div>
+			</footer>
+		</div>
 		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal">
 			<header class="bar-title">
 				<h3 class="title">
@@ -70,7 +104,7 @@
 				</ul>
 			</div>
 		</div>
-		<div id="walkthrough-modal" class="walkthrough-modal modal active">
+		<div id="walkthrough-modal" class="walkthrough-modal modal">
 			<header class="bar-title">
 				<h3 class="title">
 					Introductie
@@ -120,38 +154,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="content">
-			<div id="map-canvas"></div>
-		</div>
-		<footer class="planner">
-			<div class="planner-container">
-				<div class="input-group">
-					<div class="input-row">
-						<label for="plan-route-from">
-							Van
-						</label>
-						<input id="plan-route-from" type="text" placeholder="Huidige locatie" value="Centraal"/>
-					</div>
-					<div class="input-row">
-						<label for="plan-route-to">
-							Naar
-						</label>
-						<input id="plan-route-to" type="text" placeholder="Huidige locatie" value="Museumplein"/>
-					</div>
-				</div>
-				<div class="row">
-					<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
-						Uitgestippeld
-					</a>
-					<a id="plan-route" class="button button-primary button-large button-spinner">
-						<div class="label">
-							Opstapp
-						</div>
-						<span class="spinner"></span>
-					</a>
-				</div>
-			</div>
-		</footer>
+		<div class="startup-image" style="background-image:url(./asset/image/startup_image/apple-touch-startup-image-640x1096.png)"></div>
 		<script src="./_behavior/opstapp.js"></script>
 	</body>
 </html>

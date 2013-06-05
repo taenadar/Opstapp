@@ -370,3 +370,26 @@
 {
 	margin-top: 1em
 }
+
+.startup-image
+{
+	position: absolute;
+	z-index: 9999;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background-size: cover;
+	opacity: 1;
+	background-position: 50% 50%;
+	-webkit-transition: all 500s;
+	-moz-transition: all 500s;
+	-ms-transition: all 500s;
+	-o-transition: all 500s;
+	transition: all 500s;
+}
+
+.startup-image.hidden
+{
+	opacity: 0
+}

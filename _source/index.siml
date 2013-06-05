@@ -42,6 +42,24 @@ html
 	body
 		#info-modal.info-modal.modal
 		
+		.home-modal.modal
+			.content > #map-canvas
+			footer.planner
+				.planner-container
+					.input-group
+						.input-row
+							label[for="plan-route-from"] "Van"
+							input#plan-route-from[type="text"][placeholder="Huidige locatie"][value="Centraal"]
+						.input-row
+							label[for="plan-route-to"] "Naar"
+							input#plan-route-to[type="text"][placeholder="Huidige locatie"][value="Museumplein"]
+			
+					.row
+						a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
+						a#plan-route.button.button-primary.button-large.button-spinner
+							.label "Opstapp"
+							span.spinner
+		
 		#uitgestippeld-modal.uitgestippeld-modal.modal
 			header.bar-title
 				h3.title "Uitgestippeld"
@@ -70,7 +88,7 @@ html
 			// footer.bar-footer
 			// 	a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
-		#walkthrough-modal.walkthrough-modal.modal.active
+		#walkthrough-modal.walkthrough-modal.modal
 			header.bar-title
 				h3.title "Introductie"
 				a.button[href="#walkthrough-modal"] "Close"
@@ -92,90 +110,7 @@ html
 									"Van Goghroute"
 									span.chevron
 		
-		// #meestermatcher-modal.meestermatcher-modal.modal
-		// 	header.bar-title
-		// 		h3.title "Meestermatcher"
-		// 		a.button[href="#meestermatcher-modal"] "Close"
-		// 	.content.carousel
-		// 		ul.list.carousel-list
-		// 			li
-		// 				p "Hoe ziet een perfecte vakantie voor jou er uit?"
-		// 				.meestermatcher-row
-		// 					.img[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "zon"
-		// 					.img[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "zee"
-		// 					.img[style="background-image:url(./asset/image/slide/3.png)"]
-		// 						strong "strand"
-		// 					.img.last[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "wind"
-		// 				.meestermatcher-row
-		// 					.img[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "zon"
-		// 					.img[style="background-image:url(./asset/image/slide/3.png)"]
-		// 						strong "zee"
-		// 					.img[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "strand"
-		// 					.img.last[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "wind"
-		// 			li
-		// 				p "Liefde of lust?"
-		// 				.meestermatcher-row
-		// 					.img[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "zon"
-		// 					.img[style="background-image:url(./asset/image/slide/3.png)"]
-		// 						strong "zee"
-		// 					.img[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "strand"
-		// 					.img.last[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "wind"
-		// 				.meestermatcher-row
-		// 					.img[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "zon"
-		// 					.img[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "zee"
-		// 					.img[style="background-image:url(./asset/image/slide/3.png)"]
-		// 						strong "strand"
-		// 					.img.last[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "wind"
-		// 			li
-		// 				p "Hoe ziet een perfecte vakantie voor jou er uit?"
-		// 				.meestermatcher-row
-		// 					.img[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "zon"
-		// 					.img[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "zee"
-		// 					.img[style="background-image:url(./asset/image/slide/3.png)"]
-		// 						strong "strand"
-		// 					.img.last[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "wind"
-		// 				.meestermatcher-row
-		// 					.img[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "zon"
-		// 					.img[style="background-image:url(./asset/image/slide/3.png)"]
-		// 						strong "zee"
-		// 					.img[style="background-image:url(./asset/image/slide/1.png)"]
-		// 						strong "strand"
-		// 					.img.last[style="background-image:url(./asset/image/slide/2.png)"]
-		// 						strong "wind"
+		.startup-image[style="background-image:url(./asset/image/startup_image/apple-touch-startup-image-640x1096.png)"]
 		
-		.content
-			#map-canvas
-		footer.planner
-			.planner-container
-				.input-group
-					.input-row
-						label[for="plan-route-from"] "Van"
-						input#plan-route-from[type="text"][placeholder="Huidige locatie"][value="Centraal"]
-					.input-row
-						label[for="plan-route-to"] "Naar"
-						input#plan-route-to[type="text"][placeholder="Huidige locatie"][value="Museumplein"]
-			
-				.row
-					a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
-					a#plan-route.button.button-primary.button-large.button-spinner
-						.label "Opstapp"
-						span.spinner
-
 		// Include the compiled JS
 		script[src="./_behavior/opstapp.js"]

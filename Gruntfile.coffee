@@ -96,7 +96,7 @@ module.exports = ( grunt ) ->
 					'port' : 21
 					'authKey' : 'wooorm'
 				'src' : '_dist'
-				'dest' : '/var/www//mi/p/app'
+				'dest' : '/var/www/mi/p/app'
 
 	grunt.registerTask 'copy', 'Copy files to shared dropbox.', () ->
 		root = '_dist'
