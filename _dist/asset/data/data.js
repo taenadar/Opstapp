@@ -418,6 +418,70 @@ app.data = [
 			"description" : "Zelfportret van Rembrandt als de apostel Paulus. Ten halven lijve naar links, het gelaat naar de kijker gewend. Met openstaande mantel die zicht geeft op het zwaard dat op de borst wordt gedragen, op het hoofd een witte tulband. In de handen een opengevouwen bundel zendbrieven.",
 			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4050"
 		}
+	},
+	{
+		"artist": "Adriaan de Lelie",
+		"piece": "De kunstgalerij",
+		"latitude": "52.366065",
+		"longitude": "4.889916",
+		"description": "Jan Gildemeester Jansz. kocht in 1972 een van de mooiste huizen aan de Herengracht. U staat nu voor dit huis. In dit huis stelde hij zijn kunstverzameling ten toon.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-4100",
+		"info" : {
+			"title" : "De kunstgalerij van Jan Gildemeester Jansz",
+			"type" : "Schilderij",
+			"id" : "SK-A-4100",
+			"date" : "1794 - 1795",
+			"description" : "De kunstgalerij van Jan Gildemeester Jansz in zijn huis aan de Herengracht te Amsterdam. Interieur met een groep gasten die de aanwezige schilderijen bekijken. In het midden Jan Gildemeester Jansz met een bezoeker met een bril. Links een vrouw zittend achter een ezel. De kamer is gedecoreerd met schilderingen van Jacob de Wit. Door de deur zijn meer schilderijen in een andere kamer zichtbaar. Tot de aanwezigen behoren Pieter Fouquet, C.R.T. Krayenhoff, de schilders Adriaan de Lelie (knielend rechts op de voorgrond) en Jurriaan Andriessen, mevr. Marianne Dull-Dohrman en Bernardus de Bosch Jeronimosz.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4100"
+		}
+	},
+	{
+		"artist": "Wouter Johannes van Troostwijk",
+		"piece": "Het Raampoortje",
+		"latitude": "52.374073",
+		"longitude": "4.875595",
+		"description": "Het 18de-eeuwse Raampoortje bevond zich in de Amsterdamse stadswal, ter hoogte van de Bloemgracht. Het poortje gaf toegang tot de bleekvelden buiten de muur, waar geverfde stoffen te drogen werden gelegd op houten ‘ramen’: zo kwam het Raampoortje aan zijn naam. Hier kijken we vanaf de bleekvelden langs de gevels van de Bloemgracht de winterse stad in. In de verte staat de Westertoren. De poort werd in 1846 gesloopt.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-C-1535",
+		"info" : {
+			"title" : "Het Raampoortje in Amsterdam",
+			"type" : "Schilderij",
+			"id" : "SK-C-1535",
+			"date" : "1809",
+			"description" : "Het Raampoortje te Amsterdam in de winter bij sneeuw. Op de achtergrond de gevels van de Bloemgracht en de Westertoren.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-1535"
+		}
+	},
+	{
+		"artist": "Johan Conrad Greive",
+		"piece": "Gezicht op de Vondelstraat",
+		"latitude": "52.361888",
+		"longitude": "4.87575",
+		"description": "In 1882 was dit het beeld wat Johan Conrad Greive had toen hij over de Vondelstraat keek.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-P-1937-789",
+		"info" : {
+			"title" : "Gezicht op de Vondelstraat van Amsterdam",
+			"type" : "prent",
+			"id" : "RP-P-1937-789",
+			"date" : "1882",
+			"description" : "De Vondelstraat in Amsterdam. Op de achtergrond de kruising met de Eerste Constantijn Huygensstraat en de Vondelkerk. In de straat rijdt de paardentram.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1937-789"
+		}
+	},
+	{
+		"artist": "Noach van der Meer (II)",
+		"piece": "Gebouw Felix Meritis",
+		"latitude": "52.370048",
+		"longitude": "4.884401",
+		"description": "Felix Meritis ('Gelukkig door verdiensten') is de naam van een voormalig genootschap en het bijbehorende gebouw aan de Keizersgracht te Amsterdam. Sinds 1988 is Stichting Felix Meritis in het pand gevestigd met een Europees Centrum voor Kunst, Cultuur en Wetenschap.",
+		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-P-1905-552",
+		"info" : {
+			"title" : "Gebouw Felix Meritis te Amsterdam",
+			"type" : "prent",
+			"id" : "RP-P-1905-552",
+			"date" : "1789",
+			"description" : "Het gebouw van het genootschap Felix Meritis te Amsterdam, dat in 1788 werd opgericht door gegoede burgers van de stad om de kunsten en wetenschappen te bevorderen. Op het trottoir bewonderen een man en vrouw het gebouw en een jongen speelt met een hoepel.",
+			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1905-552"
+		}
 	}
 	// {
 		// "artist": "",
