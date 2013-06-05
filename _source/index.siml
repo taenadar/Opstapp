@@ -33,7 +33,7 @@ html
 		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-1536x2008.png"][media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)"]
 		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-2048x1496.png"][media="(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"]
 		
-		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRgzRd9CQLIBHuB8j_Yy7msfopuDeXzQ8&amp;v=3.exp&sensor=false"]
+		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJZAj5z44oAhMSLw3oSL79PlscKstoYAI&amp;v=3.exp&sensor=false"]
 		script[src="./asset/data/data.js"]
 		script[src="./asset/data/route.js"]
 
@@ -65,7 +65,7 @@ html
 			// footer.bar-footer
 			// 	a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
 		
-		#walkthrough-modal.walkthrough-modal.modal.active
+		#walkthrough-modal.walkthrough-modal.modal
 			header.bar-title
 				h3.title "Introductie"
 				a.button[href="#walkthrough-modal"] "Close"
@@ -184,7 +184,6 @@ html
 							.img.last[style="background-image:url(./asset/image/slide/2.png)"]
 								strong "wind"
 		
-		// header.bar-title > h1.title "Opstapp"
 		.content
 			#map-canvas
 		footer.planner
@@ -192,10 +191,10 @@ html
 				.input-group
 					.input-row
 						label[for="plan-route-from"] "Van"
-						input#plan-route-from[type="text"][placeholder="Huidige locatie"]
+						input#plan-route-from[type="text"][placeholder="Huidige locatie"][value="Amsterdam Centraal"]
 					.input-row
 						label[for="plan-route-to"] "Naar"
-						input#plan-route-to[type="text"][placeholder="Huidige locatie"]
+						input#plan-route-to[type="text"][placeholder="Huidige locatie"][value="Museumplein Amsterdam"]
 			
 				.row
 					a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"

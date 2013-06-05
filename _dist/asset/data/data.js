@@ -278,7 +278,7 @@ app.data = [
 		"piece": "Regulierspoort en de Munt",
 		"latitude": "52.367655",
 		"longitude": "4.894014",
-		"description": "Het onderste deel van de Munttoren is overgebleven van een oude verdedigingstoren die bij brand grotendeels verwoest werd. In 1672 en 1673 werden hier munten geslage, vandaar de naam: Munttoren.",
+		"description": "Het onderste deel van de Munttoren is overgebleven van een oude verdedigingstoren die bij brand grotendeels verwoest werd. In 1672 en 1673 werden hier munten geslagen, vandaar de naam: Munttoren.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/RP-P-1905-450",
 		"info" : {
 			"title" : "Regulierspoort en de herberg de Munt te Amsterdam",
@@ -310,7 +310,7 @@ app.data = [
 		"piece": "Bouwterrein",
 		"latitude": "52.352984",
 		"longitude": "4.882368",
-		"description": "Dit is mogelijk de plaats waar dit schilderij op is gebaseerd. ",
+		"description": "Dit is mogelijk de plaats waar dit schilderij op is gebaseerd.",
 		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-2977",
 		"info" : {
 			"title" : "Bouwterrein in Amsterdam",

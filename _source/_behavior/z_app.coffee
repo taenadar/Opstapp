@@ -3,117 +3,83 @@ exports = @
 
 app = exports.app or exports.app = {}
 
+app.dataManager = new DataManager
+app.dataManager.setPoints app.data
+app.dataManager.setRoutes app.route
 
-LocationManager = ( options ) ->
-	@listeners = []
-	
-	if options then @options = options
-	
-	_onsuccess = @onsuccess
-	_onerror = @onerror
-	@onsuccess = ( => _onsuccess.apply @, arguments )
-	@onerror = ( => _onerror.apply @, arguments )
-	
-	@isRequested = no
-	
-	@
+$planner                = $$ '.planner'
+$planRoute              = $$ '#plan-route'
+$planTo                 = $$ '#plan-route-to'
+$planFrom               = $$ '#plan-route-from'
+$info                   = $$ '.info-modal'
+$uitgestippeld          = $$ '.uitgestippeld-modal'
+$walkthroughCarousel    = $$ '.walkthrough-modal .carousel'
+$meestermatcherCarousel = $$ '.meestermatcher-modal .carousel'
+$uitgestippeldCarousel  = $$ '.uitgestippeld-modal .carousel'
 
-LocationManager::request = ( position ) ->
-	if @isRequested is yes then return
+app.pointToString = ( point ) ->
+	"""
+		<header class=\"bar-title\">
+			<h3 class=\"title\"><div class="overflow-wrapper">#{point.piece}</div></h3>
+			<a class=\"button\" href=\"#info-modal\">
+				Close
+			</a>
+		</header>
+		<div class=\"content\">
+			<div class=\"img\" style=\"background-image:url(#{point.info.image})\">
+				<img class=\"hidden\" alt=\"\" src=\"#{point.info.image}\">
+			</div>
+			<div class=\"info-wrapper\">
+				<h1>#{point.info.title}</h1>
+				<h2>#{point.artist}</h2>
+				<p>#{point.info.description}</p>
+				<a class=\"button-primary button-block button-large\" href=\"#{point.link}\">Op naar het Rijks!</a>
+			</div>
+		</div>
+	"""
+
+# `infoWindowIntent` is a method that gets called when the user selects one of 
+# the info windows.
+app.infoWindowIntent = ( event ) ->
 	
-	@isRequested = yes
-	if navigator.geolocation
-		@id = navigator.geolocation.watchPosition @onsuccess, @onerror, @options
-	else @onerror
-		'code' : -1
-		'message' : 'GEOLOCATION UNAVAILABLE'
+	# Request the point belonging the info window by its id.
+	point = app.dataManager.getPoint event.data
 	
-	@
-
-LocationManager::options = 
-	'enableHighAccuracy' : true
-	'maximumAge' : 0
-
-LocationManager::onsuccess = ( position ) ->
-	@position = position
+	# If no point was found, return.
+	unless point then return
 	
-	do @onupdate_
-	
-	@
-
-LocationManager::on = ( listener ) ->
-	if @position then listener @position
-	@listeners.push listener
-	@
-
-LocationManager::once = ( listener ) ->
-	if @position
-		listener @position
-		return @
-	
-	listener_ = ( position ) =>
-		listener @position
-		@off listener_
-	
-	@listeners.push listener_
-	
-	@
-
-LocationManager::off = ( listener ) ->
-	
-	iterator = -1
-	length = @listeners.length
-	
-	while ++iterator < length
-		if @listeners[ iterator ] is listener
-			@listeners[ iterator ] = null
-			return true
-	
-	false
-
-LocationManager::listeners = []
-
-LocationManager::onupdate_ = ->
-	iterator = -1
-	length = @listeners.length
-	
-	while ++iterator < length
-		listener = @listeners[ iterator ]
-		if listener and listener.call and listener.apply
-			@listeners[ iterator ] @position
-	
-	@
-
-LocationManager::onerror = ( error ) ->
-	# Fail silently.
-	
-	@
-
-
-locationManager = app.locationManager = new LocationManager
-
-
-###
-Plan-my-route modal.
-###
-
-# $planRouteModal = do ( $ '#plan-route-modal' ).item
-$planner = $$ '.planner'
-$planRoute = $$ '#plan-route'
-$planTo = $$ '#plan-route-to'
-$planFrom = $$ '#plan-route-from'
-
-window.on 'load', -> do locationManager.request
-
-$planRoute.on 'click', ( event ) ->
-	
+	# Prevent default action, and stop the event from bubbling up.
 	do event.preventDefault
 	do event.stopPropagation
 	
+	# Stringify the point, and set the returned value as the content of the 
+	# info modal.
+	$info.innerHTML = app.pointToString point
+	
+	# Activate the info modal.
+	$info.classList.add 'active'
+	
+	undefined
+
+
+# Request geolocation on load.
+window.on 'load', -> do app.locationManager.request
+
+# When the user selects the button to plan a route...
+$planRoute.on 'click', ( event ) ->
+	
+	# Prevent default action, and stop the event from bubbling up.
+	do event.preventDefault
+	do event.stopPropagation
+	
+	# Set origin and destination based on input.
 	origin = do $planFrom.value.toLowerCase
 	destination = do $planTo.value.toLowerCase
+	
+	# Set initial distance to 500 meters.
 	distance = 0.5
 	
+	# If origin and/or destination are empty, set them to current location.
 	origin or origin = 'huidige locatie'
 	destination or destination = 'huidige locatie'
 	
@@ -124,167 +90,65 @@ $planRoute.on 'click', ( event ) ->
 		else
 			do planner.hide
 	
+	# When origin and/or destination are based on the users current location, 
+	# request the location from `locationManager`, and calculate a route based 
+	# on the given position.
 	if origin is 'huidige locatie' or destination is 'huidige locatie'
-		locationManager.once ( position ) ->
+		app.locationManager.once ( position ) ->
 			coords = [ position.coords.latitude, position.coords.longitude ]
 			if origin is 'huidige locatie' then origin = coords
 			if destination is 'huidige locatie' then destination = coords
 			calcRoute origin, destination, distance, callback
+	# Else, emediatly request a route.
 	else
 		calcRoute origin, destination, distance, callback
-
-$infoModal = do ( $ '#info-modal' ).item
-
-exports.info = info = ( boolean ) ->
-	boolean is !!boolean or boolean = !$infoModal.classList.contains 'active'
-	$infoModal.classList[ if boolean then 'add' else 'remove' ] 'active'
-	$infoModal
-
-
-waypoints = {}
-
-do ->
-	iterator = -1
-	data = app.data
-	length = data.length
-	
-	while ++iterator < length
-		waypoint = data[ iterator ]
-
-		unless waypoint.info and waypoint.info.id then continue
-		
-		waypoints[ waypoint.info.id ] = waypoint
 	
 	undefined
 
-waypointToString = ( data ) ->
-	"""
-		<header class=\"bar-title\">
-			<h3 class=\"title\"><div class="overflow-wrapper">#{data.piece}</div></h3>
-			<a class=\"button\" href=\"#info-modal\">
-				Close
-			</a>
-		</header>
-		<div class=\"content\">
-			<div class=\"img\" style=\"background-image:url(#{data.info.image})\">
-				<img class=\"hidden\" alt=\"\" src=\"#{data.info.image}\">
-			</div>
-			<div class=\"info-wrapper\">
-				<h1>#{data.info.title}</h1>
-				<h2>#{data.artist}</h2>
-				<p>#{data.info.description}</p>
-				<a class=\"button-primary button-block button-large\" href=\"#{data.link}\">Op naar het Rijks!</a>
-			</div>
-		</div>
-	"""
-
-
-app.markerIntent = ( event ) ->
-	$target = event.target
-	
-	do event.preventDefault
-	do event.stopPropagation
-	
-	data = event.data
-	waypoint = waypoints[ data.id ]
-	
-	unless data.id or waypoint then return
-	
-	$infoModal.innerHTML = waypointToString waypoint
-	info true
-	
-	undefined
-
-
-routes = {}
-
-do ->
-	iterator = -1
-	data = app.route
-	length = data.length
-	
-	while ++iterator < length
-		route = data[ iterator ]
-		waypoints_ = []
-		
-		route_ =
-			'image' : route.image
-			'name' : route.name
-			'description' : route.description
-			
-		iterator_ = -1
-		data_ = route.route
-		length_ = data_.length
-		
-		while ++iterator_ < length_
-			waypoint = data_[ iterator_ ]
-			
-			if waypoint.id and waypoints[ waypoint.id ]
-				waypoints_.push waypoints[ waypoint.id ]
-		
-		route_.origin = waypoints_[ 0 ]
-		route_.destination = waypoints_[ waypoints_.length - 1 ]
-		route_.waypoints = waypoints_.slice 1, waypoints_.length - 1
-		routes[ route.id ] = route_
-	
-	undefined
-
-
+# When the user selects an element...
 window.on 'click', ( event ) ->
+	
 	$target = event.target
 	
-	# while $target isnt document.body
-	# 	if $target.classList.contains 'uitgestippeld-link' then break
-	# 	
-	# 	$target = $target.parentElement
-	# 
+	# Return if it's not one of the `uitgestippeld` items, return.
 	unless $target.classList.contains 'uitgestippeld-link' then return
 	
-	id = $target.dataset.id
-	route = routes[ id ]
+	# Find the route belonging to the `uitgestippeld` item.
+	route = app.dataManager.getRoute $target.dataset.id
 	
-	unless id or route then return
+	# If a route couldn't be found, return.
+	unless route then return
 	
+	# Prevent default action, and stop the event from bubbling up.
 	do event.preventDefault
 	do event.stopPropagation
 	
-	iterator = -1
-	length = route.waypoints.length
-	
-	waypoints = []
-	
-	while ++iterator < length
-		waypoint = route.waypoints[ iterator ]
-		
-		waypoints.push
-			'location' : new google.maps.LatLng waypoint.latitude, waypoint.longitude
-			'stopover' : true
-	
-	origin = new google.maps.LatLng route.origin.latitude, route.origin.longitude
-	destination = new google.maps.LatLng route.destination.latitude, route.destination.longitude
-	
-	drawNewRoute waypoints, origin, destination, ->
+	# Draw a new route between all `waypoints` on route, starting at `origin`, 
+	# and ending at `destination`.
+	drawNewRoute route.waypoints, route.origin.latLng, route.destination.latLng, ->
 		console.log 'callback!'
 	
+	# Hide the planner.
 	do planner.hide
-	$uitgestippeldModal = $$ '.uitgestippeld-modal'
-	$uitgestippeldModal.classList.remove 'active'
+	
+	# Hide `uitgestippeld`.
+	$uitgestippeld.classList.remove 'active'
 	
 	undefined
 
+
 # Initialization.
-	
-$walkthrough = $$ '.walkthrough-modal .carousel'
-$meestermatcher = $$ '.meestermatcher-modal .carousel'
-$uitgestippeld = $$ '.uitgestippeld-modal .carousel'
 
-carousel = new Carousel $walkthrough, true
+# Instanciate the walkthrough, meestermatcher, and uitgestippeld modals as 
+# carousels.
+new Carousel $walkthroughCarousel, true
+new Carousel $meestermatcherCarousel, true
+new Carousel $uitgestippeldCarousel, true
 
-meestermatcher = new Carousel $meestermatcher, true
-
-uitgestippeld = new Carousel $uitgestippeld, true
-
+# Instanciate planner.
 planner = new Planner $planner
+
+# Show the planner.
 do planner.show
 
 # Overwrite height.

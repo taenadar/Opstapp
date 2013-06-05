@@ -1,11 +1,9 @@
 exports = @
 
 app = exports.app or exports.app = {}
-app.locationManager
 
 waypoints = []
 
-# Hide from "global" scope.
 do ->
 	iterator = -1
 	data = app.data
@@ -19,7 +17,6 @@ do ->
 		waypoints[ iterator ] = latLng
 
 # Create a new Google Maps style.
-
 styledMap = new google.maps.StyledMapType [
 			'featureType': 'landscape.natural',
 			'stylers': [
@@ -75,12 +72,11 @@ styledMap = new google.maps.StyledMapType [
 	'name' : 'Salt & Pepper'
 
 # Select the map node.
-$map = document.getElementById 'map-canvas'
+$map = $$ '#map-canvas'
 
 # Create the actualy map on the map element.
 map = new google.maps.Map $map,
 	'zoom' : 14
-	'streetViewControl' : false
 	'center' : new google.maps.LatLng 52.359903, 4.884131
 	'disableDefaultUI' : true
 	'mapTypeControlOptions' :
@@ -181,7 +177,7 @@ findPointsOnRoute = ( response, origin, destination, distance, callback ) ->
 	
 	if waypts.length > 8 and distance > 0.1
 		findPointsOnRoute response, origin, destination, distance - 0.1, callback
-	else if waypts.length < 5 and distance < 10
+	else if waypts.length < 4 and distance < 10
 		findPointsOnRoute response, origin, destination, distance + 0.1, callback
 	else
 		if waypts.length > 8
@@ -198,7 +194,6 @@ findPointsOnRoute = ( response, origin, destination, distance, callback ) ->
 			
 			return
 		
-		console.log waypts
 		drawNewRoute waypts, origin, destination, callback
 	
 	@
@@ -237,6 +232,8 @@ onLocationUpdate = ( position ) ->
 			'title' : 'current location.'
 			'animation' : google.maps.Animation.DROP
 			'flat' : true
+			'optimized' : false
+			'visible' : true
 	
 	undefined
 
@@ -244,7 +241,6 @@ clearMap = ->
 	
 	app.locationManager.off onLocationUpdate
 	
-	# Remove markers
 	iterator = -1
 	length = markers.length
 	
@@ -284,7 +280,6 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 	
 	if point.waypoint
 		data = point.waypoint
-		# <a class=\"button-primary button-block button-large button-map\" href=\"#{data.link}\" data-id=\"#{data.info.id}\">Meer info »</a>
 		content = "<b>#{data.piece}</b><br/>#{data.artist}<br/>"
 	else
 		content = "<b>#{address}</b>"
@@ -300,11 +295,10 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 				'latlng' : point
 				'content' : content
 				'onclick' : ( event ) ->
-					if data and app.markerIntent
-						event.data =
-							'id' : data.info.id
-							'link' : data.link
-						app.markerIntent.apply @, arguments
+					console.log event, data
+					if data and app.infoWindowIntent
+						event.data = data.info.id
+						app.infoWindowIntent.apply @, arguments
 					@
 			
 			google.maps.event.addListener marker, 'click', ->
@@ -312,6 +306,7 @@ visualizeLeg = ( address, point, waypoint, index, length ) ->
 					do currentMarker.info.close
 				
 				marker.info.open map
+				console.log marker.info
 				# marker.info.$node.classList.add 'button-map'
 				# marker.info.$node.dataset.id = data.info.id
 				# marker.info.addListener 'click', ->
@@ -362,6 +357,7 @@ drawNewRoute = ( waypts, origin, destination, callback ) ->
 				waypoint = null
 				address = origin
 			
+			console.log leg.start_address, leg.start_location, waypoint, iterator, length
 			visualizeLeg leg.start_address, leg.start_location, waypoint, iterator, length
 			do updateBounds
 		
