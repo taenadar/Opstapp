@@ -26,8 +26,8 @@ app.pointToString = ( point ) ->
 			</a>
 		</header>
 		<div class=\"content\">
-			<div class=\"img\" style=\"background-image:url(#{point.info.image})\">
-				<img class=\"hidden\" alt=\"\" src=\"#{point.info.image}\">
+			<div class=\"img\" style=\"background-image:url(./asset/image/data/#{point.info.id}_large.jpg)\">
+				<img class=\"hidden\" alt=\"\" src=\"./asset/image/data/#{point.info.id}_large.jpg\">
 			</div>
 			<div class=\"info-wrapper\">
 				<h1>#{point.info.title}</h1>
@@ -42,11 +42,9 @@ app.pointToString = ( point ) ->
 # the info windows.
 app.infoWindowIntent = ( event ) ->
 	
-	# Request the point belonging the info window by its id.
-	point = app.dataManager.getPoint event.data
+	point = event.data
 	
-	# If no point was found, return.
-	unless point then return
+	if not point.isPoint then return
 	
 	# Prevent default action, and stop the event from bubbling up.
 	do event.preventDefault
@@ -98,10 +96,10 @@ $planRoute.on 'click', ( event ) ->
 			coords = [ position.coords.latitude, position.coords.longitude ]
 			if origin is 'huidige locatie' then origin = coords
 			if destination is 'huidige locatie' then destination = coords
-			calcRoute origin, destination, distance, callback
+			app.mapView.requestRoute origin, destination, distance, callback
 	# Else, emediatly request a route.
 	else
-		calcRoute origin, destination, distance, callback
+		app.mapView.requestRoute origin, destination, distance, callback
 	
 	undefined
 
@@ -125,8 +123,7 @@ window.on 'click', ( event ) ->
 	
 	# Draw a new route between all `waypoints` on route, starting at `origin`, 
 	# and ending at `destination`.
-	drawNewRoute route.waypoints, route.origin.latLng, route.destination.latLng, ->
-		console.log 'callback!'
+	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng
 	
 	# Hide the planner.
 	do planner.hide

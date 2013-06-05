@@ -6,6 +6,25 @@ DataManager = ->
 DataManager::getPoint = ( id ) ->
 	@_points[ id ] or false
 
+DataManager::getPointByLocation = ( location ) ->
+	
+	if location.id
+		return @getPoint location.id
+	
+	points = do @getPointsAsArray
+	
+	iterator = -1
+	length = points.length
+	
+	while ++iterator < length
+		point = points[ iterator ]
+		
+		if point.latLng.equals location then return point
+	
+	false
+
+location
+
 DataManager::getPoints = ->
 	@_points or false
 
@@ -32,8 +51,9 @@ DataManager::setPoint = ( point ) ->
 	
 	unless point.info and point.info.id then return false
 	
+	point.isPoint = true
 	point.latLng = new google.maps.LatLng point.latitude, point.longitude
-	point.latLng.point = point
+	point.latLng.id = point.info.id
 	
 	point.waypoint =
 		'location' : point.latLng

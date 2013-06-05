@@ -2016,6 +2016,26 @@ Number.prototype.toBrng = function () {
     return this._points[id] || false;
   };
 
+  DataManager.prototype.getPointByLocation = function(location) {
+    var iterator, length, point, points;
+
+    if (location.id) {
+      return this.getPoint(location.id);
+    }
+    points = this.getPointsAsArray();
+    iterator = -1;
+    length = points.length;
+    while (++iterator < length) {
+      point = points[iterator];
+      if (point.latLng.equals(location)) {
+        return point;
+      }
+    }
+    return false;
+  };
+
+  location;
+
   DataManager.prototype.getPoints = function() {
     return this._points || false;
   };
@@ -2052,8 +2072,9 @@ Number.prototype.toBrng = function () {
     if (!(point.info && point.info.id)) {
       return false;
     }
+    point.isPoint = true;
     point.latLng = new google.maps.LatLng(point.latitude, point.longitude);
-    point.latLng.point = point;
+    point.latLng.id = point.info.id;
     point.waypoint = {
       'location': point.latLng,
       'stopover': true
@@ -2426,235 +2447,347 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $map, app, calcRoute, clearMap, currentMarker, currentUser, directionsRenderer, directionsService, drawNewRoute, exports, findPointsOnRoute, latLongRegExp, makeMarker, map, markerIcon, markerIcons, markers, onLocationUpdate, routeBoxer, styledMap, updateBounds, visualizeLeg, waypoints;
+  var MapView, app, exports, mapView, rendererOptions;
 
   exports = this;
 
   app = exports.app || (exports.app = {});
 
-  waypoints = [];
+  app.options || (app.options = {});
 
-  (function() {
-    var data, iterator, latLng, length, waypoint, _results;
-
-    iterator = -1;
-    data = app.data;
-    length = data.length;
-    _results = [];
-    while (++iterator < length) {
-      waypoint = data[iterator];
-      latLng = new google.maps.LatLng(waypoint.latitude, waypoint.longitude);
-      latLng.waypoint = waypoint;
-      _results.push(waypoints[iterator] = latLng);
-    }
-    return _results;
-  })();
-
-  styledMap = new google.maps.StyledMapType([
-    {
-      'featureType': 'landscape.natural',
-      'stylers': [
-        {
-          'color': '#3c3c3c'
-        }, {
-          'visibility': 'on'
-        }
-      ]
-    }, {
-      'featureType': 'landscape.man_made',
-      'elementType': 'geometry',
-      'stylers': [
-        {
-          'color': '#2f2f2f'
-        }, {
-          'visibility': 'on'
-        }
-      ]
-    }, {
-      'featureType': 'water',
-      'elementType': 'geometry',
-      'stylers': [
-        {
-          'visibility': 'on'
-        }, {
-          'color': '#434343'
-        }
-      ]
-    }, {
-      'featureType': 'administrative',
-      'elementType': 'geometry',
-      'stylers': [
-        {
-          'visibility': 'on'
-        }, {
-          'color': '#808080'
-        }
-      ]
-    }, {
-      'featureType': 'road',
-      'elementType': 'geometry',
-      'stylers': [
-        {
-          'color': '#000000'
-        }, {
-          'visibility': 'on'
-        }
-      ]
-    }, {
-      'featureType': 'transit',
-      'stylers': [
-        {
-          'color': '#4c4c4c'
-        }, {
-          'visibility': 'on'
-        }
-      ]
-    }, {
-      'featureType': 'poi',
-      'stylers': [
-        {
-          'visibility': 'off'
-        }
-      ]
-    }, {
-      'elementType': 'labels',
-      'stylers': [
-        {
-          'visibility': 'off'
-        }
-      ]
-    }
-  ], {
-    'name': 'Salt & Pepper'
-  });
-
-  $map = $$('#map-canvas');
-
-  map = new google.maps.Map($map, {
-    'zoom': 14,
-    'center': new google.maps.LatLng(52.359903, 4.884131),
-    'disableDefaultUI': true,
-    'mapTypeControlOptions': {
-      'mapTypeIds': [google.maps.MapTypeId.ROADMAP, 'map_style']
-    }
-  });
-
-  map.mapTypes.set('map_style', styledMap);
-
-  map.setMapTypeId('map_style');
-
-  directionsRenderer = new google.maps.DirectionsRenderer({
+  app.options.directionsRenderer = {
     'suppressMarkers': true,
-    'suppressInfoWindows': true,
-    'map': map,
-    'polylineOptions': {
-      'strokeColor': '#5e99b0',
-      'strokeOpacity': 0.8,
-      'strokeWeight': 3
+    'suppressInfoWindows': true
+  };
+
+  app.options.polylineOptions = {
+    'strokeColor': '#5e99b0',
+    'strokeOpacity': 0.8,
+    'strokeWeight': 3
+  };
+
+  app.options.mapStyles = {
+    'dark': [
+      {
+        'featureType': 'landscape.natural',
+        'stylers': [
+          {
+            'color': '#3c3c3c'
+          }, {
+            'visibility': 'on'
+          }
+        ]
+      }, {
+        'featureType': 'landscape.man_made',
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'color': '#2f2f2f'
+          }, {
+            'visibility': 'on'
+          }
+        ]
+      }, {
+        'featureType': 'water',
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'visibility': 'on'
+          }, {
+            'color': '#434343'
+          }
+        ]
+      }, {
+        'featureType': 'administrative',
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'visibility': 'on'
+          }, {
+            'color': '#808080'
+          }
+        ]
+      }, {
+        'featureType': 'road',
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'color': '#000000'
+          }, {
+            'visibility': 'on'
+          }
+        ]
+      }, {
+        'featureType': 'transit',
+        'stylers': [
+          {
+            'color': '#4c4c4c'
+          }, {
+            'visibility': 'on'
+          }
+        ]
+      }, {
+        'featureType': 'poi',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }, {
+        'elementType': 'labels',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }
+    ]
+  };
+
+  app.options.icons = {
+    '1': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_1.png'
+    },
+    '2': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_2.png'
+    },
+    '3': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_3.png'
+    },
+    '4': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_4.png'
+    },
+    '5': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_5.png'
+    },
+    '6': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_6.png'
+    },
+    '7': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_7.png'
+    },
+    '8': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_8.png'
+    },
+    'a': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_a.png'
+    },
+    'b': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed_b.png'
+    },
+    'user': {
+      'size': [19, 19],
+      'url': './asset/image/map/marker_closed_user.png'
+    },
+    'default': {
+      'size': [20, 35],
+      'url': './asset/image/map/marker_closed.png'
     }
-  });
+  };
 
-  markerIcons = {};
+  MapView = function($node, options) {
+    var _this = this;
 
-  (function() {
-    var iterator, length, _results;
+    this._$node = $node;
+    this.options = options;
+    this._mapStyles = {};
+    this._map = new google.maps.Map($node, options);
+    this._markers = [];
+    this._marker = null;
+    app.locationManager.on(function() {
+      return _this.onLocationUpdate.apply(_this, arguments);
+    });
+    google.maps.event.addListener(this._map, 'click', function() {
+      return _this.onClick.apply(_this, arguments);
+    });
+    return this;
+  };
 
-    iterator = -1;
-    length = 8;
-    _results = [];
-    while (++iterator < length) {
-      _results.push(markerIcons[iterator] = {
-        'scaledSize': new google.maps.Size(20, 35),
-        'size': new google.maps.Size(20, 35),
-        'url': "./asset/image/map/marker_closed_" + (iterator + 1) + ".png"
+  MapView.prototype.setRenderer = function(options) {
+    if (this.renderer) {
+      this.renderer.setMap(null);
+    }
+    this.renderer = new google.maps.DirectionsRenderer(options);
+    this.renderer.setMap(this._map);
+    return this;
+  };
+
+  MapView.prototype.setService = function(options) {
+    this.service = new google.maps.DirectionsService(options);
+    return this;
+  };
+
+  MapView.prototype.activateMapStyle = function(name) {
+    if (!this._mapStyles[name]) {
+      return;
+    }
+    this._map.mapTypes.set(name, this._mapStyles[name]);
+    this._map.setMapTypeId(name);
+    return this;
+  };
+
+  MapView.prototype.setMapStyle = function(name, style) {
+    this._mapStyles[name] = new google.maps.StyledMapType(style, {
+      'name': name
+    });
+    return this;
+  };
+
+  MapView.prototype.setMapStyles = function(styles) {
+    var key, value;
+
+    for (key in styles) {
+      value = styles[key];
+      this.setMapStyle(key, value);
+    }
+    return this;
+  };
+
+  MapView.prototype.setIcon = function(name, icon) {
+    var size;
+
+    this._icons || (this._icons = {});
+    size = new google.maps.Size(icon.size[0], icon.size[1]);
+    this._icons[name] = {
+      'scaledSize': size,
+      'size': size,
+      'url': icon.url
+    };
+    return this;
+  };
+
+  MapView.prototype.getIcon = function(name) {
+    if (!this._icons) {
+      return false;
+    }
+    return this._icons[name] || this._icons['default'] || false;
+  };
+
+  MapView.prototype.setIcons = function(icons) {
+    var key, value;
+
+    this._icons || (this._icons = {});
+    for (key in icons) {
+      value = icons[key];
+      this.setIcon(key, value);
+    }
+    return this;
+  };
+
+  MapView.prototype.setRouteBoxer = function(routeBoxer) {
+    this._boxer = routeBoxer;
+    return this;
+  };
+
+  MapView.prototype.onLocationUpdate = function(position) {
+    var coords, latLng;
+
+    coords = position.coords;
+    latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
+    if (this._currentUser) {
+      this._currentUser.setPosition(latLng);
+    } else {
+      this._currentUser = new google.maps.Marker({
+        'position': latLng,
+        'map': this._map,
+        'icon': this.getIcon('user'),
+        'title': 'Huidige locatie.',
+        'animation': google.maps.Animation.DROP,
+        'flat': true,
+        'optimized': false,
+        'visible': true
       });
     }
-    return _results;
-  })();
-
-  markerIcons.a = {
-    'scaledSize': new google.maps.Size(20, 35),
-    'size': new google.maps.Size(20, 35),
-    'url': "./asset/image/map/marker_closed_a.png"
+    return this;
   };
 
-  markerIcons.b = {
-    'scaledSize': new google.maps.Size(20, 35),
-    'size': new google.maps.Size(20, 35),
-    'url': "./asset/image/map/marker_closed_b.png"
+  MapView.prototype.clear = function() {
+    var iterator, length, marker;
+
+    iterator = -1;
+    length = this._markers.length;
+    while (++iterator < length) {
+      marker = this._markers[iterator];
+      marker.setMap(null);
+      if (marker.infoWindow) {
+        marker.infoWindow.setMap(null);
+      }
+    }
+    this._markers = [];
+    this._marker = null;
+    return this;
   };
 
-  markerIcons.user = {
-    'scaledSize': new google.maps.Size(19, 19),
-    'size': new google.maps.Size(19, 19),
-    'url': "./asset/image/map/marker_closed_user.png"
-  };
+  MapView.prototype.requestRoute = function(origin, destination, distance, callback) {
+    var request,
+      _this = this;
 
-  markerIcon = {
-    'scaledSize': new google.maps.Size(20, 35),
-    'size': new google.maps.Size(20, 35),
-    'url': './asset/image/map/marker_closed.png'
-  };
-
-  routeBoxer = new RouteBoxer;
-
-  directionsService = new google.maps.DirectionsService;
-
-  calcRoute = function(start, end, distance, callback) {
-    var destination, origin, request;
-
-    clearMap();
-    origin = start.toString();
-    destination = end.toString();
+    origin = origin.toString();
+    destination = destination.toString();
     request = {
       'origin': origin,
       'destination': destination,
       'travelMode': google.maps.TravelMode.WALKING
     };
-    return directionsService.route(request, function(response, status) {
+    this.service.route(request, function(response, status) {
       if (status !== google.maps.DirectionsStatus.OK) {
-        console.log('uncatched error in `calcRoute`', response, status);
-        callback(response);
+        if (!~origin.indexOf('Amsterdam')) {
+          origin += ' Amsterdam, Netherlands';
+          destination += ' Amsterdam, Netherlands';
+          _this.requestRoute(origin, destination, distance, callback);
+        } else {
+          console.log('---|', _this, arguments);
+          throw new Error('Uncatched error in `MapView::requestRoute`');
+        }
         return;
       }
-      return findPointsOnRoute(response, origin, destination, distance, callback);
+      _this.findPointsOnRoute(response, origin, destination, distance, callback);
     });
+    return this;
   };
 
-  latLongRegExp = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/;
+  MapView.prototype.REGEXP_LAT_LONG = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/;
 
-  findPointsOnRoute = function(response, origin, destination, distance, callback) {
-    var bounds, boxes, boxpolys, iterator, iterator_, length, length_, path, summary, waypts;
+  MapView.prototype.findPointsOnRoute = function(response, origin, destination, distance, callback) {
+    var box, boxes, iterator, iterator_, length, length_, path, point, points, points_, summary;
 
     path = response.routes[0].overview_path;
-    boxes = routeBoxer.box(path, distance);
-    waypts = [];
+    boxes = this._boxer.box(path, distance);
+    points_ = app.dataManager.getPointsAsArray();
+    points = [];
     iterator = -1;
     length = boxes.length;
-    boxpolys = new Array(length);
     while (++iterator < length) {
-      bounds = boxes[iterator];
+      box = boxes[iterator];
       iterator_ = -1;
-      length_ = waypoints.length;
+      length_ = points_.length;
       while (++iterator_ < length_) {
-        if (bounds.contains(waypoints[iterator_])) {
-          waypts.push({
-            'location': waypoints[iterator_],
-            'stopover': true
-          });
+        point = points_[iterator_];
+        if (box.contains(point.latLng)) {
+          points.push(point.waypoint);
         }
       }
     }
-    if (waypts.length > 8 && distance > 0.1) {
-      findPointsOnRoute(response, origin, destination, distance - 0.1, callback);
-    } else if (waypts.length < 4 && distance < 10) {
-      findPointsOnRoute(response, origin, destination, distance + 0.1, callback);
+    if (points.length > 8 && distance > 0.1) {
+      this.findPointsOnRoute(response, origin, destination, distance - 0.1, callback);
+    } else if (points.length < 4 && distance < 10) {
+      this.findPointsOnRoute(response, origin, destination, distance + 0.1, callback);
     } else {
-      if (waypts.length > 8) {
-        waypts = waypts.slice(0, 8);
-      } else if (waypts.length < 1) {
-        origin = origin.replace(latLongRegExp, 'huidige locatie');
-        destination = destination.replace(latLongRegExp, 'huidige locatie');
+      if (points.length > 8) {
+        points = points.slice(0, 8);
+      } else if (points.length < 1) {
+        origin = origin.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
+        destination = destination.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
         summary = response.routes[0].summary;
         if (origin === destination) {
           callback("De applicatie kon geen punten vinden in de buurt van \"" + summary + "\".");
@@ -2663,187 +2796,239 @@ Here be coffee
         }
         return;
       }
-      drawNewRoute(waypts, origin, destination, callback);
+      this.calculateRoute(points, origin, destination, callback);
     }
     return this;
   };
 
-  markers = [];
+  MapView.prototype.metersToString = function(meters) {
+    var kilometers;
 
-  currentMarker = null;
-
-  currentUser = null;
-
-  updateBounds = function() {
-    var bounds, iterator, length;
-
-    bounds = new google.maps.LatLngBounds;
-    if (currentUser) {
-      bounds.extend(currentUser.position);
-    }
-    iterator = -1;
-    length = markers.length;
-    while (++iterator < length) {
-      bounds.extend(markers[iterator].position);
-    }
-    map.fitBounds(bounds);
-    return void 0;
+    kilometers = meters / 1000;
+    kilometers = Math.floor(kilometers * 10) / 10;
+    return "" + kilometers + "km";
   };
 
-  onLocationUpdate = function(position) {
-    var coords, latLng;
+  MapView.prototype.secondsToString = function(seconds) {
+    var hours, minutes;
 
-    coords = position.coords;
-    latLng = new google.maps.LatLng(coords.latitude, coords.longitude);
-    if (currentUser) {
-      currentUser.setPosition(latLng);
-    } else {
-      currentUser = new google.maps.Marker({
-        'position': latLng,
-        'map': map,
-        'icon': markerIcons.user,
-        'title': 'current location.',
-        'animation': google.maps.Animation.DROP,
-        'flat': true,
-        'optimized': false,
-        'visible': true
-      });
+    minutes = seconds / 60;
+    minutes = Math.round(minutes);
+    hours = 0;
+    while (minutes > 59) {
+      minutes -= 60;
+      hours += 1;
     }
-    return void 0;
+    if (hours < 10) {
+      hours = '0' + hours;
+    }
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+    return "" + hours + ":" + minutes;
   };
 
-  clearMap = function() {
-    var iterator, length;
-
-    app.locationManager.off(onLocationUpdate);
-    iterator = -1;
-    length = markers.length;
-    while (++iterator < length) {
-      markers[iterator].setMap(null);
+  MapView.prototype.onClick = function(event) {
+    if (this._marker && this._marker.infoWindow) {
+      this._marker.infoWindow.close();
+      return this._marker = null;
     }
-    markers = [];
-    currentMarker = null;
-    return this;
   };
 
-  makeMarker = function(position, icon, title) {
-    var marker;
+  MapView.prototype.calculateRoute = function(points, origin, destination, callback) {
+    var request,
+      _this = this;
 
-    marker = new google.maps.Marker({
-      'position': position,
-      'map': map,
-      'icon': icon,
-      'title': title,
-      'animation': google.maps.Animation.DROP,
-      'flat': true,
-      'optimized': false
-    });
-    markers.push(marker);
-    return marker;
-  };
-
-  visualizeLeg = function(address, point, waypoint, index, length) {
-    var content, data, icon, title;
-
-    if (index === 0) {
-      title = 'start';
-      icon = markerIcons.a || markerIcon;
-    } else if (index === length) {
-      title = 'end';
-      icon = markerIcons.b || markerIcon;
-    } else {
-      title = 'waypoint';
-      icon = markerIcons[index - 1] || markerIcon;
-      point.waypoint = waypoint.location.waypoint;
-    }
-    if (point.waypoint) {
-      data = point.waypoint;
-      content = "<b>" + data.piece + "</b><br/>" + data.artist + "<br/>";
-    } else {
-      content = "<b>" + address + "</b>";
-    }
-    return window.setTimeout(function() {
-      var infoBox, marker;
-
-      marker = makeMarker(point, icon, title);
-      marker.info = infoBox = new InfoBox({
-        'map': map,
-        'latlng': point,
-        'content': content,
-        'onclick': function(event) {
-          console.log(event, data);
-          if (data && app.infoWindowIntent) {
-            event.data = data.info.id;
-            app.infoWindowIntent.apply(this, arguments);
-          }
-          return this;
-        }
-      });
-      return google.maps.event.addListener(marker, 'click', function() {
-        if (currentMarker) {
-          currentMarker.info.close();
-        }
-        marker.info.open(map);
-        console.log(marker.info);
-        return currentMarker = marker;
-      });
-    }, index * 200);
-  };
-
-  google.maps.event.addListener(map, 'click', function() {
-    if (currentMarker) {
-      currentMarker.info.close();
-      return currentMarker = null;
-    }
-  });
-
-  drawNewRoute = function(waypts, origin, destination, callback) {
-    var request;
-
-    clearMap();
-    app.locationManager.on(onLocationUpdate);
     request = {
       'origin': origin,
       'destination': destination,
-      'waypoints': waypts,
+      'waypoints': points,
       'optimizeWaypoints': true,
       'travelMode': google.maps.TravelMode.WALKING
     };
-    return directionsService.route(request, function(response, status) {
-      var address, iterator, leg, legs, length, route, waypoint;
+    this.service.route(request, function(response, status) {
+      var address, calculatedRoute, destination_, distance, duration, index, iterator, leg, legs, length, location, origin_, point, points_, route;
 
       if (status !== google.maps.DirectionsStatus.OK) {
-        console.log('Uncatched error in drawNewRoute', arguments);
+        console.log('---|', _this, arguments);
+        throw new Error('Uncatched error in `MapView::calculateRoute`');
         return;
       }
-      callback();
-      directionsRenderer.setDirections(response);
       route = response.routes[0];
       legs = route.legs;
-      iterator = -1;
+      distance = 0;
+      duration = 0;
+      points_ = [];
+      if (origin.lat && origin.lng) {
+        origin_ = app.dataManager.getPointByLocation(origin);
+      }
+      if (destination.lat && destination.lng) {
+        destination_ = app.dataManager.getPointByLocation(destination);
+      }
+      iterator = 0;
       length = legs.length;
+      if (origin_) {
+        points_.push(origin_);
+      } else {
+        point = legs[0];
+        points_.push({
+          'isPoint': false,
+          'latLng': point.start_location,
+          'piece': point.start_address
+        });
+      }
       while (++iterator < length) {
         leg = legs[iterator];
         address = leg.start_address;
-        if (iterator > 0) {
-          waypoint = waypts[route.waypoint_order[iterator - 1]];
-        } else {
-          waypoint = null;
-          address = origin;
+        distance += leg.distance.value;
+        duration += leg.duration.value;
+        index = route.waypoint_order[iterator - 1];
+        if (index !== void 0) {
+          location = points[index].location;
+          points_.push(app.dataManager.getPointByLocation(location));
         }
-        console.log(leg.start_address, leg.start_location, waypoint, iterator, length);
-        visualizeLeg(leg.start_address, leg.start_location, waypoint, iterator, length);
-        updateBounds();
       }
-      leg = legs[length - 1];
-      visualizeLeg(destination, leg.end_location, null, iterator, length);
-      return updateBounds();
+      if (destination_) {
+        points_.push(destination_);
+      } else {
+        point = legs[length - 1];
+        points_.push({
+          'isPoint': false,
+          'latLng': point.end_location,
+          'piece': point.end_address
+        });
+      }
+      calculatedRoute = {
+        'points': points_,
+        'origin': origin,
+        'destination': destination,
+        'distance': _this.metersToString(distance),
+        'duration': _this.secondsToString(duration),
+        'response': response
+      };
+      _this.renderRoute(calculatedRoute, callback);
     });
+    return this;
   };
 
-  exports.calcRoute = calcRoute;
+  MapView.prototype.updateBounds = function() {
+    var bounds, iterator, length;
 
-  exports.drawNewRoute = drawNewRoute;
+    bounds = new google.maps.LatLngBounds;
+    iterator = -1;
+    length = this._markers.length;
+    while (++iterator < length) {
+      bounds.extend(this._markers[iterator].position);
+    }
+    if (this._currentUser) {
+      bounds.extend(this._currentUser.position);
+    }
+    this._map.fitBounds(bounds);
+    return this;
+  };
+
+  MapView.prototype.renderPoint = function(point, index, length) {
+    var content, icon, title,
+      _this = this;
+
+    if (!point.isPoint) {
+      if (index === length - 1) {
+        icon = this.getIcon('b');
+      } else if (index === 0) {
+        icon = this.getIcon('a');
+      } else {
+        icon = this.getIcon();
+      }
+    } else {
+      icon = this.getIcon(index + 1);
+    }
+    title = point.piece;
+    if (point.artist) {
+      content = "<b>" + point.piece + "</b><br/>" + point.artist + "<br/>";
+    } else {
+      content = "<b>" + point.piece + "</b>";
+    }
+    window.setTimeout(function() {
+      var infoWindow, marker;
+
+      infoWindow = new InfoBox({
+        'map': _this._map,
+        'latlng': point.latLng,
+        'content': content,
+        'onclick': function(event) {
+          if (app.infoWindowIntent) {
+            event.data = point;
+            app.infoWindowIntent.apply(this, arguments);
+          }
+        }
+      });
+      marker = new google.maps.Marker({
+        'position': point.latLng,
+        'map': _this._map,
+        'icon': icon,
+        'title': title,
+        'animation': google.maps.Animation.DROP,
+        'flat': true,
+        'optimized': false
+      });
+      marker.infoWindow = infoWindow;
+      _this._markers.push(marker);
+      return google.maps.event.addListener(marker, 'click', function() {
+        if (_this._marker) {
+          _this._marker.infoWindow.close();
+        }
+        infoWindow.open(_this._map);
+        _this._marker = marker;
+      });
+    }, index * 200);
+    return this;
+  };
+
+  MapView.prototype.renderPoints = function(points) {
+    var iterator, length;
+
+    iterator = -1;
+    length = points.length;
+    while (++iterator < length) {
+      this.renderPoint(points[iterator], iterator, length);
+    }
+    return this;
+  };
+
+  MapView.prototype.renderRoute = function(route, callback) {
+    this.clear();
+    if (callback) {
+      callback();
+    }
+    this.renderer.setDirections(route.response);
+    this.renderPoints(route.points);
+    this.updateBounds();
+    return this;
+  };
+
+  rendererOptions = app.options.directionsRenderer;
+
+  rendererOptions.polylineOptions = app.options.polylineOptions;
+
+  mapView = new MapView($$('#map-canvas'), {
+    'zoom': 14,
+    'center': new google.maps.LatLng(52.359903, 4.884131),
+    'disableDefaultUI': true
+  });
+
+  mapView.setMapStyles(app.options.mapStyles);
+
+  mapView.setIcons(app.options.icons);
+
+  mapView.setRenderer(rendererOptions);
+
+  mapView.setService({});
+
+  mapView.setRouteBoxer(new RouteBoxer);
+
+  mapView.activateMapStyle('dark');
+
+  app.mapView = mapView;
 
 }).call(this);
 ;
@@ -3347,14 +3532,14 @@ Here be coffee
   $uitgestippeldCarousel = $$('.uitgestippeld-modal .carousel');
 
   app.pointToString = function(point) {
-    return "<header class=\"bar-title\">\n	<h3 class=\"title\"><div class=\"overflow-wrapper\">" + point.piece + "</div></h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(" + point.info.image + ")\">\n		<img class=\"hidden\" alt=\"\" src=\"" + point.info.image + "\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + point.info.title + "</h1>\n		<h2>" + point.artist + "</h2>\n		<p>" + point.info.description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + point.link + "\">Op naar het Rijks!</a>\n	</div>\n</div>";
+    return "<header class=\"bar-title\">\n	<h3 class=\"title\"><div class=\"overflow-wrapper\">" + point.piece + "</div></h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(./asset/image/data/" + point.info.id + "_large.jpg)\">\n		<img class=\"hidden\" alt=\"\" src=\"./asset/image/data/" + point.info.id + "_large.jpg\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + point.info.title + "</h1>\n		<h2>" + point.artist + "</h2>\n		<p>" + point.info.description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + point.link + "\">Op naar het Rijks!</a>\n	</div>\n</div>";
   };
 
   app.infoWindowIntent = function(event) {
     var point;
 
-    point = app.dataManager.getPoint(event.data);
-    if (!point) {
+    point = event.data;
+    if (!point.isPoint) {
       return;
     }
     event.preventDefault();
@@ -3397,10 +3582,10 @@ Here be coffee
         if (destination === 'huidige locatie') {
           destination = coords;
         }
-        return calcRoute(origin, destination, distance, callback);
+        return app.mapView.requestRoute(origin, destination, distance, callback);
       });
     } else {
-      calcRoute(origin, destination, distance, callback);
+      app.mapView.requestRoute(origin, destination, distance, callback);
     }
     return void 0;
   });
@@ -3418,9 +3603,7 @@ Here be coffee
     }
     event.preventDefault();
     event.stopPropagation();
-    drawNewRoute(route.waypoints, route.origin.latLng, route.destination.latLng, function() {
-      return console.log('callback!');
-    });
+    app.mapView.calculateRoute(route.waypoints, route.origin.latLng, route.destination.latLng);
     planner.hide();
     $uitgestippeld.classList.remove('active');
     return void 0;

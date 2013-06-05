@@ -13,8 +13,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-C-5",
 			"date" : 1642,
-			"description" : "Het korporaalschap van kapitein Frans Banninck Cocq en luitenant Willem van Ruytenburch, bekend als de 'Nachtwacht'. Schutters van de kloveniersdoelen uit een poort naar buiten tredend. Op een schild aangebracht naast de poort staan de namen van de afgebeelde personen: Frans Banninck Cocq, heer van purmerlant en Ilpendam, Capiteijn Willem van Ruijtenburch van Vlaerdingen, heer van Vlaerdingen, Lu[ij]tenant, Jan Visscher Cornelisen Vaendrich, Rombout Kemp Sergeant, Reijnier Engelen Sergeant, Barent Harmansen, Jan Adriaensen Keyser, Elbert Willemsen, Jan Clasen Leydeckers, Jan Ockersen, Jan Pietersen bronchorst, Harman Iacobsen wormskerck, Jacob Dircksen de Roy, Jan vander heede, Walich Schellingwou, Jan brugman, Claes van Cruysbergen, Paulus Schoonhoven. De schutters zijn gewapend met lansen, musketten en hellebaarden. Rechts de tamboer met een grote trommel. Tussen de soldaten links staat een meisje met een dode kip om haar middel, rechts een blaffende hond. Linksboven de vaandrig met de uitgestoken vaandel.",
-			"image" : "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-5"
+			"description" : "Het korporaalschap van kapitein Frans Banninck Cocq en luitenant Willem van Ruytenburch, bekend als de 'Nachtwacht'. Schutters van de kloveniersdoelen uit een poort naar buiten tredend. Op een schild aangebracht naast de poort staan de namen van de afgebeelde personen: Frans Banninck Cocq, heer van purmerlant en Ilpendam, Capiteijn Willem van Ruijtenburch van Vlaerdingen, heer van Vlaerdingen, Lu[ij]tenant, Jan Visscher Cornelisen Vaendrich, Rombout Kemp Sergeant, Reijnier Engelen Sergeant, Barent Harmansen, Jan Adriaensen Keyser, Elbert Willemsen, Jan Clasen Leydeckers, Jan Ockersen, Jan Pietersen bronchorst, Harman Iacobsen wormskerck, Jacob Dircksen de Roy, Jan vander heede, Walich Schellingwou, Jan brugman, Claes van Cruysbergen, Paulus Schoonhoven. De schutters zijn gewapend met lansen, musketten en hellebaarden. Rechts de tamboer met een grote trommel. Tussen de soldaten links staat een meisje met een dode kip om haar middel, rechts een blaffende hond. Linksboven de vaandrig met de uitgestoken vaandel."
 		}
 	},
 	{
@@ -29,8 +28,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-C-6",
 			"date" : 1663,
-			"description" : "De Staalmeesters: het college van staalmeesters (waardijns) van het Amsterdamse lakenbereidersgilde, bijeen rond een tafel waarop een Perzisch kleed ligt, op tafel het opengeslagen stalenboek. Voorgesteld zijn (van links naar rechts): Jacob van Loon (1595-1674), Volckert Jansz (1605/10-81), Willem van Doeyenburg (ca. 1616-87), de knecht Frans Hendricksz Bel (1629-1701), Aernout van der Mye (ca. 1625-81) en Jochem de Neve (1629-81). Rechts boven de haard een schilderij met een brandend baken.",
-			"image" : "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-6"
+			"description" : "De Staalmeesters: het college van staalmeesters (waardijns) van het Amsterdamse lakenbereidersgilde, bijeen rond een tafel waarop een Perzisch kleed ligt, op tafel het opengeslagen stalenboek. Voorgesteld zijn (van links naar rechts): Jacob van Loon (1595-1674), Volckert Jansz (1605/10-81), Willem van Doeyenburg (ca. 1616-87), de knecht Frans Hendricksz Bel (1629-1701), Aernout van der Mye (ca. 1625-81) en Jochem de Neve (1629-81). Rechts boven de haard een schilderij met een brandend baken."
 		}
 	},
 	{
@@ -45,8 +43,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-3529",
 			"date" : "1880 - 1923",
-			"description" : "Buurtje in de Amsterdamse Jordaan. De Baanbrugsteeg, gezien vanaf de Haarlemmerdijk in de richting van de Vinkenstraat en de Brouwersgracht. In het midden van de straat een vrouw met een kind op de arm.",
-			"image" : "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3529"
+			"description" : "Buurtje in de Amsterdamse Jordaan. De Baanbrugsteeg, gezien vanaf de Haarlemmerdijk in de richting van de Vinkenstraat en de Brouwersgracht. In het midden van de straat een vrouw met een kind op de arm."
 		}
 	},
 	{
@@ -61,8 +58,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-3580",
 			"date" : "1896 en/of 1898",
-			"description" : "De Singelbrug bij de Paleisstraat te Amsterdam. Wintergezicht met figuren die de brug oversteken. Op de voorgrond een vrouw met voile en een bruine mantel afgezet met bont.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3580"
+			"description" : "De Singelbrug bij de Paleisstraat te Amsterdam. Wintergezicht met figuren die de brug oversteken. Op de voorgrond een vrouw met voile en een bruine mantel afgezet met bont."
 		}
 	},
 	{
@@ -77,8 +73,7 @@ app.data = [
 			"type" : "tekening / aquarel",
 			"id" : "SK-A-3659",
 			"date" : "1895 - 1898",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3659"
+			"description" : ""
 		}
 	},
 	// {
@@ -94,7 +89,6 @@ app.data = [
 	// 		"id" : "",
 	// 		"date" : "",
 	// 		"description" : "",
-	// 		"image": ""
 	// 	}
 	// },
 	{
@@ -109,8 +103,7 @@ app.data = [
 			"type" : "Foto",
 			"id" : "RP-F-F01710-B",
 			"date" : "ca. 1860 - ca. 1870",
-			"description" : "Standbeeld van Rembrandt op de Botermarkt, thans Rembrandtplein in Amsterdam.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-F01710-B"
+			"description" : "Standbeeld van Rembrandt op de Botermarkt, thans Rembrandtplein in Amsterdam."
 		}
 	},
 	{
@@ -125,8 +118,7 @@ app.data = [
 			"type" : "tekening",
 			"id" : "RP-T-1905-48",
 			"date" : "1638 - 1658",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1905-48"
+			"description" : ""
 		}
 	},
 	{
@@ -141,8 +133,7 @@ app.data = [
 			"type" : "tekening",
 			"id" : "RP-T-1888-A-1559",
 			"date" : "1600 - 1699",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1888-A-1559"
+			"description" : ""
 		}
 	},
 	{
@@ -157,8 +148,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-3579",
 			"date" : "1897",
-			"description" : "Gezicht op het Rokin en de Langebrug te Amsterdam.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3579"
+			"description" : "Gezicht op het Rokin en de Langebrug te Amsterdam."
 		}
 	},
 	{
@@ -173,8 +163,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-1055",
 			"date" : "1813",
-			"description" : "De Amsterdamse buitensingel met ophaalbrug bij de Leidse poort, gezien vanuit de Schouwburg op het Leidseplein. Buiten de singel bomen, molens en enkele huizen.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1055"
+			"description" : "De Amsterdamse buitensingel met ophaalbrug bij de Leidse poort, gezien vanuit de Schouwburg op het Leidseplein. Buiten de singel bomen, molens en enkele huizen."
 		}
 	},
 	{
@@ -189,8 +178,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-154",
 			"date" : "ca. 1670",
-			"description" : "Gezicht op de Nieuwe Zijds Voorburgwal met de Oude Haarlemmersluis te Amsterdam. Links aan de gracht het huis Bartolotti, rechts een heiligenbeeld op de hoek boven het water. In het midden een ijzeren brug waarvan de pijlers zijn versierd met heraldische wapens met leeuwen. Op het water twee schuiten.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-154"
+			"description" : "Gezicht op de Nieuwe Zijds Voorburgwal met de Oude Haarlemmersluis te Amsterdam. Links aan de gracht het huis Bartolotti, rechts een heiligenbeeld op de hoek boven het water. In het midden een ijzeren brug waarvan de pijlers zijn versierd met heraldische wapens met leeuwen. Op het water twee schuiten."
 		}
 	},
 	{
@@ -205,8 +193,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-5003",
 			"date" : "1671 - 1672",
-			"description" : "Gezicht op de Amsterdamse Herengracht in aanbouw, gezien vanaf de brug van de Vijzelstraat. Bocht met in classicistische stijl opgetrokken grachtenpanden op de Herengracht met de ingang van de Nieuwe Spiegelstraat aan de linkerkant. Tussen de nog onvoltooide gevelrij valt zonlicht en reflecteert op het water van de gracht. Bouwmaterialen liggen verspreid op de kade. Schuttingen schermen de onbebouwde kavels af van de openbare weg. Het laatste pand aan de zuidzijde van de gracht staat zelfs nog in de steigers.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-5003"
+			"description" : "Gezicht op de Amsterdamse Herengracht in aanbouw, gezien vanaf de brug van de Vijzelstraat. Bocht met in classicistische stijl opgetrokken grachtenpanden op de Herengracht met de ingang van de Nieuwe Spiegelstraat aan de linkerkant. Tussen de nog onvoltooide gevelrij valt zonlicht en reflecteert op het water van de gracht. Bouwmaterialen liggen verspreid op de kade. Schuttingen schermen de onbebouwde kavels af van de openbare weg. Het laatste pand aan de zuidzijde van de gracht staat zelfs nog in de steigers."
 		}
 	},
 	{
@@ -221,8 +208,7 @@ app.data = [
 			"type" : "tekening / aquarel",
 			"id" : "SK-A-3658",
 			"date" : "1894",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-3658"
+			"description" : ""
 		}
 	},
 	{
@@ -237,8 +223,7 @@ app.data = [
 			"type" : "foto",
 			"id" : "RP-F-K89477",
 			"date" : "ca. 1890 - ca. 1910",
-			"description" : "",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-F-K89477"
+			"description" : ""
 		}
 	},
 	{
@@ -253,8 +238,7 @@ app.data = [
 			"type" : "prent",
 			"id" : "RP-P-1883-A-7334",
 			"date" : "ca. 1847 - ca. 1891",
-			"description" : "Het Vondelpark met het standbeeld van Joost van den Vondel, ontworpen door beeldhouwer Louis Royer.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1883-A-7334"
+			"description" : "Het Vondelpark met het standbeeld van Joost van den Vondel, ontworpen door beeldhouwer Louis Royer."
 		}
 	},
 	{
@@ -269,8 +253,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-4925",
 			"date" : "1892",
-			"description" : "Gezicht op het Oosterpark te Amsterdam in de sneeuw. Op de voorgrond jonge rechte bomen, in de verte de omringende gebouwen. Waarschijnlijk geschilderd vanuit het atelier van Breitner en Witsen, het tegenwoordige Witsenhuis.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925"
+			"description" : "Gezicht op het Oosterpark te Amsterdam in de sneeuw. Op de voorgrond jonge rechte bomen, in de verte de omringende gebouwen. Waarschijnlijk geschilderd vanuit het atelier van Breitner en Witsen, het tegenwoordige Witsenhuis."
 		}
 	},
 	{
@@ -285,8 +268,7 @@ app.data = [
 			"type" : "prent / boekillustratie",
 			"id" : "RP-P-1905-450",
 			"date" : "1680 - 1731 en/of 1782",
-			"description" : "Twee voorstellingen met gezichten op de Regulierspoort (van binnen en van buiten) en de herberg de Munt te Amsterdam. De prent heeft een Nederlands onderschrift en het paginanummer 284 bovenaan rechts.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1905-450"
+			"description" : "Twee voorstellingen met gezichten op de Regulierspoort (van binnen en van buiten) en de herberg de Munt te Amsterdam. De prent heeft een Nederlands onderschrift en het paginanummer 284 bovenaan rechts."
 		}
 	},
 	{
@@ -301,8 +283,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-2879",
 			"date" : "ca. 1903",
-			"description" : "Gezicht op het Damrak te Amsterdam. Aan de wal liggen allerlei schepen. Boven de huizen van de Warmoesstraat de toren van de Oude Kerk.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-2879"
+			"description" : "Gezicht op het Damrak te Amsterdam. Aan de wal liggen allerlei schepen. Boven de huizen van de Warmoesstraat de toren van de Oude Kerk."
 		}
 	},
 	{
@@ -317,8 +298,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-2977",
 			"date" : "ca. 1880 - ca. 1923",
-			"description" : "Bouwwerkzaamheden in Amsterdam, misschien bij het Roelof Hartplein of het Wilhelmina Gasthuis. Links een man met een paard die heipalen aanvoert.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-2977"
+			"description" : "Bouwwerkzaamheden in Amsterdam, misschien bij het Roelof Hartplein of het Wilhelmina Gasthuis. Links een man met een paard die heipalen aanvoert."
 		}
 	},
 	{
@@ -333,8 +313,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-C-2",
 			"date" : "1648",
-			"description" : "De schuttersmaaltijd in de Voetboogdoelen of St. Jorisdoelen te Amsterdam ter viering van het sluiten van de vrede van Munster, 18 juni 1648. Voorgesteld zijn: kapitein Cornelis Jansz Witsen (met de zilveren drinkhoorn), luitenant Johan Oetgens van Waveren (die zijn hand schudt), de vaandrig Jacob Banningh (zittend naast de grote trommel), Dirck Claesz Thoveling en Thomas Hartog (sergeanten), Pieter van Hoorn, Willem Pietersz van der Voort, Adriaen Dirck Sparwer, Hendrick Calaber, Govert van der Mij, Johannes Calaber, Benedictus Schaeck, Jan Maes, Jacob van Diemen, Jan van Ommeren, Isaac Ooyens, Gerrit Pietersz van Anstenraadt, Herman Teunisz de Kluyter, Andries van Anstenraadt, Christoffel Poock, Hendrick Dommer Wz, Paulus Hennekijn, Lambregt van den Bos en Willem (de trommelslager). Op de grote trommel hangt een papier met een gedicht van Jan Vos. Door de openstaande ramen is de gevel van de brouwerij 'het Lam' aan de Singel zichtbaar. Rechts brengt een vrouwen een kalkoenpastei binnen. Op tafel staan tinnen borden, roemers en andere glazen. Links staat op de vloer een grote metalen koeler met een wijnvat.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-2"
+			"description" : "De schuttersmaaltijd in de Voetboogdoelen of St. Jorisdoelen te Amsterdam ter viering van het sluiten van de vrede van Munster, 18 juni 1648. Voorgesteld zijn: kapitein Cornelis Jansz Witsen (met de zilveren drinkhoorn), luitenant Johan Oetgens van Waveren (die zijn hand schudt), de vaandrig Jacob Banningh (zittend naast de grote trommel), Dirck Claesz Thoveling en Thomas Hartog (sergeanten), Pieter van Hoorn, Willem Pietersz van der Voort, Adriaen Dirck Sparwer, Hendrick Calaber, Govert van der Mij, Johannes Calaber, Benedictus Schaeck, Jan Maes, Jacob van Diemen, Jan van Ommeren, Isaac Ooyens, Gerrit Pietersz van Anstenraadt, Herman Teunisz de Kluyter, Andries van Anstenraadt, Christoffel Poock, Hendrick Dommer Wz, Paulus Hennekijn, Lambregt van den Bos en Willem (de trommelslager). Op de grote trommel hangt een papier met een gedicht van Jan Vos. Door de openstaande ramen is de gevel van de brouwerij 'het Lam' aan de Singel zichtbaar. Rechts brengt een vrouwen een kalkoenpastei binnen. Op tafel staan tinnen borden, roemers en andere glazen. Links staat op de vloer een grote metalen koeler met een wijnvat."
 		}
 	},
 	{
@@ -349,8 +328,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-4740",
 			"date" : "1891",
-			"description" : "Een zandafgraving te Amsterdam. Arbeiders rusten en aan het werk in een bouwput. In het midden een werkman met een kruiwagen. Waarschijnlijk is de demping van de Elandsgracht in de Jordaan voorgesteld.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4740"
+			"description" : "Een zandafgraving te Amsterdam. Arbeiders rusten en aan het werk in een bouwput. In het midden een werkman met een kruiwagen. Waarschijnlijk is de demping van de Elandsgracht in de Jordaan voorgesteld."
 		}
 	},
 	{
@@ -365,8 +343,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-306",
 			"date" : "ca. 1780 - ca. 1790",
-			"description" : "Het onderwerp van het schilderij, de oude, 15de-eeuwse Waag, staat grotendeels in de schaduw. Ook op de voorgrond past Ouwater sterke lichtcontrasten toe: de tafel met rariteiten vangt de zon terwijl de voor-grond donker is. In dit schilderij en in zijn tegenhanger met de Nieuwe Kerk lichten witte japonnen, dieren en lantaarnpalen op en verlevendigen zo het geheel.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-306"
+			"description" : "Het onderwerp van het schilderij, de oude, 15de-eeuwse Waag, staat grotendeels in de schaduw. Ook op de voorgrond past Ouwater sterke lichtcontrasten toe: de tafel met rariteiten vangt de zon terwijl de voor-grond donker is. In dit schilderij en in zijn tegenhanger met de Nieuwe Kerk lichten witte japonnen, dieren en lantaarnpalen op en verlevendigen zo het geheel."
 		}
 	},
 	{
@@ -381,8 +358,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-1018",
 			"date" : "1829",
-			"description" : "De Torensluis met de Jan Roodenpoortstoren te Amsterdam. De toren is in 1829 afgebroken.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-1018"
+			"description" : "De Torensluis met de Jan Roodenpoortstoren te Amsterdam. De toren is in 1829 afgebroken."
 		}
 	},
 	// For some reason... Theres a bug in routeboxer—the following latitude 
@@ -400,7 +376,6 @@ app.data = [
 	// 		"id" : "RP-T-1930-64",
 	// 		"date" : "1657 - 1659",
 	// 		"description" : "Gezicht op de Nieuwezijds Voorburgwal in Amsterdam",
-	// 		"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-T-1930-64"
 	// 	}
 	// },
 	{
@@ -415,8 +390,7 @@ app.data = [
 			"type" : "schilderij",
 			"id" : "SK-A-4050",
 			"date" : "1661",
-			"description" : "Zelfportret van Rembrandt als de apostel Paulus. Ten halven lijve naar links, het gelaat naar de kijker gewend. Met openstaande mantel die zicht geeft op het zwaard dat op de borst wordt gedragen, op het hoofd een witte tulband. In de handen een opengevouwen bundel zendbrieven.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4050"
+			"description" : "Zelfportret van Rembrandt als de apostel Paulus. Ten halven lijve naar links, het gelaat naar de kijker gewend. Met openstaande mantel die zicht geeft op het zwaard dat op de borst wordt gedragen, op het hoofd een witte tulband. In de handen een opengevouwen bundel zendbrieven."
 		}
 	},
 	{
@@ -431,8 +405,7 @@ app.data = [
 			"type" : "Schilderij",
 			"id" : "SK-A-4100",
 			"date" : "1794 - 1795",
-			"description" : "De kunstgalerij van Jan Gildemeester Jansz in zijn huis aan de Herengracht te Amsterdam. Interieur met een groep gasten die de aanwezige schilderijen bekijken. In het midden Jan Gildemeester Jansz met een bezoeker met een bril. Links een vrouw zittend achter een ezel. De kamer is gedecoreerd met schilderingen van Jacob de Wit. Door de deur zijn meer schilderijen in een andere kamer zichtbaar. Tot de aanwezigen behoren Pieter Fouquet, C.R.T. Krayenhoff, de schilders Adriaan de Lelie (knielend rechts op de voorgrond) en Jurriaan Andriessen, mevr. Marianne Dull-Dohrman en Bernardus de Bosch Jeronimosz.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4100"
+			"description" : "De kunstgalerij van Jan Gildemeester Jansz in zijn huis aan de Herengracht te Amsterdam. Interieur met een groep gasten die de aanwezige schilderijen bekijken. In het midden Jan Gildemeester Jansz met een bezoeker met een bril. Links een vrouw zittend achter een ezel. De kamer is gedecoreerd met schilderingen van Jacob de Wit. Door de deur zijn meer schilderijen in een andere kamer zichtbaar. Tot de aanwezigen behoren Pieter Fouquet, C.R.T. Krayenhoff, de schilders Adriaan de Lelie (knielend rechts op de voorgrond) en Jurriaan Andriessen, mevr. Marianne Dull-Dohrman en Bernardus de Bosch Jeronimosz."
 		}
 	},
 	{
@@ -447,8 +420,7 @@ app.data = [
 			"type" : "Schilderij",
 			"id" : "SK-C-1535",
 			"date" : "1809",
-			"description" : "Het Raampoortje te Amsterdam in de winter bij sneeuw. Op de achtergrond de gevels van de Bloemgracht en de Westertoren.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-C-1535"
+			"description" : "Het Raampoortje te Amsterdam in de winter bij sneeuw. Op de achtergrond de gevels van de Bloemgracht en de Westertoren."
 		}
 	},
 	{
@@ -463,8 +435,7 @@ app.data = [
 			"type" : "prent",
 			"id" : "RP-P-1937-789",
 			"date" : "1882",
-			"description" : "De Vondelstraat in Amsterdam. Op de achtergrond de kruising met de Eerste Constantijn Huygensstraat en de Vondelkerk. In de straat rijdt de paardentram.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1937-789"
+			"description" : "De Vondelstraat in Amsterdam. Op de achtergrond de kruising met de Eerste Constantijn Huygensstraat en de Vondelkerk. In de straat rijdt de paardentram."
 		}
 	},
 	{
@@ -479,8 +450,7 @@ app.data = [
 			"type" : "prent",
 			"id" : "RP-P-1905-552",
 			"date" : "1789",
-			"description" : "Het gebouw van het genootschap Felix Meritis te Amsterdam, dat in 1788 werd opgericht door gegoede burgers van de stad om de kunsten en wetenschappen te bevorderen. Op het trottoir bewonderen een man en vrouw het gebouw en een jongen speelt met een hoepel.",
-			"image": "https://www.rijksmuseum.nl/assetimage2.jsp?id=RP-P-1905-552"
+			"description" : "Het gebouw van het genootschap Felix Meritis te Amsterdam, dat in 1788 werd opgericht door gegoede burgers van de stad om de kunsten en wetenschappen te bevorderen. Op het trottoir bewonderen een man en vrouw het gebouw en een jongen speelt met een hoepel."
 		}
 	}
 	// {
@@ -496,7 +466,6 @@ app.data = [
 			// "id" : "",
 			// "date" : "",
 			// "description" : "",
-			// "image": "https://www.rijksmuseum.nl/assetimage2.jsp?id="
 		// }
 	// }
 ];
