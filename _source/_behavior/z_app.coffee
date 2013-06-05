@@ -14,7 +14,6 @@ $planFrom               = $$ '#plan-route-from'
 $info                   = $$ '.info-modal'
 $uitgestippeld          = $$ '.uitgestippeld-modal'
 $walkthrough            = $$ '.walkthrough-modal'
-$walkthroughCarousel    = $$ '.walkthrough-modal .carousel'
 $uitgestippeldCarousel  = $$ '.uitgestippeld-modal .carousel'
 $startupImage           = $$ '.startup-image'
 $map                    = $$ '.home-modal'
@@ -60,6 +59,23 @@ app.infoWindowIntent = ( event ) ->
 	$info.classList.add 'active'
 	
 	undefined
+
+
+# rendererOptions = app.options.directionsRenderer
+# rendererOptions.polylineOptions = app.options.polylineOptions
+
+mapView = app.mapView = new MapView ( $$ '#map-canvas' ),
+	'zoom' : 14
+	'center' : new google.maps.LatLng 52.359903, 4.884131
+	'disableDefaultUI' : true
+
+mapView.setMapStyles app.options.mapStyles
+mapView.setIcons app.options.icons
+mapView.setRenderer app.options.directionsRenderer
+mapView.setPolylineOptions app.options.polylineOptions
+mapView.setService null
+mapView.setRouteBoxer new RouteBoxer
+mapView.activateMapStyle 'dark'
 
 
 # When the user selects the button to plan a route...
@@ -114,7 +130,12 @@ window.on 'click', ( event ) ->
 	$target = event.target
 	
 	# Return if it's not one of the `uitgestippeld` items, return.
-	unless $target.classList.contains 'uitgestippeld-link' then return
+	unless $target.classList.contains 'uitgestippeld-link'
+		$parent = $target.parentElement
+		if $parent.classList.contains 'uitgestippeld-link'
+			$target = $parent
+		else
+			return
 	
 	# Find the route belonging to the `uitgestippeld` item.
 	route = app.dataManager.getRoute $target.dataset.id
@@ -127,7 +148,7 @@ window.on 'click', ( event ) ->
 	do event.stopPropagation
 	
 	$target.classList.add 'loading'
-		
+	
 	# Draw a new route between all `waypoints` on route, starting at `origin`, 
 	# and ending at `destination`.
 	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng, ( error ) ->
@@ -149,33 +170,54 @@ window.on 'click', ( event ) ->
 
 # Initialization.
 
-# Instanciate the walkthrough and uitgestippeld modals as 
+# Instanciate the uitgestippeld modals as 
 # carousels.
-new Carousel $walkthroughCarousel, true
 new Carousel $uitgestippeldCarousel, true
 
 # Instanciate planner.
 planner = new Planner $planner
 
-# Show the planner.
-do planner.show
-
+# Hide startup-image after 0.5s.
 window.setTimeout ( -> $startupImage.classList.add 'hidden' ), 500
-window.setTimeout ( -> $walkthrough.classList.add 'active' ), 800
-window.setTimeout ( -> $startupImage.style.display = 'none' ), 1100
+
+$w1 = $$ '.walkthrough-modal .p1'
+$w2 = $$ '.walkthrough-modal .p2'
+$w3 = $$ '.walkthrough-image'
+$w4 = $$ '.walkthrough-modal .p3'
+$w5 = $$ '.walkthrough-end'
+# Activate walkthrough modal after 0.8ms.
 window.setTimeout ->
+		$walkthrough.classList.add 'active'
+	, 800
+
+window.setTimeout ->
+		$w1.classList.remove 'hidden'
+		
+		# Activate map modal after 1s
+		do planner.show
 		$planner.style.height = '100%'
 		$map.classList.add 'active'
-	, 1000
+		
+	, 1500
+
+window.setTimeout ->
+		$w2.classList.remove 'hidden'
+	, 2000
+
+window.setTimeout ->
+		$w3.classList.remove 'hidden'
+	, 2500
+
+window.setTimeout ->
+		$w4.classList.remove 'hidden'
+	, 3000
+
+window.setTimeout ->
+		$w5.classList.remove 'hidden'
+	, 3500
+
+# Remove startup-image after 1.1ms
+window.setTimeout ( -> $startupImage.style.display = 'none' ), 1100
 
 # Request geolocation on load.
 window.on 'load', -> do app.locationManager.request
-	
-	
-	# $startupImage.classList.add 'hidden'
-	# window.setTimeout ( -> $startupImage.style.display = 'none' ), 500
-	# 
-	# 
-	# if $walkthrough
-	
-

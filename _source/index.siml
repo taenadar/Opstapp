@@ -28,10 +28,6 @@ html
 		touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-320x460.png"][media="(device-width: 320px)"]
 		touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-640x920.png"][media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)"]
 		touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-640x1096.png"][media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"]
-		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-768x1004.png"][media="(device-width: 768px) and (orientation: portrait)"]
-		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-1024x748.png"][media="(device-width: 768px) and (orientation: landscape)"]
-		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-1536x2008.png"][media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)"]
-		// touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-2048x1496.png"][media="(device-width: 1536px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"]
 		
 		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJZAj5z44oAhMSLw3oSL79PlscKstoYAI&amp;v=3.exp&sensor=false"]
 		script[src="./asset/data/data.js"]
@@ -40,8 +36,6 @@ html
 		// Include the compiled CSS
 		stylesheet[href="./_presentation/opstapp.css"]
 	body
-		#info-modal.info-modal.modal
-		
 		.home-modal.modal
 			.content > #map-canvas
 			footer.planner
@@ -81,36 +75,21 @@ html
 							.uitgestippeld-content
 								h1 "Breitnerroute"
 								p "Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein."
-								a.button-block.button-primary.button-large.button-spinner.uitgestippeld-link[data-id="opstapp-breitner"] "Opstapp!"
+								a.button-block.button-primary.button-large.button-spinner.uitgestippeld-link[data-id="opstapp-breitner"]
 									.label  "Opstapp!"
 									span.spinner
 			
-			// footer.bar-footer
-			// 	a.button-secondary.button-large.button-block[href="#meestermatcher-modal"] "Meestermatcher"
+		#info-modal.info-modal.modal
 		
 		#walkthrough-modal.walkthrough-modal.modal
-			header.bar-title
-				h3.title "Introductie"
-				a.button[href="#walkthrough-modal"] "Close"
-			.content.carousel
-				ul.list.carousel-list
-					li
-						p "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum. Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen."
-						.wrapper-outer > .wrapper-inner > img[alt=""][src="./asset/image/walkthrough/icon.png"]
-					li
-						p "Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt."
-						.wrapper-outer > .wrapper-inner
-							header.bar-title
-								h3.title "Uitgestippeld"
-							.content.content-padded > ul.list
-								li[style="padding-left: 10px;text-align: left;"]
-									"Rembrandtroute"
-									span.chevron
-								li[style="padding-left: 10px;text-align: left;"]
-									"Van Goghroute"
-									span.chevron
+			.content
+				p.p1.walkthrough-paragraph.hidden "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum."
+				p.p2.walkthrough-paragraph.hidden "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen."
+				img.walkthrough-image.hidden[src="./asset/image/walkthrough/phone.png"]
+				p.p3.walkthrough-paragraph.hidden "Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt."
+				a.button.button-large.button-block.walkthrough-end.hidden[href="#walkthrough-modal"] "Beëindig de rondleiding"
 		
-		.startup-image[style="background-image:url(./asset/image/startup_image/apple-touch-startup-image-640x1096.png)"]
+		.startup-image[style="background-image:url(./asset/image/walkthrough/walkthrough.png)"]
 		
 		// Include the compiled JS
 		script[src="./_behavior/opstapp.js"]

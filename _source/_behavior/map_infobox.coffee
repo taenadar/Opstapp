@@ -16,8 +16,8 @@ InfoBox = ( options ) ->
 	@onclick = options.onclick
 	@height = 150
 	@width = 150
-	@offsetVertical = -185
-	@offsetHorizontal = -25
+	@offsetVertical = -200
+	@offsetHorizontal = -75
 	
 	@
 
@@ -45,7 +45,6 @@ InfoBox::open = ( map ) ->
 	# Once the properties of this OverlayView are initialized, set its map so
 	# that we can display it. This will trigger calls to panes_changed and
 	# draw.
-	
 	@onboundsChange = google.maps.event.addListener map, 'bounds_changed', =>
 		do @panMap
 	
@@ -73,6 +72,8 @@ InfoBox::draw = ->
 	@$node.style.height = "#{@height}px"
 	@$node.style.top = "#{pixPosition.y + @offsetVertical}px"
 	@$node.style.display = 'table'
+	
+	@
 
 # Creates the $node representing this InfoBox in the floatPane. If the panes
 # object, retrieved by calling getPanes, is null, remove the element from the

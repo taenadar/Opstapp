@@ -77,29 +77,6 @@
 	}
 }
 
-.walkthrough-modal .wrapper-outer
-{
-	pointer-events: none;
-	position: relative;
-	margin-top: 1em;
-	margin-left: 1em;
-	margin-right: 1em;
-	margin: 12px;
-	border: 12px solid #343537;
-}
-
-.wrapper-outer .content-padded
-{
-	margin-left: 0;
-	margin-right: 0;
-}
-
-
-.walkthrough-modal .wrapper-inner
-{
-	height: 18em;
-}
-
 .carousel-list.animate
 {
 	-webkit-transition: all .3s;
@@ -167,22 +144,6 @@
 	-o-transition: translate3d(0,0,0);
 	transition: translate3d(0,0,0);
 	
-}
-
-.walkthrough-modal .carousel .img-wrapper
-{
-	padding: 24px;
-}
-
-.walkthrough-modal .carousel p
-{
-	height: 4em;
-	margin: 0 24px;
-}
-
-.walkthrough-modal .carousel img
-{
-	max-height: 100%;
 }
 
 .meestermatcher-modal .carousel-list
@@ -382,14 +343,56 @@
 	background-size: cover;
 	opacity: 1;
 	background-position: 50% 50%;
-	-webkit-transition: all 500s;
-	-moz-transition: all 500s;
-	-ms-transition: all 500s;
-	-o-transition: all 500s;
-	transition: all 500s;
+	-webkit-transition: all 500ms;
+	-moz-transition: all 500ms;
+	-ms-transition: all 500ms;
+	-o-transition: all 500ms;
+	transition: all 500ms;
 }
 
 .startup-image.hidden
 {
 	opacity: 0
+}
+
+
+.walkthrough-modal
+{
+	background-color: $color-primary;
+}
+
+.walkthrough-modal .content
+{
+	.walkthrough-paragraph, .walkthrough-image
+	{
+		position: relative;
+		opacity: 1;
+		top: 0;
+		margin-bottom: 1em;
+		-webkit-transition: all 500ms;
+		-moz-transition: all 500ms;
+		-ms-transition: all 500ms;
+		-o-transition: all 500ms;
+		transition: all 500ms;
+	}
+	
+	.hidden
+	{
+		opacity: 0;
+		top: 1em;
+	}
+	
+	.walkthrough-paragraph
+	{
+		
+	}
+	
+	.walkthrough-image
+	{
+		max-height: 40%;
+	}
+	
+	padding: 1em;
+	text-align: center;
+	background-color: $color-primary;
 }
