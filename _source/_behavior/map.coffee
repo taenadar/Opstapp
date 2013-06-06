@@ -199,9 +199,17 @@ MapView::findPointsOnRoute = ( response, origin, destination, distance, callback
 			summary = response.routes[ 0 ].summary
 			
 			if origin is destination
-				callback "De applicatie kon geen punten vinden in de buurt van \"#{summary}\"."
+				callback
+					'error' : """
+						De applicatie kon geen punten vinden in de buurt van
+						"#{summary}".
+						"""
 			else
-				callback "De applicatie kon geen punten vinden tussen \"#{origin}\" en \"#{destination}\""
+				callback
+					'error' : """
+						De applicatie kon geen punten vinden tussen "#{origin}" 
+						en "#{destination}"
+						"""
 			
 			return
 		
@@ -311,7 +319,8 @@ MapView::calculateRoute = ( points, origin, destination, callback ) ->
 			'duration' : @secondsToString duration
 			'response' : response
 		
-		@renderRoute calculatedRoute, callback
+		
+		callback calculatedRoute
 	
 		return
 	
@@ -386,24 +395,31 @@ MapView::renderPoint = ( point, index, length ) ->
 	
 	@
 
-MapView::renderPoints = ( points ) ->
+MapView::renderPoints = ( points, hideIndex ) ->
 	
 	iterator = -1
 	length = points.length
 	
-	originIsPoint = points[ 0 ].isPoint
+	
+	if not hideIndex
+		originIsPoint = points[ 0 ].isPoint
 
-	while ++iterator < length
-		@renderPoint points[ iterator ], ( if originIsPoint then iterator + 1 else iterator ), length 
+		if originIsPoint
+			while ++iterator < length
+				@renderPoint points[ iterator ], iterator + 1, length 
+		else
+			while ++iterator < length
+				@renderPoint points[ iterator ], iterator, length 
+	else
+		while ++iterator < length
+			@renderPoint points[ iterator ], 0, length 
 	
 	@
 
-MapView::renderRoute = ( route, callback ) ->
+MapView::renderRoute = ( route ) ->
 	
 	do @clear
 	do @updateBounds
-	
-	if callback then do callback
 	
 	@renderer.setDirections route.response
 	

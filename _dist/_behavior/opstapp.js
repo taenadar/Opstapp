@@ -2653,9 +2653,13 @@ Here be coffee
         destination = destination.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
         summary = response.routes[0].summary;
         if (origin === destination) {
-          callback("De applicatie kon geen punten vinden in de buurt van \"" + summary + "\".");
+          callback({
+            'error': "De applicatie kon geen punten vinden in de buurt van\n\"" + summary + "\"."
+          });
         } else {
-          callback("De applicatie kon geen punten vinden tussen \"" + origin + "\" en \"" + destination + "\"");
+          callback({
+            'error': "De applicatie kon geen punten vinden tussen \"" + origin + "\" \nen \"" + destination + "\""
+          });
         }
         return;
       }
@@ -2769,7 +2773,7 @@ Here be coffee
         'duration': _this.secondsToString(duration),
         'response': response
       };
-      _this.renderRoute(calculatedRoute, callback);
+      callback(calculatedRoute);
     });
     return this;
   };
@@ -2844,24 +2848,33 @@ Here be coffee
     return this;
   };
 
-  MapView.prototype.renderPoints = function(points) {
+  MapView.prototype.renderPoints = function(points, hideIndex) {
     var iterator, length, originIsPoint;
 
     iterator = -1;
     length = points.length;
-    originIsPoint = points[0].isPoint;
-    while (++iterator < length) {
-      this.renderPoint(points[iterator], (originIsPoint ? iterator + 1 : iterator), length);
+    if (!hideIndex) {
+      originIsPoint = points[0].isPoint;
+      if (originIsPoint) {
+        while (++iterator < length) {
+          this.renderPoint(points[iterator], iterator + 1, length);
+        }
+      } else {
+        while (++iterator < length) {
+          this.renderPoint(points[iterator], iterator, length);
+        }
+      }
+    } else {
+      while (++iterator < length) {
+        this.renderPoint(points[iterator], 0, length);
+      }
     }
     return this;
   };
 
-  MapView.prototype.renderRoute = function(route, callback) {
+  MapView.prototype.renderRoute = function(route) {
     this.clear();
     this.updateBounds();
-    if (callback) {
-      callback();
-    }
     this.renderer.setDirections(route.response);
     this.renderPoints(route.points);
     this.updateBounds();
@@ -3493,7 +3506,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $info, $map, $planFrom, $planRoute, $planTo, $planner, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, app, exports, mapView, planner;
+  var $info, $map, $planFrom, $planRoute, $planTo, $planner, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, exports, mapView, planner;
 
   exports = this;
 
@@ -3563,35 +3576,39 @@ Here be coffee
 
   mapView.activateMapStyle('dark');
 
+  REGEXP_CURRENT_LOCATION = /huidige locatie/i;
+
   $planRoute.on('click', function(event) {
     var callback, destination, distance, origin;
 
     event.preventDefault();
     event.stopPropagation();
     $planRoute.classList.add('loading');
-    origin = $planFrom.value.toLowerCase();
-    destination = $planTo.value.toLowerCase();
+    origin = $planFrom.value;
+    destination = $planTo.value;
     distance = 0.5;
-    origin || (origin = 'huidige locatie');
-    destination || (destination = 'huidige locatie');
-    callback = function(error) {
-      if (error) {
-        alert("Sorry. Er trad een fout op in de applicatie: " + error);
+    origin || (origin = 'Huidige locatie');
+    destination || (destination = 'Huidige locatie');
+    callback = function(route) {
+      console.log('route', route);
+      if (route.error) {
+        alert("Sorry. Er trad een fout op in de applicatie: " + route.error);
         console.log('ERROR!', arguments);
       } else {
+        app.mapView.renderRoute(route);
         planner.hide();
       }
       $planRoute.classList.remove('loading');
     };
-    if (origin === 'huidige locatie' || destination === 'huidige locatie') {
+    if (REGEXP_CURRENT_LOCATION.test(origin) || REGEXP_CURRENT_LOCATION.test(destination)) {
       app.locationManager.once(function(position) {
         var coords;
 
         coords = [position.coords.latitude, position.coords.longitude];
-        if (origin === 'huidige locatie') {
+        if (REGEXP_CURRENT_LOCATION.test(origin)) {
           origin = coords;
         }
-        if (destination === 'huidige locatie') {
+        if (REGEXP_CURRENT_LOCATION.test(destination)) {
           destination = coords;
         }
         return app.mapView.requestRoute(origin, destination, distance, callback);
@@ -3621,12 +3638,14 @@ Here be coffee
     event.preventDefault();
     event.stopPropagation();
     $target.classList.add('loading');
-    app.mapView.calculateRoute(route.waypoints, route.origin.latLng, route.destination.latLng, function(error) {
-      if (error) {
-        alert("Sorry. Er trad een fout op in de applicatie: " + error);
+    app.mapView.calculateRoute(route.waypoints, route.origin.latLng, route.destination.latLng, function(route) {
+      $target.classList.remove('loading');
+      console.log('route', route);
+      if (route.error) {
+        alert("Sorry. Er trad een fout op in de applicatie: " + route.error);
         return console.log('ERROR!', arguments);
       } else {
-        $target.classList.remove('loading');
+        app.mapView.renderRoute(route);
         planner.hide();
         return $uitgestippeld.classList.remove('active');
       }
@@ -3660,7 +3679,8 @@ Here be coffee
     $w1.classList.remove('hidden');
     planner.show();
     $planner.style.height = '100%';
-    return $map.classList.add('active');
+    $map.classList.add('active');
+    return app.mapView.renderPoints(app.dataManager.getPointsAsArray(), true);
   }, 1500);
 
   window.setTimeout(function() {

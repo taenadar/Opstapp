@@ -26,105 +26,107 @@
 			<div class="content">
 				<div id="map-canvas"></div>
 			</div>
-			<footer class="planner">
-				<div class="planner-container">
-					<div class="input-group">
-						<div class="input-row">
-							<label for="plan-route-from">
-								Van
-							</label>
-							<input id="plan-route-from" type="text" placeholder="Huidige locatie" value="Centraal"/>
-						</div>
-						<div class="input-row">
-							<label for="plan-route-to">
-								Naar
-							</label>
-							<input id="plan-route-to" type="text" placeholder="Huidige locatie" value="Museumplein"/>
-						</div>
-					</div>
-					<div class="row">
-						<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
-							Uitgestippeld
-						</a>
-						<a id="plan-route" class="button button-primary button-large button-spinner">
-							<div class="label">
-								Opstapp
+			<div class="route-info">
+				<div class="planner">
+					<div class="planner-container">
+						<div class="input-group">
+							<div class="input-row">
+								<label for="plan-route-from">
+									Van
+								</label>
+								<input id="plan-route-from" type="text" placeholder="Huidige locatie"/>
 							</div>
-							<span class="spinner"></span>
-						</a>
+							<div class="input-row">
+								<label for="plan-route-to">
+									Naar
+								</label>
+								<input id="plan-route-to" type="text" placeholder="Huidige locatie"/>
+							</div>
+						</div>
+						<div class="row">
+							<a id="plan-uitgestippeld" class="button button-secondary button-large" href="#uitgestippeld-modal">
+								Uitgestippeld
+							</a>
+							<a id="plan-route" class="button button-primary button-large button-spinner">
+								<div class="label">
+									Opstapp
+								</div>
+								<span class="spinner"></span>
+							</a>
+						</div>
 					</div>
 				</div>
-			</footer>
-		</div>
-		<div id="uitgestippeld-modal" class="uitgestippeld-modal modal">
-			<header class="bar-title">
-				<h3 class="title">
-					Uitgestippeld
-				</h3>
-				<a class="button" href="#uitgestippeld-modal">
-					Close
-				</a>
-			</header>
-			<div class="content carousel">
-				<ul class="list carousel-list">
-					<li>
-						<div class="uitgestippeld-item" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)">
-							<div class="uitgestippeld-content">
-								<h1>
-									Rembrandtroute
-								</h1>
-								<p>
-									Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein.
-								</p>
-								<a class="button-block button-primary button-large button-spinner uitgestippeld-link" data-id="opstapp-rembrandt">
-									<div class="label">
-										Opstapp!
-									</div>
-									<span class="spinner"></span>
-								</a>
-							</div>
-						</div>
-					</li>
-					<li>
-						<div class="uitgestippeld-item" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)">
-							<div class="uitgestippeld-content">
-								<h1>
-									Breitnerroute
-								</h1>
-								<p>
-									Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein.
-								</p>
-								<a class="button-block button-primary button-large button-spinner uitgestippeld-link" data-id="opstapp-breitner">
-									<div class="label">
-										Opstapp!
-									</div>
-									<span class="spinner"></span>
-								</a>
-							</div>
-						</div>
-					</li>
-				</ul>
 			</div>
-		</div>
-		<div id="info-modal" class="info-modal modal"></div>
-		<div id="walkthrough-modal" class="walkthrough-modal modal">
-			<div class="content">
-				<p class="p1 walkthrough-paragraph hidden">
-					Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum.
-				</p>
-				<p class="p2 walkthrough-paragraph hidden">
-					Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen.
-				</p>
-				<img class="walkthrough-image hidden" alt="" src="./asset/image/walkthrough/phone.png"/>
-				<p class="p3 walkthrough-paragraph hidden">
-					Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt.
-				</p>
-				<a class="button button-large button-block walkthrough-end hidden" href="#walkthrough-modal">
-					Beëindig de rondleiding
-				</a>
+			<div id="uitgestippeld-modal" class="uitgestippeld-modal modal">
+				<header class="bar-title">
+					<h3 class="title">
+						Uitgestippeld
+					</h3>
+					<a class="button" href="#uitgestippeld-modal">
+						Close
+					</a>
+				</header>
+				<div class="content carousel">
+					<ul class="list carousel-list">
+						<li>
+							<div class="uitgestippeld-item" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)">
+								<div class="uitgestippeld-content">
+									<h1>
+										Rembrandtroute
+									</h1>
+									<p>
+										Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein.
+									</p>
+									<a class="button-block button-primary button-large button-spinner uitgestippeld-link" data-id="opstapp-rembrandt">
+										<div class="label">
+											Opstapp!
+										</div>
+										<span class="spinner"></span>
+									</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="uitgestippeld-item" style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)">
+								<div class="uitgestippeld-content">
+									<h1>
+										Breitnerroute
+									</h1>
+									<p>
+										Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein.
+									</p>
+									<a class="button-block button-primary button-large button-spinner uitgestippeld-link" data-id="opstapp-breitner">
+										<div class="label">
+											Opstapp!
+										</div>
+										<span class="spinner"></span>
+									</a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
+			<div id="info-modal" class="info-modal modal"></div>
+			<div id="walkthrough-modal" class="walkthrough-modal modal">
+				<div class="content">
+					<p class="p1 walkthrough-paragraph hidden">
+						Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum.
+					</p>
+					<p class="p2 walkthrough-paragraph hidden">
+						Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen.
+					</p>
+					<img class="walkthrough-image hidden" alt="" src="./asset/image/walkthrough/phone.png"/>
+					<p class="p3 walkthrough-paragraph hidden">
+						Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt.
+					</p>
+					<a class="button button-large button-block walkthrough-end hidden" href="#walkthrough-modal">
+						Beëindig de rondleiding
+					</a>
+				</div>
+			</div>
+			<div class="startup-image" style="background-image:url(./asset/image/walkthrough/walkthrough.png)"></div>
+			<script src="./_behavior/opstapp.js"></script>
 		</div>
-		<div class="startup-image" style="background-image:url(./asset/image/walkthrough/walkthrough.png)"></div>
-		<script src="./_behavior/opstapp.js"></script>
 	</body>
 </html>

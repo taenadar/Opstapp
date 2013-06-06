@@ -38,15 +38,17 @@ html
 	body
 		.home-modal.modal
 			.content > #map-canvas
-			footer.planner
+			.route-info
+				
+			.planner
 				.planner-container
 					.input-group
 						.input-row
 							label[for="plan-route-from"] "Van"
-							input#plan-route-from[type="text"][placeholder="Huidige locatie"][value="Centraal"]
+							input#plan-route-from[type="text"][placeholder="Huidige locatie"]
 						.input-row
 							label[for="plan-route-to"] "Naar"
-							input#plan-route-to[type="text"][placeholder="Huidige locatie"][value="Museumplein"]
+							input#plan-route-to[type="text"][placeholder="Huidige locatie"]
 			
 					.row
 						a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"

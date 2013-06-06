@@ -77,6 +77,8 @@ mapView.setService null
 mapView.setRouteBoxer new RouteBoxer
 mapView.activateMapStyle 'dark'
 
+REGEXP_CURRENT_LOCATION = /huidige locatie/i
+
 
 # When the user selects the button to plan a route...
 $planRoute.on 'click', ( event ) ->
@@ -88,21 +90,24 @@ $planRoute.on 'click', ( event ) ->
 	$planRoute.classList.add 'loading'
 	
 	# Set origin and destination based on input.
-	origin = do $planFrom.value.toLowerCase
-	destination = do $planTo.value.toLowerCase
+	origin = $planFrom.value
+	destination = $planTo.value
 	
 	# Set initial distance to 500 meters.
 	distance = 0.5
 	
 	# If origin and/or destination are empty, set them to current location.
-	origin or origin = 'huidige locatie'
-	destination or destination = 'huidige locatie'
+	origin or origin = 'Huidige locatie'
+	destination or destination = 'Huidige locatie'
 	
-	callback = ( error ) ->
-		if error
-			alert "Sorry. Er trad een fout op in de applicatie: #{error}"
+	callback = ( route ) ->
+		console.log 'route', route
+		
+		if route.error
+			alert "Sorry. Er trad een fout op in de applicatie: #{route.error}"
 			console.log 'ERROR!', arguments
 		else
+			app.mapView.renderRoute route
 			do planner.hide
 		
 		$planRoute.classList.remove 'loading'
@@ -112,11 +117,16 @@ $planRoute.on 'click', ( event ) ->
 	# When origin and/or destination are based on the users current location, 
 	# request the location from `locationManager`, and calculate a route based 
 	# on the given position.
-	if origin is 'huidige locatie' or destination is 'huidige locatie'
+	if REGEXP_CURRENT_LOCATION.test( origin ) or REGEXP_CURRENT_LOCATION.test( destination )
 		app.locationManager.once ( position ) ->
 			coords = [ position.coords.latitude, position.coords.longitude ]
-			if origin is 'huidige locatie' then origin = coords
-			if destination is 'huidige locatie' then destination = coords
+			
+			if REGEXP_CURRENT_LOCATION.test origin
+				origin = coords
+			
+			if REGEXP_CURRENT_LOCATION.test destination
+				destination = coords
+			
 			app.mapView.requestRoute origin, destination, distance, callback
 	# Else, emediatly request a route.
 	else
@@ -151,13 +161,15 @@ window.on 'click', ( event ) ->
 	
 	# Draw a new route between all `waypoints` on route, starting at `origin`, 
 	# and ending at `destination`.
-	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng, ( error ) ->
-		if error
-			alert "Sorry. Er trad een fout op in de applicatie: #{error}"
+	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng, ( route ) ->
+		$target.classList.remove 'loading'
+		
+		console.log 'route', route
+		if route.error
+			alert "Sorry. Er trad een fout op in de applicatie: #{route.error}"
 			console.log 'ERROR!', arguments
 		else
-			
-			$target.classList.remove 'loading'
+			app.mapView.renderRoute route
 			
 			# Hide the planner.
 			do planner.hide
@@ -185,6 +197,7 @@ $w2 = $$ '.walkthrough-modal .p2'
 $w3 = $$ '.walkthrough-image'
 $w4 = $$ '.walkthrough-modal .p3'
 $w5 = $$ '.walkthrough-end'
+
 # Activate walkthrough modal after 0.8ms.
 window.setTimeout ->
 		$walkthrough.classList.add 'active'
@@ -197,6 +210,8 @@ window.setTimeout ->
 		do planner.show
 		$planner.style.height = '100%'
 		$map.classList.add 'active'
+			
+		app.mapView.renderPoints app.dataManager.getPointsAsArray(), true
 		
 	, 1500
 
