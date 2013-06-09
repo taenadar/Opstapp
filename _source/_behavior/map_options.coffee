@@ -1,70 +1,24 @@
 exports = @
 
+# If `app` isnt available on `exports`, set it as an empty object.
 app = exports.app or exports.app = {}
 
+# If `options` isnt available on `app`, set it as an empty object.
 app.options or app.options = {}
 
-app.options.directionsRenderer =
+# Set Google Maps `DirectionRenderer` options.
+app.options.renderer =
 	'suppressMarkers' : true
 	'suppressInfoWindows' : true
 
-app.options.polylineOptions =
+# Set Google Maps `Polyline` options.
+app.options.polyline =
 	'strokeColor' : '#5e99b0'
 	'strokeOpacity' : 1
 	'strokeWeight' : 5
 
+# Set Google Maps `StyledMapType` options.
 app.options.mapStyles =
-	'dark1' : [
-				'featureType': 'landscape.natural',
-				'stylers': [
-						{ 'color': '#3c3c3c' },
-						{ 'visibility': 'on' }
-					]
-			,
-				'featureType': 'landscape.man_made',
-				'elementType': 'geometry',
-				'stylers': [
-					{ 'color': '#2f2f2f' },
-					{ 'visibility': 'on' }
-				]
-			,
-				'featureType': 'water',
-				'elementType': 'geometry',
-				'stylers': [
-					{ 'visibility': 'on' },
-					{ 'color': '#434343' }
-				]
-			,
-				'featureType': 'administrative',
-				'elementType': 'geometry',
-				'stylers': [
-					{ 'visibility': 'on' },
-					{ 'color': '#808080' }
-				]
-			,
-				'featureType': 'road',
-				'elementType': 'geometry',
-				'stylers': [
-					{ 'color': '#000000' },
-					{ 'visibility': 'on' }
-				]
-			,
-				'featureType': 'transit',
-				'stylers': [
-					{ 'color': '#4c4c4c' },
-					{ 'visibility': 'on' }
-				]
-			,
-				'featureType': 'poi',
-				'stylers': [
-					{ 'visibility': 'off' }
-				]
-			,
-				'elementType': 'labels',
-				'stylers': [
-					{ 'visibility': 'off' }
-				]
-		]
 	'dark' : [
 				'elementType': 'geometry',
 				'stylers': [
@@ -196,7 +150,7 @@ app.options.mapStyles =
 				]
 		]
 
-
+# Set icons sizes.
 app.options.icons =
 	'1' :
 		'anchor' : [ 15, 44 ]
@@ -242,9 +196,6 @@ app.options.icons =
 		'anchor' : [ 18, 18 ]
 		'size' : [ 35, 36 ]
 		'url' : './asset/image/map/markers/user.png'
-	# 'user' :
-	# 	'size' : [ 19, 19 ]
-	# 	'url' : './asset/image/map/marker_closed_user.png'
 	'default' :
 		'anchor' : [ 15, 44 ]
 		'size' : [ 30, 50 ]

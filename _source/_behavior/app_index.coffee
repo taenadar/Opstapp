@@ -1,20 +1,16 @@
-###
-Here be coffee
-###
-
 # Store scope; probably `window`.
 exports = @
 
+# "Polyfill" `console.error` calls.
 exports.console or exports.console = {}
 exports.console.log or exports.console.log = ->
 
-# Store the slice method in Array.prototype.
+# Store the slice method in `Array.prototype`.
 __slice__ = Array::slice
 
 # Select All.
 $ = exports.$ = ( selectors ) ->
 	$nodes = new $.NodeList
-	$nodes.selectors = selectors
 	context = if @querySelector then @ else document
 	$nodes_ = context.querySelectorAll selectors
 
@@ -27,26 +23,25 @@ $ = exports.$ = ( selectors ) ->
 
 	$nodes
 
-# Select the first item.
-
+# Select one item.
 $$ = exports.$$ = ( selectors, index ) ->
 	$nodes = $ selectors
 	$nodes.item index
 
 # NodeList Contstructor.
+$.NodeList = ->
 
-$.NodeList = () ->
-
-# NodeList Prototype.
-
+# NodeList Prototype, inherit from Array.
 $.NodeList:: = Object.create Array::
 
+# Get one item.
 $.NodeList::item = ( index ) ->
 	@[ index or 0 ] or null
 
+# Default `length`.
 $.NodeList::length = 0
-$.NodeList::selector = null
 
+# Select all inside a selection.
 $.NodeList::$ = ( selectors ) -> 
 	$nodes = new $.NodeList
 	length = @length
@@ -62,11 +57,13 @@ $.NodeList::$ = ( selectors ) ->
 
 	$nodes
 
+# Select one item inside a selection.
 $.NodeList::$$ = ( selectors, index ) ->
 	$nodes = @$ selectors
 	$nodes.item index
 
-$.NodeList::clone = () ->
+# Return a new NodeList containing the same items as `this`.
+$.NodeList::clone = ->
 	$nodes = new $.NodeList
 	length = @length
 	iterator = -1
@@ -76,8 +73,11 @@ $.NodeList::clone = () ->
 	
 	$nodes
 
+# NodeList inherits from Array, but `Array::concat` can't concatenate 
+# Array-like objects. Here we overwrite concat to make concatenating two 
+# NodeList possible.
 
-$.NodeList::concat = () ->
+$.NodeList::concat = ->
 	$nodes = do @clone
 
 	arguments_ = __slice__.call arguments
@@ -101,6 +101,7 @@ $.NodeList::concat = () ->
 	
 	$nodes
 
+# Call `on` for each item in the selection.
 $.NodeList::on = ( type, listener ) ->
 	
 	length = @length
@@ -111,12 +112,15 @@ $.NodeList::on = ( type, listener ) ->
 	
 	@
 
+# Macro to `querySelectorAll` and `querySelector`.
 Element::$ = Element::querySelectorAll
 Element::$$ = Element::querySelector
 
+# Macro to `addEventListener`.
 Window::on = Window::addEventListener
 Element::on = Element::addEventListener
 
+# Detect if a CSS property is supported, and under which prefix.
 $div = document.createElement 'div'
 vendors = 'Khtml Ms O Moz Webkit'.split ' '
 vendorsLength = vendors.length

@@ -1,11 +1,14 @@
 # Store scope; probably `window`.
 exports = @
 
+# Constructor.
 DataManager = ->
-	
+
+# Return one point (by ID).
 DataManager::getPoint = ( id ) ->
 	@_points[ id ] or false
 
+# Return one point (by location).
 DataManager::getPointByLocation = ( location ) ->
 	
 	if location.id
@@ -23,11 +26,11 @@ DataManager::getPointByLocation = ( location ) ->
 	
 	false
 
-location
-
+# Return an object containing all points, accessible through their ID.
 DataManager::getPoints = ->
 	@_points or false
 
+# Return an array containing all points.
 DataManager::getPointsAsArray = ->
 	result = []
 	
@@ -35,18 +38,21 @@ DataManager::getPointsAsArray = ->
 	
 	result
 
+# Remove a point (by ID).
 DataManager::clearPoint = ( id ) ->
 	point = @_points[ id ]
 	@_points[ id ] = null
 	
 	point
 
+# Remove multiple points.
 DataManager::clearPoints = ->
 	points = @_points
 	@_points = {}
 	
 	points
 
+# Set a point.
 DataManager::setPoint = ( point ) ->
 	
 	unless point.info and point.info.id then return false
@@ -63,6 +69,7 @@ DataManager::setPoint = ( point ) ->
 	
 	@
 
+# Set multiple points, taking an array containing multiple points.
 DataManager::setPoints = ( points ) ->
 	
 	@_points or @_points = {}
@@ -74,12 +81,15 @@ DataManager::setPoints = ( points ) ->
 	
 	@
 
+# Return a route (by ID).
 DataManager::getRoute = ( id ) ->
 	@_routes[ id ] or false
 
+# Return an object containing all route, accessible through their ID.
 DataManager::getRoutes = ->
 	@_routes or false
 
+# Return an array containing all routes.
 DataManager::getRoutesAsArray = ->
 	result = []
 	
@@ -87,19 +97,21 @@ DataManager::getRoutesAsArray = ->
 	
 	result
 
-
+# Remove a route (by ID)
 DataManager::clearRoute = ( id ) ->
 	route = @_routes[ id ]
 	@_routes[ id ] = null
 	
 	route
 
+# Remove all routes.
 DataManager::clearRoutes = ->
 	routes = @_routes
 	@_routes = {}
 	
 	routes
 
+# Set a route.
 DataManager::setRoute = ( route ) ->
 	
 	points = []
@@ -130,6 +142,7 @@ DataManager::setRoute = ( route ) ->
 	
 	@
 
+# Set multiple routes, taking an array containing multiple routes.
 DataManager::setRoutes = ( routes ) ->
 	
 	@_routes or @_routes = {}
@@ -141,4 +154,5 @@ DataManager::setRoutes = ( routes ) ->
 	
 	@
 
+# Exports constructor.
 exports.DataManager = DataManager

@@ -2034,8 +2034,6 @@ Number.prototype.toBrng = function () {
     return false;
   };
 
-  location;
-
   DataManager.prototype.getPoints = function() {
     return this._points || false;
   };
@@ -2178,11 +2176,6 @@ Number.prototype.toBrng = function () {
 
 }).call(this);
 ;
-/*
-Here be coffee
-*/
-
-
 (function() {
   var $, $$, $div, exports, supports, vendors, vendorsLength, __slice__;
 
@@ -2198,7 +2191,6 @@ Here be coffee
     var $nodes, $nodes_, context, iterator, length;
 
     $nodes = new $.NodeList;
-    $nodes.selectors = selectors;
     context = this.querySelector ? this : document;
     $nodes_ = context.querySelectorAll(selectors);
     length = $nodes_.length;
@@ -2226,8 +2218,6 @@ Here be coffee
   };
 
   $.NodeList.prototype.length = 0;
-
-  $.NodeList.prototype.selector = null;
 
   $.NodeList.prototype.$ = function(selectors) {
     var $nodes, $nodes_, iterator, iterator_, length, length_;
@@ -2342,11 +2332,9 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var LocationManager, app, exports, locationManager;
+  var LocationManager, exports;
 
   exports = this;
-
-  app = exports.app || (exports.app = {});
 
   LocationManager = function(options) {
     var _onerror, _onsuccess,
@@ -2368,7 +2356,7 @@ Here be coffee
     return this;
   };
 
-  LocationManager.prototype.request = function(position) {
+  LocationManager.prototype.request = function() {
     if (this.isRequested === true) {
       return;
     }
@@ -2391,7 +2379,7 @@ Here be coffee
 
   LocationManager.prototype.onsuccess = function(position) {
     this.position = position;
-    this.onupdate_();
+    this.onupdate();
     return this;
   };
 
@@ -2435,7 +2423,7 @@ Here be coffee
 
   LocationManager.prototype.listeners = [];
 
-  LocationManager.prototype.onupdate_ = function() {
+  LocationManager.prototype.onupdate = function() {
     var iterator, length, listener;
 
     iterator = -1;
@@ -2450,10 +2438,11 @@ Here be coffee
   };
 
   LocationManager.prototype.onerror = function(error) {
+    throw new Error("There was an error in LocationManager: " + error.message + ".");
     return this;
   };
 
-  locationManager = app.locationManager = new LocationManager;
+  exports.LocationManager = LocationManager;
 
 }).call(this);
 ;
@@ -2462,7 +2451,11 @@ Here be coffee
 
   exports = this;
 
-  storage = window.localStorage || window.sessionStorage;
+  storage = window.localStorage || window.sessionStorage || false;
+
+  if (!storage) {
+    throw new Error("Neither sessionStorage, nor localStorage is available, but one should be.");
+  }
 
   if (!'JSON' in window) {
     throw new Error("JSON is not available, but should be.");
@@ -2549,17 +2542,13 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var MapView, app, exports;
+  var MapView, exports;
 
   exports = this;
-
-  app = exports.app || (exports.app = {});
 
   MapView = function($node, options) {
     var _this = this;
 
-    this._$node = $node;
-    this.options = options;
     this._mapStyles = {};
     this._map = new google.maps.Map($node, options);
     this._markers = [];
@@ -2573,27 +2562,29 @@ Here be coffee
     return this;
   };
 
+  MapView.prototype.REGEXP_LAT_LONG = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/;
+
   MapView.prototype.setRenderer = function(options) {
-    if (this.renderer) {
-      this.renderer.setMap(null);
+    if (this._renderer) {
+      this._renderer.setMap(null);
     }
-    this.renderer = new google.maps.DirectionsRenderer(options);
-    this.renderer.setMap(this._map);
+    this._renderer = new google.maps.DirectionsRenderer(options);
+    this._renderer.setMap(this._map);
     return this;
   };
 
   MapView.prototype.setPolylineOptions = function(options) {
-    this.renderer.set('polylineOptions', options);
+    this._renderer.set('polylineOptions', options);
     return this;
   };
 
   MapView.prototype.setService = function(options) {
-    this.service = new google.maps.DirectionsService(options);
+    this._service = new google.maps.DirectionsService(options);
     return this;
   };
 
   MapView.prototype.activateMapStyle = function(name) {
-    if (!this._mapStyles[name]) {
+    if (!this.hasMapStyle(name)) {
       return;
     }
     this._map.mapTypes.set(name, this._mapStyles[name]);
@@ -2689,7 +2680,7 @@ Here be coffee
   MapView.prototype.clear = function() {
     var iterator, length, marker;
 
-    this.renderer.setMap(null);
+    this._renderer.setMap(null);
     iterator = -1;
     length = this._markers.length;
     while (++iterator < length) {
@@ -2715,24 +2706,16 @@ Here be coffee
       'destination': destination,
       'travelMode': google.maps.TravelMode.WALKING
     };
-    this.service.route(request, function(response, status) {
+    this._service.route(request, function(response, status) {
       if (status !== google.maps.DirectionsStatus.OK) {
-        if (!~origin.indexOf('Amsterdam')) {
-          origin += ' Amsterdam, Netherlands';
-          destination += ' Amsterdam, Netherlands';
-          _this.requestRoute(origin, destination, distance, callback);
-        } else {
-          console.log('---|', _this, arguments);
-          throw new Error('Uncatched error in `MapView::requestRoute`');
-        }
+        console.log('---|', _this, arguments);
+        throw new Error('Uncatched error in `MapView::requestRoute`');
         return;
       }
       _this.findPointsOnRoute(response, origin, destination, distance, callback);
     });
     return this;
   };
-
-  MapView.prototype.REGEXP_LAT_LONG = /(?:\d{1,2}\.\d*),(?:\d{1,2}\.\d*)/;
 
   MapView.prototype.findPointsOnRoute = function(response, origin, destination, distance, callback) {
     var box, boxes, iterator, iterator_, length, length_, path, point, points, points_, summary;
@@ -2805,7 +2788,7 @@ Here be coffee
     return "Tijd: " + hours + "h " + minutes + "m";
   };
 
-  MapView.prototype.onClick = function(event) {
+  MapView.prototype.onClick = function() {
     if (this._marker && this._marker.infoWindow) {
       this._marker.infoWindow.close();
       return this._marker = null;
@@ -2823,8 +2806,8 @@ Here be coffee
       'optimizeWaypoints': true,
       'travelMode': google.maps.TravelMode.WALKING
     };
-    this.service.route(request, function(response, status) {
-      var address, calculatedRoute, destination_, distance, duration, index, iterator, leg, legs, length, location, origin_, point, points_, route;
+    this._service.route(request, function(response, status) {
+      var address, destination_, distance, duration, index, iterator, leg, legs, length, location, origin_, point, points_, route;
 
       if (status !== google.maps.DirectionsStatus.OK) {
         console.log('---|', _this, arguments);
@@ -2842,8 +2825,6 @@ Here be coffee
       if (destination.lat && destination.lng) {
         destination_ = app.dataManager.getPointByLocation(destination);
       }
-      iterator = 0;
-      length = legs.length;
       if (origin_) {
         points_.push(origin_);
       } else {
@@ -2854,6 +2835,8 @@ Here be coffee
           'piece': point.start_address
         });
       }
+      iterator = 0;
+      length = legs.length;
       while (++iterator < length) {
         leg = legs[iterator];
         address = leg.start_address;
@@ -2876,15 +2859,14 @@ Here be coffee
         });
       }
       duration += points.length * 3 * 60;
-      calculatedRoute = {
+      callback({
         'points': points_,
         'origin': origin,
         'destination': destination,
         'distance': _this.metersToString(distance),
         'duration': _this.secondsToString(duration),
         'response': response
-      };
-      callback(calculatedRoute);
+      });
     });
     return this;
   };
@@ -2960,13 +2942,12 @@ Here be coffee
   };
 
   MapView.prototype.renderPoints = function(points, hideIndex) {
-    var iterator, length, originIsPoint;
+    var iterator, length;
 
     iterator = -1;
     length = points.length;
     if (!hideIndex) {
-      originIsPoint = points[0].isPoint;
-      if (originIsPoint) {
+      if (points[0].isPoint) {
         while (++iterator < length) {
           this.renderPoint(points[iterator], iterator + 1, iterator * 300, length);
         }
@@ -2986,8 +2967,8 @@ Here be coffee
   MapView.prototype.renderRoute = function(route) {
     this.clear();
     this.updateBounds();
-    this.renderer.setDirections(route.response);
-    this.renderer.setMap(this._map);
+    this._renderer.setDirections(route.response);
+    this._renderer.setMap(this._map);
     this.renderPoints(route.points);
     this.updateBounds();
     return this;
@@ -3161,93 +3142,18 @@ Here be coffee
 
   app.options || (app.options = {});
 
-  app.options.directionsRenderer = {
+  app.options.renderer = {
     'suppressMarkers': true,
     'suppressInfoWindows': true
   };
 
-  app.options.polylineOptions = {
+  app.options.polyline = {
     'strokeColor': '#5e99b0',
     'strokeOpacity': 1,
     'strokeWeight': 5
   };
 
   app.options.mapStyles = {
-    'dark1': [
-      {
-        'featureType': 'landscape.natural',
-        'stylers': [
-          {
-            'color': '#3c3c3c'
-          }, {
-            'visibility': 'on'
-          }
-        ]
-      }, {
-        'featureType': 'landscape.man_made',
-        'elementType': 'geometry',
-        'stylers': [
-          {
-            'color': '#2f2f2f'
-          }, {
-            'visibility': 'on'
-          }
-        ]
-      }, {
-        'featureType': 'water',
-        'elementType': 'geometry',
-        'stylers': [
-          {
-            'visibility': 'on'
-          }, {
-            'color': '#434343'
-          }
-        ]
-      }, {
-        'featureType': 'administrative',
-        'elementType': 'geometry',
-        'stylers': [
-          {
-            'visibility': 'on'
-          }, {
-            'color': '#808080'
-          }
-        ]
-      }, {
-        'featureType': 'road',
-        'elementType': 'geometry',
-        'stylers': [
-          {
-            'color': '#000000'
-          }, {
-            'visibility': 'on'
-          }
-        ]
-      }, {
-        'featureType': 'transit',
-        'stylers': [
-          {
-            'color': '#4c4c4c'
-          }, {
-            'visibility': 'on'
-          }
-        ]
-      }, {
-        'featureType': 'poi',
-        'stylers': [
-          {
-            'visibility': 'off'
-          }
-        ]
-      }, {
-        'elementType': 'labels',
-        'stylers': [
-          {
-            'visibility': 'off'
-          }
-        ]
-      }
-    ],
     'dark': [
       {
         'elementType': 'geometry',
@@ -3539,7 +3445,7 @@ Here be coffee
     $hammer.on('release dragleft dragright swipeleft swiperight', function() {
       return _this.handleHammer.apply(_this, arguments);
     });
-    this.$controller.addEventListener('click', function(event) {
+    this.$controller.on('click', function(event) {
       if ('a' === event.target.tagName.toLowerCase()) {
         return _this.handleController(event);
       }
@@ -3548,9 +3454,9 @@ Here be coffee
     handler = function() {
       return _this.setPaneDimensions();
     };
-    window.addEventListener('load', handler);
-    window.addEventListener('resize', handler);
-    window.addEventListener('orientationchange', handler);
+    window.on('load', handler);
+    window.on('resize', handler);
+    window.on('orientationchange', handler);
     return this;
   };
 
@@ -3785,50 +3691,19 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var getTargets;
-
-  getTargets = function($target) {
-    var $popovers, iterator, length;
-
-    $popovers = $('.toggle');
-    while ($target && $target !== document) {
-      iterator = -1;
-      length = $popovers.length;
-      while (++iterator < length) {
-        if ($popovers[iterator] === $target) {
-          return $target;
-        }
-      }
-      $target = $target.parentNode;
-    }
-  };
-
-  window.on('click', function(event) {
-    var $toggle;
-
-    $toggle = getTargets(event.target);
-    if (!$toggle) {
-      return;
-    }
-    event.preventDefault();
-    event.stopPropagation();
-    $toggle.classList.toggle('active');
-  });
-
-}).call(this);
-;
-(function() {
-  var $info, $map, $mapColorOptions, $planFrom, $planRoute, $planTo, $planner, $routeInfo, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, exports, mapView, planner, settingsManager;
+  var $info, $map, $mapColorOptions, $planFrom, $planRoute, $planTo, $planner, $routeInfo, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, dataManager, exports, locationManager, mapView, planner, settingsManager;
 
   exports = this;
 
   app = exports.app || (exports.app = {});
 
-  app.dataManager = new DataManager;
+  dataManager = app.dataManager = new DataManager;
 
-  app.dataManager.setPoints(app.data);
+  dataManager.setPoints(app.data);
 
-  app.dataManager.setRoutes(app.route);
+  dataManager.setRoutes(app.route);
+
+  locationManager = app.locationManager = new LocationManager;
 
   settingsManager = app.settingsManager = new SettingsManager;
 
@@ -3870,7 +3745,7 @@ Here be coffee
   };
 
   app.routeToInfoString = function(route) {
-    return "<div class=\"route-info-container\">\n	<span class=\"route-info-distance\">" + route.distance + "</span>\n	<span class=\"route-info-duration\">" + route.duration + "</span>\n	<a class=\"route-info-clear button button-large\">Clear</a>\n</div>";
+    return "<div class=\"route-info-container\">\n	<span class=\"route-info-distance\">" + route.distance + "</span>\n	<span class=\"route-info-duration\">" + route.duration + "</span>\n	<a class=\"route-info-clear button button-large\">wissen</a>\n</div>";
   };
 
   app.infoWindowIntent = function(event) {
@@ -3918,9 +3793,9 @@ Here be coffee
 
   mapView.setIcons(app.options.icons);
 
-  mapView.setRenderer(app.options.directionsRenderer);
+  mapView.setRenderer(app.options.renderer);
 
-  mapView.setPolylineOptions(app.options.polylineOptions);
+  mapView.setPolylineOptions(app.options.polyline);
 
   mapView.setService(null);
 
@@ -3938,7 +3813,7 @@ Here be coffee
     event.preventDefault();
     event.stopPropagation();
     $routeInfo.classList.remove('active');
-    data = app.dataManager.getPointsAsArray();
+    data = dataManager.getPointsAsArray();
     app.mapView.clear();
     app.mapView.renderPoints(data, true);
   });
@@ -3969,7 +3844,7 @@ Here be coffee
       $planRoute.classList.remove('loading');
     };
     if (REGEXP_CURRENT_LOCATION.test(origin) || REGEXP_CURRENT_LOCATION.test(destination)) {
-      app.locationManager.once(function(position) {
+      locationManager.once(function(position) {
         var coords;
 
         coords = [position.coords.latitude, position.coords.longitude];
@@ -3999,7 +3874,7 @@ Here be coffee
         return;
       }
     }
-    route = app.dataManager.getRoute($target.dataset.id);
+    route = dataManager.getRoute($target.dataset.id);
     if (!route) {
       return;
     }
@@ -4070,11 +3945,11 @@ Here be coffee
     $planner.style.height = '100%';
     $map.classList.add('active');
     app.mapView.clear();
-    return app.mapView.renderPoints(app.dataManager.getPointsAsArray(), true);
+    return app.mapView.renderPoints(dataManager.getPointsAsArray(), true);
   });
 
   window.on('load', function() {
-    return app.locationManager.request();
+    return locationManager.request();
   });
 
   $mapColorOptions.on('change', function(event) {

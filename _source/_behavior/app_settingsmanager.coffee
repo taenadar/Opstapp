@@ -1,8 +1,16 @@
 # Store scope; probably `window`.
 exports = @
 
-storage = window.localStorage || window.sessionStorage
+# Storage to use.
+storage = window.localStorage or window.sessionStorage or false
 
+# Throw an error if (localStorage|sessionStorage) isn't available.
+if not storage
+	throw new Error """
+		Neither sessionStorage, nor localStorage is available, but one should be.
+		"""
+
+# Throw an error if JSON isn't available.
 if not 'JSON' of window
 	throw new Error """
 		JSON is not available, but should be.
@@ -13,19 +21,23 @@ SettingsManager = ->
 	@defaults = {}
 	
 	@
-	
+
+# Namespace to use in storage.
 SettingsManager::namespace = 'opstapp.setting.'
 
+# Set a default value for when a key isn't set in storage.
 SettingsManager::setDefault = ( name, value ) ->
 	
 	@defaults[ @namespace + name ] = value
 	
 	value
 
+# Get a default value.
 SettingsManager::getDefault = ( name ) ->
 	
 	@defaults[ @namespace + name ]
 
+# Remove a default value.
 SettingsManager::removeDefault = ( name ) ->
 	
 	key = @namespace + name
@@ -36,6 +48,7 @@ SettingsManager::removeDefault = ( name ) ->
 	
 	value
 
+# Set an item in storage.
 SettingsManager::set = ( name, value ) ->
 	
 	key = @namespace + name
@@ -50,6 +63,7 @@ SettingsManager::set = ( name, value ) ->
 	
 	value_
 
+# Get an item in storage, or return the default (if available).
 SettingsManager::get = ( name ) ->
 	
 	key = @namespace + name
@@ -63,6 +77,7 @@ SettingsManager::get = ( name ) ->
 	
 	value or @getDefault name
 
+# Ret an item in storage.
 SettingsManager::remove = ( name ) ->
 	
 	key = @namespace + name
@@ -72,7 +87,7 @@ SettingsManager::remove = ( name ) ->
 	
 	value
 
-
+# Remove all items in storage.
 SettingsManager::clear = ( name ) ->
 	
 	for key of storage
@@ -80,4 +95,5 @@ SettingsManager::clear = ( name ) ->
 	
 	@
 
+# Exports.
 exports.SettingsManager = SettingsManager

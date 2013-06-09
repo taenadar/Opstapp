@@ -37,7 +37,7 @@ Carousel = ( $node, insertController ) ->
 	$hammer.on 'release dragleft dragright swipeleft swiperight', =>
 		@handleHammer.apply @, arguments
 	
-	@$controller.addEventListener 'click', ( event ) =>
+	@$controller.on 'click', ( event ) =>
 		if 'a' is do event.target.tagName.toLowerCase
 			@handleController event
 	
@@ -45,9 +45,9 @@ Carousel = ( $node, insertController ) ->
 	
 	handler = => do @setPaneDimensions
 	
-	window.addEventListener 'load', handler
-	window.addEventListener 'resize', handler
-	window.addEventListener 'orientationchange', handler
+	window.on 'load', handler
+	window.on 'resize', handler
+	window.on 'orientationchange', handler
 	
 	@
 

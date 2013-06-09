@@ -3,12 +3,13 @@ exports = @
 
 app = exports.app or exports.app = {}
 
-app.dataManager = new DataManager
-app.dataManager.setPoints app.data
-app.dataManager.setRoutes app.route
+dataManager = app.dataManager = new DataManager
+dataManager.setPoints app.data
+dataManager.setRoutes app.route
+
+locationManager = app.locationManager = new LocationManager
 
 settingsManager = app.settingsManager = new SettingsManager
-
 settingsManager.setDefault 'map-color', 'dark'
 
 
@@ -54,7 +55,7 @@ app.routeToInfoString = ( route ) ->
 	<div class="route-info-container">
 		<span class="route-info-distance">#{route.distance}</span>
 		<span class="route-info-duration">#{route.duration}</span>
-		<a class="route-info-clear button button-large">Clear</a>
+		<a class="route-info-clear button button-large">wissen</a>
 	</div>
 	"""
 
@@ -99,9 +100,6 @@ app.setMapStyle = ( color ) ->
 	
 	color
 
-# rendererOptions = app.options.directionsRenderer
-# rendererOptions.polylineOptions = app.options.polylineOptions
-
 mapView = app.mapView = new MapView ( $$ '#map-canvas' ),
 	'zoom' : 14
 	'center' : new google.maps.LatLng 52.359903, 4.884131
@@ -109,8 +107,8 @@ mapView = app.mapView = new MapView ( $$ '#map-canvas' ),
 
 mapView.setMapStyles app.options.mapStyles
 mapView.setIcons app.options.icons
-mapView.setRenderer app.options.directionsRenderer
-mapView.setPolylineOptions app.options.polylineOptions
+mapView.setRenderer app.options.renderer
+mapView.setPolylineOptions app.options.polyline
 mapView.setService null
 mapView.setRouteBoxer new RouteBoxer
 app.setMapStyle settingsManager.get 'map-color'
@@ -126,7 +124,7 @@ window.on 'click', ( event ) ->
 	
 	$routeInfo.classList.remove 'active'
 	
-	data = do app.dataManager.getPointsAsArray
+	data = do dataManager.getPointsAsArray
 	do app.mapView.clear
 	
 	app.mapView.renderPoints data, true
@@ -173,7 +171,7 @@ $planRoute.on 'click', ( event ) ->
 	# request the location from `locationManager`, and calculate a route based 
 	# on the given position.
 	if REGEXP_CURRENT_LOCATION.test( origin ) or REGEXP_CURRENT_LOCATION.test( destination )
-		app.locationManager.once ( position ) ->
+		locationManager.once ( position ) ->
 			coords = [ position.coords.latitude, position.coords.longitude ]
 			
 			if REGEXP_CURRENT_LOCATION.test origin
@@ -203,7 +201,7 @@ window.on 'click', ( event ) ->
 			return
 	
 	# Find the route belonging to the `uitgestippeld` item.
-	route = app.dataManager.getRoute $target.dataset.id
+	route = dataManager.getRoute $target.dataset.id
 	
 	# If a route couldn't be found, return.
 	unless route then return
@@ -290,10 +288,10 @@ $w5.on 'click', ->
 	$planner.style.height = '100%'
 	$map.classList.add 'active'
 	do app.mapView.clear
-	app.mapView.renderPoints app.dataManager.getPointsAsArray(), true
+	app.mapView.renderPoints dataManager.getPointsAsArray(), true
 
 # Request geolocation on load.
-window.on 'load', -> do app.locationManager.request
+window.on 'load', -> do locationManager.request
 
 $mapColorOptions.on 'change', ( event ) ->
 	$target = event.target

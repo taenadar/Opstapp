@@ -1,13 +1,15 @@
 # Store scope; probably `window`.
 exports = @
 
-app = exports.app or exports.app = {}
-
+# Constructor, taking an options object.
 LocationManager = ( options ) ->
+	
 	@listeners = []
 	
+	# Overwrite options if given..
 	if options then @options = options
 	
+	# Bind `this` to `onsuccess` and `onerror`.
 	_onsuccess = @onsuccess
 	_onerror = @onerror
 	@onsuccess = ( => _onsuccess.apply @, arguments )
@@ -17,7 +19,10 @@ LocationManager = ( options ) ->
 	
 	@
 
-LocationManager::request = ( position ) ->
+# Request function. Calls `watchPosition` on `navigator.geolocation`
+LocationManager::request = ->
+	
+	# Make sure `request` gets called only once.
 	if @isRequested is yes then return
 	
 	@isRequested = yes
@@ -29,22 +34,26 @@ LocationManager::request = ( position ) ->
 	
 	@
 
+# Default options for watching position.
 LocationManager::options = 
 	'enableHighAccuracy' : true
 	'maximumAge' : 0
 
+# On success, store position and call `onupdate`
 LocationManager::onsuccess = ( position ) ->
 	@position = position
 	
-	do @onupdate_
+	do @onupdate
 	
 	@
 
+# Listen to position updates.
 LocationManager::on = ( listener ) ->
 	if @position then listener @position
 	@listeners.push listener
 	@
 
+# Call a listener once.
 LocationManager::once = ( listener ) ->
 	if @position
 		listener @position
@@ -58,6 +67,7 @@ LocationManager::once = ( listener ) ->
 	
 	@
 
+# Remove a listener.
 LocationManager::off = ( listener ) ->
 	
 	iterator = -1
@@ -72,7 +82,8 @@ LocationManager::off = ( listener ) ->
 
 LocationManager::listeners = []
 
-LocationManager::onupdate_ = ->
+# call every listener with the current position.
+LocationManager::onupdate = ->
 	iterator = -1
 	length = @listeners.length
 	
@@ -83,10 +94,13 @@ LocationManager::onupdate_ = ->
 	
 	@
 
+# Throw error when an error catches.
 LocationManager::onerror = ( error ) ->
-	# Fail silently.
+	
+	throw new Error """
+			There was an error in LocationManager: #{error.message}.
+		"""
 	
 	@
 
-
-locationManager = app.locationManager = new LocationManager
+exports.LocationManager = LocationManager

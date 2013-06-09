@@ -331,21 +331,21 @@ app.data = [
 			"description" : "Een zandafgraving te Amsterdam. Arbeiders rusten en aan het werk in een bouwput. In het midden een werkman met een kruiwagen. Waarschijnlijk is de demping van de Elandsgracht in de Jordaan voorgesteld."
 		}
 	},
-	{
-		"artist": "Isaac Ouwater",
-		"piece": "De Sint-Antoniuswaag",
-		"latitude": "52.372776",
-		"longitude": "4.900261",
-		"description": "Gezicht op de Sint Antoniuswaag op het huidige Nieuwmarkt te Amsterdam.",
-		"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-306",
-		"info" : {
-			"title" : "De Sint-Antoniuswaag in Amsterdam",
-			"type" : "schilderij",
-			"id" : "SK-A-306",
-			"date" : "ca. 1780 - ca. 1790",
-			"description" : "Het onderwerp van het schilderij, de oude, 15de-eeuwse Waag, staat grotendeels in de schaduw. Ook op de voorgrond past Ouwater sterke lichtcontrasten toe: de tafel met rariteiten vangt de zon terwijl de voor-grond donker is. In dit schilderij en in zijn tegenhanger met de Nieuwe Kerk lichten witte japonnen, dieren en lantaarnpalen op en verlevendigen zo het geheel."
-		}
-	},
+	// {
+	// 	"artist": "Isaac Ouwater",
+	// 	"piece": "De Sint-Antoniuswaag",
+	// 	"latitude": "52.372776",
+	// 	"longitude": "4.900261",
+	// 	"description": "Gezicht op de Sint Antoniuswaag op het huidige Nieuwmarkt te Amsterdam.",
+	// 	"link": "https://www.rijksmuseum.nl/nl/collectie/SK-A-306",
+	// 	"info" : {
+	// 		"title" : "De Sint-Antoniuswaag in Amsterdam",
+	// 		"type" : "schilderij",
+	// 		"id" : "SK-A-306",
+	// 		"date" : "ca. 1780 - ca. 1790",
+	// 		"description" : "Het onderwerp van het schilderij, de oude, 15de-eeuwse Waag, staat grotendeels in de schaduw. Ook op de voorgrond past Ouwater sterke lichtcontrasten toe: de tafel met rariteiten vangt de zon terwijl de voor-grond donker is. In dit schilderij en in zijn tegenhanger met de Nieuwe Kerk lichten witte japonnen, dieren en lantaarnpalen op en verlevendigen zo het geheel."
+	// 	}
+	// },
 	{
 		"artist": "Hendrik Gerrit ten Cate",
 		"piece": "De Torensluis",
