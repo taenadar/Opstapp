@@ -5,7 +5,7 @@ app.route = [
 		'name' : 'Rembrandtroute',
 		'id' : 'opstapp-rembrandt',
 		'description' : 'Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein.',
-		'image' : 'https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691',
+		'image' : './asset/image/data/SK-A-4050_large.jpg',
 		'route' : [
 			{
 				"id" : "RP-T-1930-64"
@@ -28,7 +28,7 @@ app.route = [
 		'name' : 'Breitnerroute',
 		'id' : 'opstapp-breitner',
 		'description' : 'Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein.',
-		'image' : 'https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925',
+		'image' : './asset/image/data/SK-A-4925_large.jpg',
 		'route' : [
 			{
 				"id" : "SK-A-3529"

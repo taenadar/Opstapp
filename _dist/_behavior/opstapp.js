@@ -1,4 +1,4 @@
-/*! opstapp - v0.0.1 - 2013-06-06
+/*! opstapp - v0.0.1 - 2013-06-09
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
 /*! Hammer.JS - v1.0.6dev - 2013-04-10
@@ -2517,15 +2517,21 @@ Here be coffee
   };
 
   MapView.prototype.setIcon = function(name, icon) {
-    var size;
+    var options, size;
 
     this._icons || (this._icons = {});
     size = new google.maps.Size(icon.size[0], icon.size[1]);
-    this._icons[name] = {
-      'scaledSize': size,
-      'size': size,
-      'url': icon.url
-    };
+    options = {};
+    if (size) {
+      options.size = options.scaledSize = size;
+    }
+    if (icon.anchor) {
+      options.anchor = new google.maps.Point(icon.anchor[0], icon.anchor[1]);
+    }
+    if (icon.url) {
+      options.url = icon.url;
+    }
+    this._icons[name] = options;
     return this;
   };
 
@@ -2577,6 +2583,7 @@ Here be coffee
   MapView.prototype.clear = function() {
     var iterator, length, marker;
 
+    this.renderer.setMap(null);
     iterator = -1;
     length = this._markers.length;
     while (++iterator < length) {
@@ -2649,14 +2656,14 @@ Here be coffee
       if (points.length > 8) {
         points = points.slice(0, 8);
       } else if (points.length < 1) {
-        origin = origin.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
-        destination = destination.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
-        summary = response.routes[0].summary;
         if (origin === destination) {
+          summary = response.routes[0].summary;
           callback({
             'error': "De applicatie kon geen punten vinden in de buurt van\n\"" + summary + "\"."
           });
         } else {
+          origin = origin.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
+          destination = destination.replace(this.REGEXP_LAT_LONG, 'huidige locatie');
           callback({
             'error': "De applicatie kon geen punten vinden tussen \"" + origin + "\" \nen \"" + destination + "\""
           });
@@ -2672,27 +2679,24 @@ Here be coffee
     var kilometers;
 
     kilometers = meters / 1000;
-    kilometers = Math.floor(kilometers * 10) / 10;
-    return "" + kilometers + "km";
+    kilometers = Math.ceil(kilometers);
+    return "Afstand: " + kilometers + "km";
   };
 
   MapView.prototype.secondsToString = function(seconds) {
     var hours, minutes;
 
     minutes = seconds / 60;
-    minutes = Math.round(minutes);
+    minutes = 15 * Math.ceil(minutes / 15);
     hours = 0;
     while (minutes > 59) {
       minutes -= 60;
       hours += 1;
     }
-    if (hours < 10) {
-      hours = '0' + hours;
-    }
     if (minutes < 10) {
       minutes = '0' + minutes;
     }
-    return "" + hours + ":" + minutes;
+    return "Tijd: " + hours + "h " + minutes + "m";
   };
 
   MapView.prototype.onClick = function(event) {
@@ -2765,6 +2769,7 @@ Here be coffee
           'piece': point.end_address
         });
       }
+      duration += points.length * 3 * 60;
       calculatedRoute = {
         'points': points_,
         'origin': origin,
@@ -2794,7 +2799,7 @@ Here be coffee
     return this;
   };
 
-  MapView.prototype.renderPoint = function(point, index, length) {
+  MapView.prototype.renderPoint = function(point, index, timeout, length) {
     var content, icon, title,
       _this = this;
 
@@ -2844,7 +2849,7 @@ Here be coffee
         _this._marker = marker;
         marker.infoWindow.open(_this._map);
       });
-    }, index * 300);
+    }, timeout);
     return this;
   };
 
@@ -2857,16 +2862,16 @@ Here be coffee
       originIsPoint = points[0].isPoint;
       if (originIsPoint) {
         while (++iterator < length) {
-          this.renderPoint(points[iterator], iterator + 1, length);
+          this.renderPoint(points[iterator], iterator + 1, iterator * 300, length);
         }
       } else {
         while (++iterator < length) {
-          this.renderPoint(points[iterator], iterator, length);
+          this.renderPoint(points[iterator], iterator, iterator * 300, length);
         }
       }
     } else {
       while (++iterator < length) {
-        this.renderPoint(points[iterator], 0, length);
+        this.renderPoint(points[iterator], 0, iterator * 100, length);
       }
     }
     return this;
@@ -2876,6 +2881,7 @@ Here be coffee
     this.clear();
     this.updateBounds();
     this.renderer.setDirections(route.response);
+    this.renderer.setMap(this._map);
     this.renderPoints(route.points);
     this.updateBounds();
     return this;
@@ -3056,12 +3062,12 @@ Here be coffee
 
   app.options.polylineOptions = {
     'strokeColor': '#5e99b0',
-    'strokeOpacity': 0.8,
-    'strokeWeight': 3
+    'strokeOpacity': 1,
+    'strokeWeight': 5
   };
 
   app.options.mapStyles = {
-    'dark': [
+    'dark1': [
       {
         'featureType': 'landscape.natural',
         'stylers': [
@@ -3135,57 +3141,257 @@ Here be coffee
           }
         ]
       }
+    ],
+    'dark': [
+      {
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'visibility': 'on'
+          }, {
+            'color': '#242424'
+          }
+        ]
+      }, {
+        'featureType': 'landscape.man_made',
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'color': '#2f2f2f'
+          }, {
+            'visibility': 'on'
+          }
+        ]
+      }, {
+        'featureType': 'poi',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }, {
+        'featureType': 'road',
+        'elementType': 'geometry',
+        'stylers': [
+          {
+            'color': '#151515'
+          }, {
+            'visibility': 'simplified'
+          }
+        ]
+      }, {
+        'elementType': 'labels.text.fill',
+        'stylers': [
+          {
+            'color': '#7e7e80'
+          }
+        ]
+      }, {
+        'elementType': 'labels.text.stroke',
+        'stylers': [
+          {
+            'color': '#000100'
+          }, {
+            'weight': 2
+          }
+        ]
+      }, {
+        'featureType': 'transit',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }, {
+        'featureType': 'water',
+        'stylers': [
+          {
+            'color': '#1b1b1b'
+          }, {
+            'visibility': 'simplified'
+          }
+        ]
+      }, {
+        'featureType': 'road',
+        'elementType': 'labels.icon',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }, {
+        'featureType': 'landscape',
+        'elementType': 'labels',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }, {
+        'featureType': 'poi',
+        'stylers': [
+          {
+            'visibility': 'off'
+          }
+        ]
+      }
+    ],
+    'light': [
+      {
+        "featureType": "poi",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "elementType": "labels.text.fill",
+        "stylers": [
+          {
+            "color": "#eeeeee"
+          }
+        ]
+      }, {
+        "elementType": "labels.text.stroke",
+        "stylers": [
+          {
+            "color": "#000000"
+          }, {
+            "weight": 2
+          }
+        ]
+      }, {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "featureType": "landscape",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "visibility": "on"
+          }, {
+            "color": "#8e8e8e"
+          }
+        ]
+      }, {
+        "featureType": "landscape.man_made",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "visibility": "on"
+          }, {
+            "color": "#858585"
+          }
+        ]
+      }, {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+          {
+            "visibility": "simplified"
+          }, {
+            "color": "#222222"
+          }
+        ]
+      }, {
+        "featureType": "transit",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      }, {
+        "featureType": "water",
+        "stylers": [
+          {
+            "visibility": "simplified"
+          }, {
+            "color": "#434343"
+          }
+        ]
+      }, {
+        "featureType": "poi",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      }
     ]
   };
 
   app.options.icons = {
     '1': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_1.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/1.png'
     },
     '2': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_2.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/2.png'
     },
     '3': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_3.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/3.png'
     },
     '4': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_4.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/4.png'
     },
     '5': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_5.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/5.png'
     },
     '6': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_6.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/6.png'
     },
     '7': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_7.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/7.png'
     },
     '8': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_8.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/8.png'
     },
     'a': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_a.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/a.png'
     },
     'b': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed_b.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/b.png'
     },
     'user': {
-      'size': [19, 19],
-      'url': './asset/image/map/marker_closed_user.png'
+      'anchor': [18, 18],
+      'size': [35, 36],
+      'url': './asset/image/map/markers/user.png'
     },
     'default': {
-      'size': [20, 35],
-      'url': './asset/image/map/marker_closed.png'
+      'anchor': [15, 44],
+      'size': [30, 50],
+      'url': './asset/image/map/markers/default.png'
     }
   };
 
@@ -3506,7 +3712,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $info, $map, $planFrom, $planRoute, $planTo, $planner, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, exports, mapView, planner;
+  var $info, $map, $planFrom, $planRoute, $planTo, $planner, $routeInfo, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, exports, mapView, planner;
 
   exports = this;
 
@@ -3517,6 +3723,8 @@ Here be coffee
   app.dataManager.setPoints(app.data);
 
   app.dataManager.setRoutes(app.route);
+
+  $routeInfo = $$('.route-info');
 
   $planner = $$('.planner');
 
@@ -3539,7 +3747,18 @@ Here be coffee
   $map = $$('.home-modal');
 
   app.pointToString = function(point) {
-    return "<header class=\"bar-title\">\n	<h3 class=\"title\"><div class=\"overflow-wrapper\">" + point.piece + "</div></h3>\n	<a class=\"button\" href=\"#info-modal\">\n		Close\n	</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(./asset/image/data/" + point.info.id + "_large.jpg)\">\n		<img class=\"hidden\" alt=\"\" src=\"./asset/image/data/" + point.info.id + "_large.jpg\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + point.info.title + "</h1>\n		<h2>" + point.artist + "</h2>\n		<p>" + point.info.description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + point.link + "\">Op naar het Rijks!</a>\n	</div>\n</div>";
+    var description;
+
+    if (point.description.length >= point.info.description.length) {
+      description = point.description;
+    } else {
+      description = point.info.description;
+    }
+    return "<header class=\"bar-title\">\n	<h3 class=\"title\"><div class=\"overflow-wrapper\">" + point.piece + "</div></h3>\n	<a class=\"button\" href=\"#info-modal\">sluiten</a>\n</header>\n<div class=\"content\">\n	<div class=\"img\" style=\"background-image:url(./asset/image/data/" + point.info.id + "_large.jpg)\">\n		<img class=\"hidden\" alt=\"\" src=\"./asset/image/data/" + point.info.id + "_large.jpg\">\n	</div>\n	<div class=\"info-wrapper\">\n		<h1>" + point.info.title + "</h1>\n		<h2>" + point.artist + "</h2>\n		<p>" + description + "</p>\n		<a class=\"button-primary button-block button-large\" href=\"" + point.link + "\">naar het Rijksmuseum</a>\n	</div>\n</div>";
+  };
+
+  app.routeToInfoString = function(route) {
+    return "<div class=\"route-info-container\">\n	<span class=\"route-info-distance\">" + route.distance + "</span>\n	<span class=\"route-info-duration\">" + route.duration + "</span>\n	<a class=\"route-info-clear button button-large\">Clear</a>\n</div>";
   };
 
   app.infoWindowIntent = function(event) {
@@ -3576,6 +3795,21 @@ Here be coffee
 
   mapView.activateMapStyle('dark');
 
+  window.on('click', function(event) {
+    var $target, data;
+
+    $target = event.target;
+    if (!$target.classList.contains('route-info-clear')) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    $routeInfo.classList.remove('active');
+    data = app.dataManager.getPointsAsArray();
+    app.mapView.clear();
+    app.mapView.renderPoints(data, true);
+  });
+
   REGEXP_CURRENT_LOCATION = /huidige locatie/i;
 
   $planRoute.on('click', function(event) {
@@ -3590,7 +3824,6 @@ Here be coffee
     origin || (origin = 'Huidige locatie');
     destination || (destination = 'Huidige locatie');
     callback = function(route) {
-      console.log('route', route);
       if (route.error) {
         alert("Sorry. Er trad een fout op in de applicatie: " + route.error);
         console.log('ERROR!', arguments);
@@ -3598,6 +3831,8 @@ Here be coffee
         app.mapView.renderRoute(route);
         planner.hide();
       }
+      $routeInfo.innerHTML = app.routeToInfoString(route);
+      $routeInfo.classList.add('active');
       $planRoute.classList.remove('loading');
     };
     if (REGEXP_CURRENT_LOCATION.test(origin) || REGEXP_CURRENT_LOCATION.test(destination)) {
@@ -3640,13 +3875,14 @@ Here be coffee
     $target.classList.add('loading');
     app.mapView.calculateRoute(route.waypoints, route.origin.latLng, route.destination.latLng, function(route) {
       $target.classList.remove('loading');
-      console.log('route', route);
       if (route.error) {
         alert("Sorry. Er trad een fout op in de applicatie: " + route.error);
         return console.log('ERROR!', arguments);
       } else {
         app.mapView.renderRoute(route);
         planner.hide();
+        $routeInfo.innerHTML = app.routeToInfoString(route);
+        $routeInfo.classList.add('active');
         return $uitgestippeld.classList.remove('active');
       }
     });
@@ -3673,31 +3909,35 @@ Here be coffee
 
   window.setTimeout(function() {
     return $walkthrough.classList.add('active');
-  }, 800);
+  }, 1000);
 
   window.setTimeout(function() {
-    $w1.classList.remove('hidden');
-    planner.show();
-    $planner.style.height = '100%';
-    $map.classList.add('active');
-    return app.mapView.renderPoints(app.dataManager.getPointsAsArray(), true);
-  }, 1500);
+    return $w1.classList.remove('hidden');
+  }, 1800);
 
   window.setTimeout(function() {
     return $w2.classList.remove('hidden');
-  }, 2000);
+  }, 2600);
 
   window.setTimeout(function() {
     return $w3.classList.remove('hidden');
-  }, 2500);
+  }, 3400);
 
   window.setTimeout(function() {
     return $w4.classList.remove('hidden');
-  }, 3000);
+  }, 4200);
 
   window.setTimeout(function() {
     return $w5.classList.remove('hidden');
-  }, 3500);
+  }, 5000);
+
+  $w5.on('click', function() {
+    planner.show();
+    $planner.style.height = '100%';
+    $map.classList.add('active');
+    app.mapView.clear();
+    return app.mapView.renderPoints(app.dataManager.getPointsAsArray(), true);
+  });
 
   window.setTimeout((function() {
     return $startupImage.style.display = 'none';

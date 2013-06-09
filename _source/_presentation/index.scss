@@ -1,3 +1,40 @@
+.route-info
+{
+	position: fixed;
+	background: #d55140;
+	left: 0;
+	right: 0;
+	bottom: -20%;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-ms-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
+}
+
+.route-info.active
+{
+	bottom: 0%;
+}
+
+.route-info-container
+{
+	font-size: 16px;
+	line-height: 50px;
+	margin-left: 0.5rem;
+}
+
+.route-info-distance::after
+{
+	content: ' / '
+}
+
+.route-info-clear
+{
+	margin-top: .25rem;
+	float: right;
+}
+
 .planner
 {
 	position: fixed;
@@ -382,11 +419,6 @@
 		top: 1em;
 	}
 	
-	.walkthrough-paragraph
-	{
-		
-	}
-	
 	.walkthrough-image
 	{
 		max-height: 40%;
@@ -395,4 +427,14 @@
 	padding: 1em;
 	text-align: center;
 	background-color: $color-primary;
+}
+
+
+.settings-modal .content
+{
+	h2
+	{
+		margin-top: 12px;
+		margin-bottom: 6px;
+	}
 }

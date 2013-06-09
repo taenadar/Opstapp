@@ -39,46 +39,82 @@ html
 		.home-modal.modal
 			.content > #map-canvas
 			.route-info
-				
+				.route-info-container
+					span.route-info-distance ""
+					span.route-info-duration ""
+					a.route-info-clear.button-large ""
 			.planner
 				.planner-container
+					a#settings.button-tertiary.button-block.button-large[href="#settings-modal"] "instellingen"
+					
 					.input-group
 						.input-row
 							label[for="plan-route-from"] "Van"
-							input#plan-route-from[type="text"][placeholder="Huidige locatie"]
+							input#plan-route-from[type="text"][placeholder="Huidige locatie"][value="Centraal"]
 						.input-row
 							label[for="plan-route-to"] "Naar"
-							input#plan-route-to[type="text"][placeholder="Huidige locatie"]
+							input#plan-route-to[type="text"][placeholder="Huidige locatie"][value="Museumplein"]
 			
 					.row
-						a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
+						a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "uitgestippeld"
 						a#plan-route.button.button-primary.button-large.button-spinner
-							.label "Opstapp"
+							.label "opstapp"
 							span.spinner
+		
+		#settings-modal.settings-modal.modal
+			header.bar-title
+				h3.title "Instellingen"
+				a.button[href="#settings-modal"] "sluiten"
+			
+			.content.content-padded
+				h2 "Opties"
+				
+				.radio-group
+					span.label "kaartkleur"
+					
+					.radio-group-item
+						label.radio[for="radio_1"]
+							input[type="radio"][value="_1"][name="radios"][id="radio_1"][checked]
+							span "Donker"
+						label.radio[for="radio_2"]
+							input[type="radio"][value="_2"][name="radios"][id="radio_2"]
+							span "Licht"
+				
+				h2 "Informatie"
+				p
+					"Met opstapp kan je de fysieke locaties van de stukken uit het Rijksmuseum vinden. Meer weten? Lees het op de "
+					a[href=""] "website"
+					"."
+				
+				h2 "Intro"
+				p
+					"Nog niet helemaal duidelijk? Bekijk nogmaals de "
+					a[href="#walkthrough-modal"] "Rondleiding"
+					"."
 		
 		#uitgestippeld-modal.uitgestippeld-modal.modal
 			header.bar-title
 				h3.title "Uitgestippeld"
-				a.button[href="#uitgestippeld-modal"] "Close"
+				a.button[href="#uitgestippeld-modal"] "sluiten"
 				
 			.content.carousel
 				ul.list.carousel-list
 					li
-						.uitgestippeld-item[style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4691)"]
+						.uitgestippeld-item[style="background-image:url(./asset/image/data/SK-A-4050_large.jpg)"]
 							.uitgestippeld-content
 								h1 "Rembrandtroute"
 								p "Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein."
 								a.button-block.button-primary.button-large.button-spinner.uitgestippeld-link[data-id="opstapp-rembrandt"]
-									.label  "Opstapp!"
+									.label  "opstapp"
 									span.spinner
 								
 					li
-						.uitgestippeld-item[style="background-image:url(https://www.rijksmuseum.nl/assetimage2.jsp?id=SK-A-4925)"]
+						.uitgestippeld-item[style="background-image:url(./asset/image/data/SK-A-4925_large.jpg)"]
 							.uitgestippeld-content
 								h1 "Breitnerroute"
 								p "Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein."
 								a.button-block.button-primary.button-large.button-spinner.uitgestippeld-link[data-id="opstapp-breitner"]
-									.label  "Opstapp!"
+									.label  "opstapp"
 									span.spinner
 			
 		#info-modal.info-modal.modal
@@ -89,7 +125,7 @@ html
 				p.p2.walkthrough-paragraph.hidden "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen."
 				img.walkthrough-image.hidden[src="./asset/image/walkthrough/phone.png"]
 				p.p3.walkthrough-paragraph.hidden "Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt."
-				a.button.button-large.button-block.walkthrough-end.hidden[href="#walkthrough-modal"] "Beëindig de rondleiding"
+				a.button-large.button-block.walkthrough-end.hidden[href="#walkthrough-modal"] "Beëindig de rondleiding"
 		
 		.startup-image[style="background-image:url(./asset/image/walkthrough/walkthrough.png)"]
 		

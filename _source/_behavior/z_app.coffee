@@ -7,6 +7,8 @@ app.dataManager = new DataManager
 app.dataManager.setPoints app.data
 app.dataManager.setRoutes app.route
 
+$routeInfo              = $$ '.route-info'
+
 $planner                = $$ '.planner'
 $planRoute              = $$ '#plan-route'
 $planTo                 = $$ '#plan-route-to'
@@ -19,12 +21,14 @@ $startupImage           = $$ '.startup-image'
 $map                    = $$ '.home-modal'
 
 app.pointToString = ( point ) ->
+	if point.description.length >= point.info.description.length
+		description = point.description
+	else
+		description = point.info.description
 	"""
 		<header class=\"bar-title\">
 			<h3 class=\"title\"><div class="overflow-wrapper">#{point.piece}</div></h3>
-			<a class=\"button\" href=\"#info-modal\">
-				Close
-			</a>
+			<a class=\"button\" href=\"#info-modal\">sluiten</a>
 		</header>
 		<div class=\"content\">
 			<div class=\"img\" style=\"background-image:url(./asset/image/data/#{point.info.id}_large.jpg)\">
@@ -33,10 +37,19 @@ app.pointToString = ( point ) ->
 			<div class=\"info-wrapper\">
 				<h1>#{point.info.title}</h1>
 				<h2>#{point.artist}</h2>
-				<p>#{point.info.description}</p>
-				<a class=\"button-primary button-block button-large\" href=\"#{point.link}\">Op naar het Rijks!</a>
+				<p>#{description}</p>
+				<a class=\"button-primary button-block button-large\" href=\"#{point.link}\">naar het Rijksmuseum</a>
 			</div>
 		</div>
+	"""
+
+app.routeToInfoString = ( route ) ->
+	"""
+	<div class="route-info-container">
+		<span class="route-info-distance">#{route.distance}</span>
+		<span class="route-info-duration">#{route.duration}</span>
+		<a class="route-info-clear button button-large">Clear</a>
+	</div>
 	"""
 
 # `infoWindowIntent` is a method that gets called when the user selects one of 
@@ -77,8 +90,26 @@ mapView.setService null
 mapView.setRouteBoxer new RouteBoxer
 mapView.activateMapStyle 'dark'
 
-REGEXP_CURRENT_LOCATION = /huidige locatie/i
 
+window.on 'click', ( event ) ->
+	
+	$target = event.target
+	
+	if not $target.classList.contains 'route-info-clear' then return
+	
+	do event.preventDefault
+	do event.stopPropagation
+	
+	$routeInfo.classList.remove 'active'
+	
+	data = do app.dataManager.getPointsAsArray
+	do app.mapView.clear
+	
+	app.mapView.renderPoints data, true
+	
+	return
+
+REGEXP_CURRENT_LOCATION = /huidige locatie/i
 
 # When the user selects the button to plan a route...
 $planRoute.on 'click', ( event ) ->
@@ -101,14 +132,15 @@ $planRoute.on 'click', ( event ) ->
 	destination or destination = 'Huidige locatie'
 	
 	callback = ( route ) ->
-		console.log 'route', route
-		
 		if route.error
 			alert "Sorry. Er trad een fout op in de applicatie: #{route.error}"
 			console.log 'ERROR!', arguments
 		else
 			app.mapView.renderRoute route
 			do planner.hide
+		
+		$routeInfo.innerHTML = app.routeToInfoString route
+		$routeInfo.classList.add 'active'
 		
 		$planRoute.classList.remove 'loading'
 		
@@ -164,7 +196,6 @@ window.on 'click', ( event ) ->
 	app.mapView.calculateRoute route.waypoints, route.origin.latLng, route.destination.latLng, ( route ) ->
 		$target.classList.remove 'loading'
 		
-		console.log 'route', route
 		if route.error
 			alert "Sorry. Er trad een fout op in de applicatie: #{route.error}"
 			console.log 'ERROR!', arguments
@@ -173,6 +204,9 @@ window.on 'click', ( event ) ->
 			
 			# Hide the planner.
 			do planner.hide
+			
+			$routeInfo.innerHTML = app.routeToInfoString route
+			$routeInfo.classList.add 'active'
 			
 			# Hide `uitgestippeld`.
 			$uitgestippeld.classList.remove 'active'
@@ -201,35 +235,35 @@ $w5 = $$ '.walkthrough-end'
 # Activate walkthrough modal after 0.8ms.
 window.setTimeout ->
 		$walkthrough.classList.add 'active'
-	, 800
+	, 1000
 
 window.setTimeout ->
 		$w1.classList.remove 'hidden'
-		
-		# Activate map modal after 1s
-		do planner.show
-		$planner.style.height = '100%'
-		$map.classList.add 'active'
-			
-		app.mapView.renderPoints app.dataManager.getPointsAsArray(), true
-		
-	, 1500
+	, 1800
 
 window.setTimeout ->
 		$w2.classList.remove 'hidden'
-	, 2000
+	, 2600
 
 window.setTimeout ->
 		$w3.classList.remove 'hidden'
-	, 2500
+	, 3400
 
 window.setTimeout ->
 		$w4.classList.remove 'hidden'
-	, 3000
+	, 4200
 
 window.setTimeout ->
 		$w5.classList.remove 'hidden'
-	, 3500
+	, 5000
+
+$w5.on 'click', ->
+	# Activate map modal after 1s
+	do planner.show
+	$planner.style.height = '100%'
+	$map.classList.add 'active'
+	do app.mapView.clear
+	app.mapView.renderPoints app.dataManager.getPointsAsArray(), true
 
 # Remove startup-image after 1.1ms
 window.setTimeout ( -> $startupImage.style.display = 'none' ), 1100

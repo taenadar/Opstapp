@@ -68,10 +68,15 @@ MapView::setIcon = ( name, icon ) ->
 	
 	size = new google.maps.Size icon.size[ 0 ], icon.size[ 1 ]
 	
-	@_icons[ name ] = 
-		'scaledSize' : size
-		'size' : size
-		'url' : icon.url
+	options = {}
+	
+	if size then options.size = options.scaledSize = size
+	
+	if icon.anchor then options.anchor = new google.maps.Point icon.anchor[ 0 ], icon.anchor[ 1 ]
+	
+	if icon.url then options.url = icon.url
+	
+	@_icons[ name ] = options
 	
 	@
 
@@ -116,6 +121,7 @@ MapView::onLocationUpdate = ( position ) ->
 
 MapView::clear = ->
 	
+	@renderer.setMap null
 	iterator = -1
 	length = @_markers.length
 	
@@ -194,17 +200,17 @@ MapView::findPointsOnRoute = ( response, origin, destination, distance, callback
 		if points.length > 8
 			points = points.slice 0, 8
 		else if points.length < 1
-			origin = origin.replace @REGEXP_LAT_LONG, 'huidige locatie'
-			destination = destination.replace @REGEXP_LAT_LONG, 'huidige locatie'
-			summary = response.routes[ 0 ].summary
-			
 			if origin is destination
+				summary = response.routes[ 0 ].summary
 				callback
 					'error' : """
 						De applicatie kon geen punten vinden in de buurt van
 						"#{summary}".
 						"""
 			else
+				origin = origin.replace @REGEXP_LAT_LONG, 'huidige locatie'
+				destination = destination.replace @REGEXP_LAT_LONG, 'huidige locatie'
+				
 				callback
 					'error' : """
 						De applicatie kon geen punten vinden tussen "#{origin}" 
@@ -219,13 +225,13 @@ MapView::findPointsOnRoute = ( response, origin, destination, distance, callback
 
 MapView::metersToString = ( meters ) ->
 	kilometers = meters / 1000
-	kilometers = Math.floor( kilometers * 10 ) / 10
+	kilometers = Math.ceil( kilometers )
 	
-	"#{kilometers}km"
+	"Afstand: #{kilometers}km"
 
 MapView::secondsToString = ( seconds ) ->
 	minutes = seconds / 60
-	minutes = Math.round minutes
+	minutes = 15 * Math.ceil minutes / 15
 	
 	hours = 0
 	
@@ -233,14 +239,10 @@ MapView::secondsToString = ( seconds ) ->
 		minutes -= 60
 		hours += 1
 	
-	if hours < 10
-		hours = '0' + hours
-	
 	if minutes < 10
 		minutes = '0' + minutes
 	
-	"#{hours}:#{minutes}"
-
+	"Tijd: #{hours}h #{minutes}m"
 
 MapView::onClick = ( event ) ->
 	if @_marker and @_marker.infoWindow
@@ -311,6 +313,8 @@ MapView::calculateRoute = ( points, origin, destination, callback ) ->
 				'latLng' : point.end_location
 				'piece' : point.end_address
 		
+		duration += points.length * 3 * 60
+		
 		calculatedRoute =
 			'points' : points_
 			'origin' : origin
@@ -340,7 +344,7 @@ MapView::updateBounds = ->
 
 	@
 
-MapView::renderPoint = ( point, index, length ) ->
+MapView::renderPoint = ( point, index, timeout, length ) ->
 	
 	if !point.isPoint
 		if index is length - 1
@@ -391,7 +395,7 @@ MapView::renderPoint = ( point, index, length ) ->
 				
 				return
 				
-		, index * 300
+		, timeout
 	
 	@
 
@@ -406,13 +410,13 @@ MapView::renderPoints = ( points, hideIndex ) ->
 
 		if originIsPoint
 			while ++iterator < length
-				@renderPoint points[ iterator ], iterator + 1, length 
+				@renderPoint points[ iterator ], iterator + 1, iterator * 300, length
 		else
 			while ++iterator < length
-				@renderPoint points[ iterator ], iterator, length 
+				@renderPoint points[ iterator ], iterator, iterator * 300, length
 	else
 		while ++iterator < length
-			@renderPoint points[ iterator ], 0, length 
+			@renderPoint points[ iterator ], 0, iterator * 100, length
 	
 	@
 
@@ -422,6 +426,7 @@ MapView::renderRoute = ( route ) ->
 	do @updateBounds
 	
 	@renderer.setDirections route.response
+	@renderer.setMap @_map
 	
 	@renderPoints route.points
 	
