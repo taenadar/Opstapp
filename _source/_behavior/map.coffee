@@ -49,6 +49,10 @@ MapView::activateMapStyle = ( name ) ->
 	
 	@
 
+MapView::hasMapStyle = ( name ) ->
+	
+	not not @_mapStyles[ name ]
+
 MapView::setMapStyle = ( name, style ) ->
 	
 	@_mapStyles[ name ] = new google.maps.StyledMapType style,

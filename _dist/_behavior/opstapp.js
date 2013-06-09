@@ -2288,6 +2288,17 @@ Here be coffee
     return $nodes;
   };
 
+  $.NodeList.prototype.on = function(type, listener) {
+    var iterator, length;
+
+    length = this.length;
+    iterator = -1;
+    while (++iterator < length) {
+      this[iterator].on(type, listener);
+    }
+    return this;
+  };
+
   Element.prototype.$ = Element.prototype.querySelectorAll;
 
   Element.prototype.$$ = Element.prototype.querySelector;
@@ -2447,6 +2458,97 @@ Here be coffee
 }).call(this);
 ;
 (function() {
+  var SettingsManager, exports, storage;
+
+  exports = this;
+
+  storage = window.localStorage || window.sessionStorage;
+
+  if (!'JSON' in window) {
+    throw new Error("JSON is not available, but should be.");
+  }
+
+  SettingsManager = function() {
+    this.defaults = {};
+    return this;
+  };
+
+  SettingsManager.prototype.namespace = 'opstapp.setting.';
+
+  SettingsManager.prototype.setDefault = function(name, value) {
+    this.defaults[this.namespace + name] = value;
+    return value;
+  };
+
+  SettingsManager.prototype.getDefault = function(name) {
+    return this.defaults[this.namespace + name];
+  };
+
+  SettingsManager.prototype.removeDefault = function(name) {
+    var key, value;
+
+    key = this.namespace + name;
+    value = this.defaults[key];
+    this.defaults[key] = null;
+    return value;
+  };
+
+  SettingsManager.prototype.set = function(name, value) {
+    var error, key, value_;
+
+    key = this.namespace + name;
+    value_ = value;
+    try {
+      value = JSON.stringify(value);
+    } catch (_error) {
+      error = _error;
+      throw error;
+    }
+    storage.setItem(key, value);
+    return value_;
+  };
+
+  SettingsManager.prototype.get = function(name) {
+    var error, key, value;
+
+    key = this.namespace + name;
+    value = storage.getItem(key);
+    if (value) {
+      try {
+        value = JSON.parse(value);
+      } catch (_error) {
+        error = _error;
+        throw error;
+      }
+    }
+    return value || this.getDefault(name);
+  };
+
+  SettingsManager.prototype.remove = function(name) {
+    var key, value;
+
+    key = this.namespace + name;
+    value = this.get(key);
+    storage.removeItem(key);
+    return value;
+  };
+
+  SettingsManager.prototype.clear = function(name) {
+    var key;
+
+    for (key in storage) {
+      if (0 === key.indexOf(this.namespace)) {
+        storage.removeItem(key);
+      }
+    }
+    return this;
+  };
+
+  exports.SettingsManager = SettingsManager;
+
+}).call(this);
+;
+(function() {
   var MapView, app, exports;
 
   exports = this;
@@ -2497,6 +2599,10 @@ Here be coffee
     this._map.mapTypes.set(name, this._mapStyles[name]);
     this._map.setMapTypeId(name);
     return this;
+  };
+
+  MapView.prototype.hasMapStyle = function(name) {
+    return !!this._mapStyles[name];
   };
 
   MapView.prototype.setMapStyle = function(name, style) {
@@ -3712,7 +3818,7 @@ Here be coffee
 }).call(this);
 ;
 (function() {
-  var $info, $map, $planFrom, $planRoute, $planTo, $planner, $routeInfo, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, exports, mapView, planner;
+  var $info, $map, $mapColorOptions, $planFrom, $planRoute, $planTo, $planner, $routeInfo, $startupImage, $uitgestippeld, $uitgestippeldCarousel, $w1, $w2, $w3, $w4, $w5, $walkthrough, REGEXP_CURRENT_LOCATION, app, exports, mapView, planner, settingsManager;
 
   exports = this;
 
@@ -3723,6 +3829,10 @@ Here be coffee
   app.dataManager.setPoints(app.data);
 
   app.dataManager.setRoutes(app.route);
+
+  settingsManager = app.settingsManager = new SettingsManager;
+
+  settingsManager.setDefault('map-color', 'dark');
 
   $routeInfo = $$('.route-info');
 
@@ -3745,6 +3855,8 @@ Here be coffee
   $startupImage = $$('.startup-image');
 
   $map = $$('.home-modal');
+
+  $mapColorOptions = $('[name="map-color"]');
 
   app.pointToString = function(point) {
     var description;
@@ -3775,6 +3887,27 @@ Here be coffee
     return void 0;
   };
 
+  app.setMapStyle = function(color) {
+    var $node, iterator, length;
+
+    if (!app.mapView.hasMapStyle(color)) {
+      return false;
+    }
+    settingsManager.set('map-color', color);
+    app.mapView.activateMapStyle(color);
+    iterator = -1;
+    length = $mapColorOptions.length;
+    while (++iterator < length) {
+      $node = $mapColorOptions[iterator];
+      if (0 === $node.id.indexOf('map-color-' + color)) {
+        $node.checked = true;
+      } else {
+        $node.checked = false;
+      }
+    }
+    return color;
+  };
+
   mapView = app.mapView = new MapView($$('#map-canvas'), {
     'zoom': 14,
     'center': new google.maps.LatLng(52.359903, 4.884131),
@@ -3793,7 +3926,7 @@ Here be coffee
 
   mapView.setRouteBoxer(new RouteBoxer);
 
-  mapView.activateMapStyle('dark');
+  app.setMapStyle(settingsManager.get('map-color'));
 
   window.on('click', function(event) {
     var $target, data;
@@ -3945,6 +4078,13 @@ Here be coffee
 
   window.on('load', function() {
     return app.locationManager.request();
+  });
+
+  $mapColorOptions.on('change', function(event) {
+    var $target;
+
+    $target = event.target;
+    app.setMapStyle($target.value);
   });
 
 }).call(this);

@@ -7,6 +7,11 @@ app.dataManager = new DataManager
 app.dataManager.setPoints app.data
 app.dataManager.setRoutes app.route
 
+settingsManager = app.settingsManager = new SettingsManager
+
+settingsManager.setDefault 'map-color', 'dark'
+
+
 $routeInfo              = $$ '.route-info'
 
 $planner                = $$ '.planner'
@@ -19,6 +24,7 @@ $walkthrough            = $$ '.walkthrough-modal'
 $uitgestippeldCarousel  = $$ '.uitgestippeld-modal .carousel'
 $startupImage           = $$ '.startup-image'
 $map                    = $$ '.home-modal'
+$mapColorOptions        = $ '[name="map-color"]'
 
 app.pointToString = ( point ) ->
 	if point.description.length >= point.info.description.length
@@ -73,6 +79,25 @@ app.infoWindowIntent = ( event ) ->
 	
 	undefined
 
+app.setMapStyle = ( color ) ->
+	
+	if not app.mapView.hasMapStyle color then return false
+	
+	settingsManager.set 'map-color', color
+	app.mapView.activateMapStyle color
+	
+	iterator = -1
+	length = $mapColorOptions.length
+	
+	while ++iterator < length
+		$node = $mapColorOptions[ iterator ]
+		
+		if 0 is $node.id.indexOf 'map-color-' + color
+			$node.checked = true
+		else
+			$node.checked = false
+	
+	color
 
 # rendererOptions = app.options.directionsRenderer
 # rendererOptions.polylineOptions = app.options.polylineOptions
@@ -88,8 +113,7 @@ mapView.setRenderer app.options.directionsRenderer
 mapView.setPolylineOptions app.options.polylineOptions
 mapView.setService null
 mapView.setRouteBoxer new RouteBoxer
-mapView.activateMapStyle 'dark'
-
+app.setMapStyle settingsManager.get 'map-color'
 
 window.on 'click', ( event ) ->
 	
@@ -270,3 +294,9 @@ window.setTimeout ( -> $startupImage.style.display = 'none' ), 1100
 
 # Request geolocation on load.
 window.on 'load', -> do app.locationManager.request
+
+$mapColorOptions.on 'change', ( event ) ->
+	$target = event.target
+	app.setMapStyle $target.value
+	
+	return

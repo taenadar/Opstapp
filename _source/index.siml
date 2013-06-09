@@ -50,10 +50,10 @@ html
 					.input-group
 						.input-row
 							label[for="plan-route-from"] "Van"
-							input#plan-route-from[type="text"][placeholder="Huidige locatie"][value="Centraal"]
+							input#plan-route-from[type="text"][placeholder="Huidige locatie"]
 						.input-row
 							label[for="plan-route-to"] "Naar"
-							input#plan-route-to[type="text"][placeholder="Huidige locatie"][value="Museumplein"]
+							input#plan-route-to[type="text"][placeholder="Huidige locatie"]
 			
 					.row
 						a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "uitgestippeld"
@@ -72,12 +72,12 @@ html
 				.radio-group
 					span.label "kaartkleur"
 					
-					.radio-group-item
-						label.radio[for="radio_1"]
-							input[type="radio"][value="_1"][name="radios"][id="radio_1"][checked]
+					fieldset.radio-group-item
+						label.radio[for="map-color-dark"]
+							input[type="radio"][value="dark"][name="map-color"][id="map-color-dark"]
 							span "Donker"
-						label.radio[for="radio_2"]
-							input[type="radio"][value="_2"][name="radios"][id="radio_2"]
+						label.radio[for="map-color-light"]
+							input[type="radio"][value="light"][name="map-color"][id="map-color-light"]
 							span "Licht"
 				
 				h2 "Informatie"

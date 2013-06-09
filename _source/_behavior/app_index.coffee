@@ -66,7 +66,6 @@ $.NodeList::$$ = ( selectors, index ) ->
 	$nodes = @$ selectors
 	$nodes.item index
 
-
 $.NodeList::clone = () ->
 	$nodes = new $.NodeList
 	length = @length
@@ -101,6 +100,16 @@ $.NodeList::concat = () ->
 			$nodes.push argument
 	
 	$nodes
+
+$.NodeList::on = ( type, listener ) ->
+	
+	length = @length
+	iterator = -1
+
+	while ++iterator < length
+		@[ iterator ].on type, listener
+	
+	@
 
 Element::$ = Element::querySelectorAll
 Element::$$ = Element::querySelector
