@@ -3963,9 +3963,9 @@ Here be coffee
       } else {
         app.mapView.renderRoute(route);
         planner.hide();
+        $routeInfo.innerHTML = app.routeToInfoString(route);
+        $routeInfo.classList.add('active');
       }
-      $routeInfo.innerHTML = app.routeToInfoString(route);
-      $routeInfo.classList.add('active');
       $planRoute.classList.remove('loading');
     };
     if (REGEXP_CURRENT_LOCATION.test(origin) || REGEXP_CURRENT_LOCATION.test(destination)) {
@@ -4028,7 +4028,7 @@ Here be coffee
 
   window.setTimeout((function() {
     return $startupImage.classList.add('hidden');
-  }), 500);
+  }), 800);
 
   $w1 = $$('.walkthrough-modal .p1');
 
@@ -4045,7 +4045,8 @@ Here be coffee
   }, 1000);
 
   window.setTimeout(function() {
-    return $w1.classList.remove('hidden');
+    $w1.classList.remove('hidden');
+    return $startupImage.style.display = 'none';
   }, 1800);
 
   window.setTimeout(function() {
@@ -4071,10 +4072,6 @@ Here be coffee
     app.mapView.clear();
     return app.mapView.renderPoints(app.dataManager.getPointsAsArray(), true);
   });
-
-  window.setTimeout((function() {
-    return $startupImage.style.display = 'none';
-  }), 1100);
 
   window.on('load', function() {
     return app.locationManager.request();

@@ -1,41 +1,15 @@
-@import "compass/utilities/color/contrast";
 
 // Colors.
 $color-primary: #d55140;
-$color-secondary: #000000;
-$color-medium: #909194;
-$color-darkest: #000000;
 $color-darker: #202327;
 $color-dark: #343537;
 $color-light: #a2abad;
-$color-lighter: #eaeaea;
 $color-lightest: #ffffff;
 
-$color-accent-darkest: #40474f;
 $color-accent-darker: #6b8cc6;
 $color-accent-light: #5e99b0;
-$color-accent-lighter: #918763;
-$color-accent-lightest: #aaa04d;
-
-$color-accent-bright: #dc9861;
-$color-accent-brighter: #d9531e;
-$color-accent-brightest: #d2982f;
 
 $color-accent-medium-dark: #ac8367;
 $color-accent-medium: #70887b;
 $color-accent-medium-light: #42a68c;
-
-// $color-primary: #d55140;
-// $secondaryColor: #000000;
-
-$color-standard-bar-top: $color-secondary;
-//$color-standard-bar-bottom: darken( $color-standard-bar-top, 12);
-$color-standard-bar-border: darken( $color-standard-bar-top, 47 );
-
-$color-title-bar-top: $color-primary;
-//$color-title-bar-bottom: darken( $color-title-bar-top, 6 );
-
-$color-title-bar-border: darken( $color-title-bar-top, 27 );
-$color-title-bar-button-active-background: darken( $color-title-bar-top, 12 );
-$color-title-bar-button-active-color: contrast-color( $color-title-bar-button-active-background, #000000, #ffffff, 80 );
 

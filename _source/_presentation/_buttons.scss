@@ -67,7 +67,8 @@
 }
 
 /* Block level buttons (full width buttons) */
-.button-block {
+.button-block
+{
 	display: block;
 	margin-right: 0;
 }
@@ -76,24 +77,4 @@
 	font-size: 21px;
 	line-height: 24px;
 	padding: 8px 24px;
-}
-
-/* Counts in buttons
--------------------------------------------------- */
-
-[class*="button"] [class*="count"]
-{
-	padding-top: 2px;
-	padding-bottom: 2px;
-	margin-right: -4px;
-	margin-left: 4px;
-}
-
-/* Position counts within block level buttons
-	 Note: These are absolutely positioned so that text of button isn't "pushed" by count and always
-	 stays at true center of button */
-.button-block [class*="count"] {
-	position: absolute;
-	right: 0;
-	margin-right: 10px;
 }

@@ -1,25 +1,44 @@
 // == Rewrite ==================================================================
 
+// Set up default attributes on existing elements.
 style = style[type="text/css"]
 img = img[alt=""]
 
 
 // == Add ======================================================================
 
+// Create prototypes for easy-use later on.
 stylesheet = link[rel="stylesheet"]
 touch-icon = link[rel="apple-touch-icon-precomposed"]
 touch-startup = link[rel="apple-touch-startup-image"]
 
 // == Actual content ===========================================================
 
+// Add HTML5 doctype.
 @doctype()
+
+// Open `HMTL` element
 html
+
+	// Open `head`.
 	head
+		
+		// Set character encoding.
 		meta[charset="utf-8"]
+		
+		// Add `title`.
 		title "Opstapp"
+		
+		// Set scale (for mobile deviced).
 		meta[name="viewport"][content="initial-scale=1, maximum-scale=1, user-scalable=no"]
+		
+		// Declare website as a mobile web-application to iOS devices.
 		meta[name="apple-mobile-web-app-capable"][content="yes"]
+		
+		// Set status-bar style to black on iOS devices.
 		meta[name="apple-mobile-web-app-status-bar-style"][content="black"]
+		
+		// Add icons, startup images, and a title to iOS app (when added to homescreen).
 		meta[name="apple-mobile-web-app-title"][content="Opstapp"]
 		touch-icon[href="./asset/image/touch_icon/apple-touch-icon-57x57-precomposed.png"]
 		touch-icon[sizes="72x72"][href="./asset/image/touch_icon/apple-touch-icon-72x72-precomposed.png"]
@@ -29,46 +48,63 @@ html
 		touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-640x920.png"][media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)"]
 		touch-startup[href="./asset/image/startup_image/apple-touch-startup-image-640x1096.png"][media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"]
 		
+		// Include the Google Maps JavaScript API.
 		script[src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJZAj5z44oAhMSLw3oSL79PlscKstoYAI&amp;v=3.exp&sensor=false"]
-		script[src="./asset/data/data.js"]
-		script[src="./asset/data/route.js"]
-
-		// Include the compiled CSS
-		stylesheet[href="./_presentation/opstapp.css"]
-	body
-		.home-modal.modal
-			.content > #map-canvas
-			.route-info
-				.route-info-container
-					span.route-info-distance ""
-					span.route-info-duration ""
-					a.route-info-clear.button-large ""
-			.planner
-				.planner-container
-					a#settings.button-tertiary.button-block.button-large[href="#settings-modal"] "instellingen"
-					
-					.input-group
-						.input-row
-							label[for="plan-route-from"] "Van"
-							input#plan-route-from[type="text"][placeholder="Huidige locatie"]
-						.input-row
-							label[for="plan-route-to"] "Naar"
-							input#plan-route-to[type="text"][placeholder="Huidige locatie"]
-			
-					.row
-						a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "uitgestippeld"
-						a#plan-route.button.button-primary.button-large.button-spinner
-							.label "opstapp"
-							span.spinner
 		
+		// Include `data`, containing information about points.
+		script[src="./asset/data/data.js"]
+		
+		// Include `route`, containing information about "uitgestippeld" routes.
+		script[src="./asset/data/route.js"]
+		
+		// Include the compiled Opstapp Cascading Stylesheet.
+		stylesheet[href="./_presentation/opstapp.css"]
+	
+	// Open `body`.
+	body
+		// Homescreen/Dashboard modal.
+		.home-modal.modal
+			// Map element inside `.content`.
+			.content > #map-canvas
+			
+			// Container for route information.
+			.route-info
+			
+			// Container for the planner-slideover.
+			.planner > .planner-container
+				
+				// Settings button.
+				a#settings.button-tertiary.button-block.button-large[href="#settings-modal"] "instellingen"
+				
+				// Input form.
+				.input-group
+					.input-row
+						label[for="plan-route-from"] "Van"
+						input#plan-route-from[type="text"][placeholder="Huidige locatie"]
+					.input-row
+						label[for="plan-route-to"] "Naar"
+						input#plan-route-to[type="text"][placeholder="Huidige locatie"]
+				
+				// Actions: "Opstapp" or "Uitgestippeld".
+				.row
+					a#plan-uitgestippeld.button.button-secondary.button-large[href="#uitgestippeld-modal"] "Uitgestippeld"
+					a#plan-route.button.button-primary.button-large.button-spinner
+						.label "Opstapp"
+						span.spinner
+		
+		// Settings modal.
 		#settings-modal.settings-modal.modal
+			
+			// Titlebar.
 			header.bar-title
 				h3.title "Instellingen"
 				a.button[href="#settings-modal"] "sluiten"
 			
+			// Content.
 			.content.content-padded
 				h2 "Opties"
 				
+				// Change-background form.
 				.radio-group
 					span.label "kaartkleur"
 					
@@ -80,32 +116,38 @@ html
 							input[type="radio"][value="light"][name="map-color"][id="map-color-light"]
 							span "Licht"
 				
+				// Information about the app.
 				h2 "Informatie"
 				p
 					"Met opstapp kan je de fysieke locaties van de stukken uit het Rijksmuseum vinden. Meer weten? Lees het op de "
 					a[href=""] "website"
 					"."
 				
+				// Rewatch the intro.
 				h2 "Intro"
 				p
 					"Nog niet helemaal duidelijk? Bekijk nogmaals de "
 					a[href="#walkthrough-modal"] "Rondleiding"
 					"."
 		
+		// Uitgestippeld modal.
 		#uitgestippeld-modal.uitgestippeld-modal.modal
+			
+			// Titlebar.
 			header.bar-title
 				h3.title "Uitgestippeld"
 				a.button[href="#uitgestippeld-modal"] "sluiten"
-				
+			
+			// 	Content / Carousel.
 			.content.carousel
-				ul.list.carousel-list
+				ul.carousel-list
 					li
 						.uitgestippeld-item[style="background-image:url(./asset/image/data/SK-A-4050_large.jpg)"]
 							.uitgestippeld-content
 								h1 "Rembrandtroute"
 								p "Met de Rembrandtroute kom je langs enkele belangrijke plaatsen van Rembrandt. De route is ongeveer anderhalf (1,5) kilometer, en eindigt geheel toepasselijk op het Rembrandtplein."
 								a.button-block.button-primary.button-large.button-spinner.uitgestippeld-link[data-id="opstapp-rembrandt"]
-									.label  "opstapp"
+									.label  "Opstapp"
 									span.spinner
 								
 					li
@@ -114,20 +156,22 @@ html
 								h1 "Breitnerroute"
 								p "Met de Breitnerroute loop je door de het centrum van Amsterdam. De route duurt met vier (4) kilometer ongeveer een uur, begint in de Haarlemmerbuurt en eindigt op het Leidseplein."
 								a.button-block.button-primary.button-large.button-spinner.uitgestippeld-link[data-id="opstapp-breitner"]
-									.label  "opstapp"
+									.label  "Opstapp"
 									span.spinner
-			
+		
+		// Information modal (information about points).
 		#info-modal.info-modal.modal
 		
-		#walkthrough-modal.walkthrough-modal.modal
-			.content
-				p.p1.walkthrough-paragraph.hidden "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum."
-				p.p2.walkthrough-paragraph.hidden "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen."
-				img.walkthrough-image.hidden[src="./asset/image/walkthrough/phone.png"]
-				p.p3.walkthrough-paragraph.hidden "Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt."
-				a.button-large.button-block.walkthrough-end.hidden[href="#walkthrough-modal"] "Beëindig de rondleiding"
+		// Walkthrough modal.
+		#walkthrough-modal.walkthrough-modal.modal > .content
+			p.p1.walkthrough-paragraph.hidden "Met Opstapp kan je zelf een route plannen langs topstukken uit het Rijksmuseum."
+			p.p2.walkthrough-paragraph.hidden "Door zelf een begin en eindpunt aan te geven kunnen wij voor jou een route plannen."
+			img.walkthrough-image.hidden[src="./asset/image/walkthrough/phone.png"]
+			p.p3.walkthrough-paragraph.hidden "Maar je kan ook een uitgestippelde route kiezen. Bijvoorbeeld een route door het Amsterdam van Rembrandt."
+			a.button-large.button-block.walkthrough-end.hidden[href="#walkthrough-modal"] "Beëindig de rondleiding"
 		
+		// Startup-image.
 		.startup-image[style="background-image:url(./asset/image/walkthrough/walkthrough.png)"]
 		
-		// Include the compiled JS
+		// Include the compiled Opstapp JavaScript.
 		script[src="./_behavior/opstapp.js"]

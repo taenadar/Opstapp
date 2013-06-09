@@ -162,9 +162,8 @@ $planRoute.on 'click', ( event ) ->
 		else
 			app.mapView.renderRoute route
 			do planner.hide
-		
-		$routeInfo.innerHTML = app.routeToInfoString route
-		$routeInfo.classList.add 'active'
+			$routeInfo.innerHTML = app.routeToInfoString route
+			$routeInfo.classList.add 'active'
 		
 		$planRoute.classList.remove 'loading'
 		
@@ -248,7 +247,7 @@ new Carousel $uitgestippeldCarousel, true
 planner = new Planner $planner
 
 # Hide startup-image after 0.5s.
-window.setTimeout ( -> $startupImage.classList.add 'hidden' ), 500
+window.setTimeout ( -> $startupImage.classList.add 'hidden' ), 800
 
 $w1 = $$ '.walkthrough-modal .p1'
 $w2 = $$ '.walkthrough-modal .p2'
@@ -262,7 +261,11 @@ window.setTimeout ->
 	, 1000
 
 window.setTimeout ->
+		
 		$w1.classList.remove 'hidden'
+		
+		# Remove startup-image.
+		$startupImage.style.display = 'none'
 	, 1800
 
 window.setTimeout ->
@@ -288,9 +291,6 @@ $w5.on 'click', ->
 	$map.classList.add 'active'
 	do app.mapView.clear
 	app.mapView.renderPoints app.dataManager.getPointsAsArray(), true
-
-# Remove startup-image after 1.1ms
-window.setTimeout ( -> $startupImage.style.display = 'none' ), 1100
 
 # Request geolocation on load.
 window.on 'load', -> do app.locationManager.request

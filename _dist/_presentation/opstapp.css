@@ -1,46 +1,26 @@
 /*! opstapp - v0.0.1 - 2013-06-09
 * https://github.com/taenadar/opstapp
 * Copyright (c) 2013 wooorm; Licensed MIT */
-/* General bar styles
+/* Title bar
 -------------------------------------------------- */
-[class*="bar-"] {
+/* Bar docked to top of viewport for showing page title and actions */
+.bar-title {
   position: absolute;
   right: 0;
   left: 0;
   z-index: 10;
   height: 37px;
   padding: 5px;
-  box-sizing: border-box; }
-
-/* Modifier class to dock any bar below .bar-title */
-.bar-header-secondary {
-  top: 37px;
-  background-color: #42a68c; }
-
-/* Modifier class to dock any bar to bottom of viewport */
-.bar-footer {
-  height: 50px;
-  bottom: 0;
-  position: fixed; }
-
-/* Title bar
--------------------------------------------------- */
-/* Bar docked to top of viewport for showing page title and actions */
-.bar-title, .popover-header {
+  box-sizing: border-box;
   display: -webkit-box;
   display: box;
   -webkit-box-orient: horizontal;
-  box-orient: horizontal; }
-
-.bar-title {
+  box-orient: horizontal;
   top: 0;
   background-color: #d55140; }
 
-.bar-footer {
-  background-color: #343537; }
-
 /* Centered text in the .bar-title */
-.bar-title .title, .popover-header .title {
+.bar-title .title {
   position: absolute;
   top: 0;
   left: 0;
@@ -49,183 +29,36 @@
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
-  color: white; }
-
-.bar-title .title {
+  color: white;
   font-size: 20px;
   line-height: 37px; }
 
-.popover-header .title {
-  font-size: 1.2rem;
-  line-height: 2.3rem; }
-
-.bar-title > a:not([class*="button"]) {
-  display: block;
-  width: 100%;
-  height: 100%; }
-
-/* Retain specified title color */
-.bar-title .title a {
-  color: inherit; }
-
-/* Tab bar
--------------------------------------------------- */
-/* Bar docked to bottom used for primary app navigation */
-.bar-tab {
-  bottom: 0;
-  height: 50px;
-  padding: 0;
-  background-color: #393939;
-  border-bottom-width: 0; }
-
-/* Wrapper for individual tab */
-.tab-inner {
-  display: -webkit-box;
-  display: box;
-  height: 100%;
-  list-style: none;
-  -webkit-box-orient: horizontal;
-  box-orient: horizontal; }
-
-/* Navigational tab */
-.tab-item {
-  height: 100%;
-  padding-top: 9px;
-  text-align: center;
-  box-sizing: border-box;
-  -webkit-box-flex: 1;
-  box-flex: 1; }
-
-/* Active state for tab */
-.tab-item.active {
-  background-color: #202327; }
-
-/* Icon for tab	*/
-.tab-icon {
-  display: block;
-  margin: 0 auto;
-  font-size: 25px;
-  margin-top: 3px; }
-
 /* Buttons in title bars
 -------------------------------------------------- */
-/* Generic style for all buttons in .bar-title */
 .bar-title [class*="button"] {
   position: relative;
   z-index: 10;
   /* Places buttons over full width title */
   -webkit-box-flex: 0;
-  box-flex: 0; }
-
-/* Hacky way to right align buttons outside of flex-box system
-	 Note: is only absolutely positioned button, would be better if flex-box had an "align right" option */
-.bar-title .title + [class*="button"]:last-child, .popover-header .title + [class*="button"]:last-child, .bar-title .button + [class*="button"]:last-child, .popover-header .button + [class*="button"]:last-child, .bar-title [class*="button"].pull-right, .popover-header [class*="button"].pull-right {
+  box-flex: 0;
   position: absolute;
   top: 5px;
   right: 5px; }
 
-/* Segmented controller in any bar
--------------------------------------------------- */
-/* Remove standard segmented bottom margin */
-[class*="bar-"] .segmented-controller {
-  margin-bottom: 0; }
-
-/* Add margins between segmented controllers and buttons */
-[class*="bar-"] .segmented-controller + [class*="button"],
-[class*="bar-"] [class*="button"] + .segmented-controller {
-  margin-left: 5px; }
-
-/* Segmented controller in a title bar
--------------------------------------------------- */
-.bar-title .segmented-controller {
-  height: 31px;
-  line-height: 18px;
-  border-radius: 3px;
-  -webkit-box-flex: 1;
-  box-flex: 1; }
-
-/* Search forms in standard bar
--------------------------------------------------- */
-/* Position/size search bar within the bar */
 /* Hard reset
 -------------------------------------------------- */
-html,
-body,
-div,
-span,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-section,
-summary,
-time,
-audio,
-video {
+/*
+	!!!IMPORTANT!!!
+	Add all element tagnames to this list. The list as it is now, holds all elements used by Opstapp currently.
+	Run the following JS in your browsers console and replace the next selector with what's returned.
+
+	```js
+	s=$('*'),i=-1,l=s.length,a=[],e=/^(?:script|canvas|style|head|meta|link|title)$/i;
+	while(++i<l){x=s[i],y=x.tagName.toLowerCase(),e.lastIndex=0;
+	if(!~a.indexOf(y)&&!e.test(y))a.push(y)}a.sort().join(', ');
+	```
+*/
+a, body, div, fieldset, h1, h2, h3, header, html, img, input, label, li, p, span, ul {
   padding: 0;
   margin: 0;
   border: 0; }
@@ -265,10 +98,16 @@ a {
   overflow: auto;
   background-color: #202327;
   -webkit-transition-property: top, bottom;
+  -moz-transition-property: top, bottom;
+  -o-transition-property: top, bottom;
   transition-property: top, bottom;
   -webkit-transition-duration: .2s, .2s;
+  -moz-transition-duration: .2s, .2s;
+  -o-transition-duration: .2s, .2s;
   transition-duration: .2s, .2s;
   -webkit-transition-timing-function: linear, linear;
+  -moz-transition-timing-function: linear, linear;
+  -o-transition-timing-function: linear, linear;
   transition-timing-function: linear, linear;
   -webkit-overflow-scrolling: touch; }
 
@@ -282,19 +121,10 @@ a {
 .content-padded {
   padding: 10px; }
 
-.content-extra-padded {
-  padding: 24px; }
-
 /* Pad top/bottom of content so it doesn't hide behind .bar-title and .bar-tab.
-	 Note: For these to work, content must come after both bars in the markup */
+	 Note: For these to work, content must come after bar-title in the markup */
 .bar-title ~ .content {
   top: 37px; }
-
-.bar-tab ~ .content {
-  bottom: 50px; }
-
-.bar-header-secondary ~ .content {
-  top: 74px; }
 
 /* General button styles
 -------------------------------------------------- */
@@ -351,78 +181,6 @@ a {
   line-height: 24px;
   padding: 8px 24px; }
 
-/* Counts in buttons
--------------------------------------------------- */
-[class*="button"] [class*="count"] {
-  padding-top: 2px;
-  padding-bottom: 2px;
-  margin-right: -4px;
-  margin-left: 4px; }
-
-/* Position counts within block level buttons
-	 Note: These are absolutely positioned so that text of button isn't "pushed" by count and always
-	 stays at true center of button */
-.button-block [class*="count"] {
-  position: absolute;
-  right: 0;
-  margin-right: 10px; }
-
-/* Chevrons
--------------------------------------------------- */
-.chevron {
-  display: block;
-  height: 20px; }
-
-/* Base styles for both 1/2's of the chevron */
-.chevron:before,
-.chevron:after {
-  position: relative;
-  display: block;
-  width: 12px;
-  height: 4px;
-  background-color: #d55140;
-  content: ''; }
-
-/* Position and rotate respective 1/2's of the chevron */
-.chevron:before {
-  top: 5px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg); }
-
-.chevron:after {
-  top: 7px;
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg); }
-
-/* General count styles
--------------------------------------------------- */
-[class*="count"] {
-  display: inline-block;
-  padding: 5px 7px;
-  font-size: 12px;
-  line-height: 13px;
-  color: white;
-  background-color: #3e3e3e;
-  background-color: rgba(0, 0, 0, 0.33); }
-
-/* Count modifiers
--------------------------------------------------- */
-/* Overriding styles for counts with modifiers	*/
-.count-primary {
-  background-color: #d55140; }
-
-.count-secondary {
-  background-color: #42a68c; }
-
-.count-tertiary {
-  background-color: #5e99b0; }
-
 @font-face {
   font-family: "rijksmuseum";
   src: url("../asset/font/rijksmuseum.otf");
@@ -441,91 +199,13 @@ a {
   font-style: normal;
   font-weight: 800; }
 
-@font-face {
-  font-family: 'flat-ui-icons';
-  src: url("../asset/font/flat-ui-icons.eot");
-  src: url("../asset/font/flat-ui-icons.eot?#iefix") format("embedded-opentype"), url("../asset/font/flat-ui-icons.woff") format("woff"), url("../asset/font/flat-ui-icons.ttf") format("truetype"), url("../asset/font/flat-ui-icons.svg#Flat-UI-Icons-24") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
-[class*="fui-"]::before {
-  font-family: flat-ui-icons;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased; }
-
-.fui-video::before {
-  content: "\e000"; }
-
-.fui-time::before {
-  content: "\e001"; }
-
-.fui-settings::before {
-  content: "\e002"; }
-
-.fui-plus::before {
-  content: "\e003"; }
-
-.fui-new::before {
-  content: "\e005"; }
-
-.fui-menu::before {
-  content: "\e006"; }
-
-.fui-man::before {
-  content: "\e007"; }
-
-.fui-mail::before {
-  content: "\e008"; }
-
-.fui-lock::before {
-  content: "\e009"; }
-
-.fui-location::before {
-  content: "\e00a"; }
-
-.fui-heart::before {
-  content: "\e00b"; }
-
-.fui-eye::before {
-  content: "\e00c"; }
-
-.fui-cross::before {
-  content: "\e00d"; }
-
-.fui-cmd::before {
-  content: "\e00e"; }
-
-.fui-checkround::before {
-  content: "\e00f"; }
-
-.fui-checkmark::before {
-  content: "\e010"; }
-
-.fui-calendar::before {
-  content: "\e011"; }
-
-.fui-bubble::before {
-  content: "\e012"; }
-
-.fui-volume::before {
-  content: "\e013"; }
-
-.fui-camera::before {
-  content: "\e004"; }
-
 /* Forms
 -------------------------------------------------- */
-input,
-textarea,
-button,
-select {
+input, button {
   font-family: inherit;
   font-size: inherit; }
 
-select, textarea, input[type="text"], input[type=search], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], .input-group {
+input[type="text"], .input-group {
   width: 100%;
   height: 2rem;
   padding: .5rem;
@@ -535,12 +215,6 @@ select, textarea, input[type="text"], input[type=search], input[type="password"]
   -webkit-appearance: none;
   box-sizing: border-box;
   margin-bottom: .5rem; }
-
-input[type="search"] {
-  border-radius: 999rem; }
-
-textarea {
-  height: auto; }
 
 /* Input groups (cluster multiple inputs together into a single group)
 -------------------------------------------------- */
@@ -575,144 +249,6 @@ textarea {
   margin-top: .125rem;
   margin-bottom: .125rem; }
 
-.input-row label + select {
-  float: right;
-  width: 65%;
-  padding-left: 0;
-  margin-top: .125rem;
-  margin-bottom: .125rem; }
-
-/* Lists
--------------------------------------------------- */
-/* Remove usual bullet styles from list */
-.list {
-  list-style: none;
-  background-color: #202327; }
-
-/* Pad each list item and add dividers */
-.list li {
-  position: relative;
-  margin-bottom: 2px;
-  background: #343537;
-  padding: 20px 60px 20px 10px;
-  /* Given extra right padding to accomodate counts, chevrons or buttons */ }
-
-/* Give top border to first list items */
-/* If a list of links, make sure the child <a> takes up full list item tap area (want to avoid selecting child buttons though) */
-.list + * {
-  margin-top: .5rem; }
-
-.list li.primary {
-  background-color: #d55140; }
-
-.list li.secondary {
-  background-color: #42a68c; }
-
-.list li.tertiary {
-  background-color: #5e99b0; }
-
-/* Inset list
--------------------------------------------------- */
-/* Remove border from first/last standard list items to avoid double border at top/bottom of lists */
-/* List dividers
--------------------------------------------------- */
-.list .list-divider {
-  position: relative;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  font-size: 12px;
-  background-color: initial;
-  color: #d55140; }
-
-/* Rounding first divider on inset lists and remove border on the top */
-/* Rounding last divider on inset lists */
-/* Right-aligned subcontent in lists (chevrons, buttons, counts and toggles)
--------------------------------------------------- */
-.list .chevron,
-.list [class*="count"],
-.list .toggle {
-  position: absolute;
-  top: 50%;
-  right: 10px; }
-
-/* Position chevrons/counts vertically centered on the right in list items */
-.list .chevron,
-.list [class*="count"] {
-  margin-top: -10px;
-  /* Half height of chevron */ }
-
-/* Push count over if there's a sibling chevron */
-.list .chevron + [class*="count"] {
-  right: 30px; }
-
-/* Position buttons vertically centered on the right in list items */
-.list .toggle {
-  margin-top: -15px;
-  /* Half height of toggle */ }
-
-/* Popovers (to be used with popovers.js)
--------------------------------------------------- */
-.popover {
-  position: fixed;
-  top: 55px;
-  left: 50%;
-  z-index: 20;
-  display: none;
-  width: 280px;
-  padding: 5px;
-  margin-left: -146px;
-  background-color: #42a68c;
-  opacity: 0;
-  -webkit-transform: translate3d(0, -15px, 0);
-  -moz-transform: translate3d(0, -15px, 0);
-  -ms-transform: translate3d(0, -15px, 0);
-  -o-transform: translate3d(0, -15px, 0);
-  transform: translate3d(0, -15px, 0);
-  -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  -moz-transition: -moz-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  -ms-transition: -ms-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  -o-transition: -o-transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out; }
-
-/* Caret on top of popover using CSS triangles (thanks to @chriscoyier for solution) */
-.popover:after {
-  position: absolute;
-  left: 50%;
-  width: 0;
-  height: 0;
-  content: '';
-  top: -20px;
-  margin-left: -20px;
-  border-right: 20px solid transparent;
-  border-bottom: 20px solid #42a68c;
-  border-left: 20px solid transparent; }
-
-/* Popover animation
--------------------------------------------------- */
-.popover.visible {
-  opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0); }
-
-/* Backdrop (used as invisible touch escape)
--------------------------------------------------- */
-.backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 10; }
-
-/* Lists in popovers
--------------------------------------------------- */
-.popover .list {
-  width: auto;
-  max-height: 250px; }
-
 /* Modals -------------------------------------------------- */
 .modal {
   position: fixed;
@@ -722,7 +258,7 @@ textarea {
   width: 100%;
   min-height: 100%;
   overflow: hidden;
-  background-color: #fff;
+  background-color: white;
   -webkit-transform: translate3d(0, 100%, 0);
   -moz-transform: translate3d(0, 100%, 0);
   -ms-transform: translate3d(0, 100%, 0);
@@ -748,48 +284,6 @@ textarea {
   -ms-transition: -ms-transform 0.25s ease-in-out;
   -o-transition: -o-transform 0.25s ease-in-out;
   transition: transform 0.25s ease-in-out; }
-
-/* Push styles (to be used with push.js)
--------------------------------------------------- */
-/* Fade animation */
-.content.fade {
-  left: 0;
-  opacity: 0;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -ms-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
-  transition: opacity 0.2s ease-in-out; }
-
-.content.fade.in {
-  opacity: 1; }
-
-/* Slide animation */
-.content.slide {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  -webkit-transition: -webkit-transform .25s ease-in-out;
-  -moz-transition: -moz-transform 0.25s ease-in-out;
-  -ms-transition: -ms-transform 0.25s ease-in-out;
-  -o-transition: -o-transform 0.25s ease-in-out;
-  transition: transform .25s ease-in-out; }
-
-.content.slide.left {
-  -webkit-transform: translate3d(-100%, 0, 0);
-  -moz-transform: translate3d(-100%, 0, 0);
-  -ms-transform: translate3d(-100%, 0, 0);
-  -o-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0); }
-
-.content.slide.right {
-  -webkit-transform: translate3d(100%, 0, 0);
-  -moz-transform: translate3d(100%, 0, 0);
-  -ms-transform: translate3d(100%, 0, 0);
-  -o-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0); }
 
 .radio-group {
   width: auto;
@@ -851,151 +345,6 @@ textarea {
   border-color: #d55140; }
   .radio input[type="radio"]:checked + span {
     color: #d55140; }
-
-/* Segmented controllers
--------------------------------------------------- */
-.segmented-controller {
-  display: -webkit-box;
-  display: box;
-  margin-bottom: 10px;
-  overflow: hidden;
-  font-size: 12px;
-  font-weight: bold;
-  list-style: none;
-  border-radius: 3px;
-  -webkit-box-orient: horizontal;
-  box-orient: horizontal;
-  background-color: #343537; }
-
-/* Section within controller */
-.segmented-controller li {
-  overflow: hidden;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-box-flex: 1;
-  box-flex: 1;
-  color: #d55140; }
-
-/* Link that fills each section */
-.segmented-controller li > a {
-  display: block;
-  padding: 8px 16px;
-  overflow: hidden;
-  line-height: 15px;
-  text-overflow: ellipsis; }
-
-.segmented-controller li.active {
-  background-color: #202327; }
-
-.segmented-controller li.active > a {
-  color: white; }
-
-.segmented-controller-item {
-  display: none; }
-
-.segmented-controller-item.active {
-  display: block; }
-
-/* Slider styles (to be used with sliders.js)
--------------------------------------------------- */
-/* Width/height of slider */
-.slider,
-.slider > li {
-  width: 100%;
-  height: 200px; }
-
-/* Outer wrapper for slider */
-.slider {
-  overflow: hidden; }
-
-/* Inner wrapper for slider (width of all slides together) */
-.slider > ul {
-  height: 100%;
-  position: relative;
-  font-size: 0;
-  white-space: nowrap;
-  -webkit-transition: all 0 linear;
-  -moz-transition: all 0 linear;
-  -ms-transition: all 0 linear;
-  -o-transition: all 0 linear;
-  transition: all 0 linear; }
-
-/* Individual slide */
-.slider > ul > li {
-  display: inline-block;
-  vertical-align: top;
-  width: 100%;
-  height: 100%; }
-
-/* Required reset of font-size to same as standard body */
-.slider > ul > li > * {
-  font-size: 1rem; }
-
-.slider img {
-  min-height: 100%;
-  max-width: 100%; }
-
-.toggle {
-  position: relative;
-  width: 5rem;
-  height: 1.8rem;
-  background-color: #343537;
-  cursor: pointer;
-  display: inline-block; }
-
-.toggle.active {
-  background-color: #d55140; }
-
-.toggle::before {
-  position: absolute;
-  right: 13px;
-  line-height: 28px;
-  color: white;
-  text-transform: uppercase;
-  content: "uit"; }
-
-.toggle.active::before {
-  right: auto;
-  left: 15px;
-  content: "aan"; }
-
-.toggle-handle {
-  position: absolute;
-  z-index: 2;
-  width: 1.8rem;
-  height: 1.8rem;
-  -webkit-transition: -webkit-transform 0.1s ease-in-out, border 0.1s ease-in-out;
-  -moz-transition: -moz-transform 0.1s ease-in-out, border 0.1s ease-in-out;
-  -ms-transition: -ms-transform 0.1s ease-in-out, border 0.1s ease-in-out;
-  -o-transition: -o-transform 0.1s ease-in-out, border 0.1s ease-in-out;
-  transition: transform 0.1s ease-in-out, border 0.1s ease-in-out;
-  background-color: #eaeaea; }
-
-.toggle.active .toggle-handle {
-  -webkit-transform: translate3d(3.25rem, 0, 0);
-  -moz-transform: translate3d(3.25rem, 0, 0);
-  -ms-transform: translate3d(3.25rem, 0, 0);
-  -o-transform: translate3d(3.25rem, 0, 0);
-  transform: translate3d(3.25rem, 0, 0); }
-
-.meestermatcher-modal fieldset {
-  display: block;
-  overflow: hidden;
-  margin-top: .5rem;
-  margin-bottom: .5rem; }
-
-.meestermatcher-modal fieldset a {
-  display: inline-block;
-  vertical-align: top;
-  line-height: 28px; }
-
-.meestermatcher-modal .toggle {
-  float: right; }
-
-.meestermatcher-modal h1 {
-  text-align: center;
-  font-size: 20px;
-  line-height: 44px; }
 
 .route-info {
   position: fixed;
@@ -1135,39 +484,6 @@ textarea {
   -o-transition: translate3d(0, 0, 0);
   transition: translate3d(0, 0, 0); }
 
-.meestermatcher-modal .carousel-list {
-  margin-top: 24px; }
-
-.meestermatcher-modal .carousel-list p {
-  margin-bottom: 36px;
-  text-align: center; }
-
-.meestermatcher-row {
-  text-align: justify;
-  margin: 24px; }
-
-.meestermatcher-row::after {
-  display: inline-block;
-  width: 100%;
-  content: ""; }
-
-.meestermatcher-row strong {
-  margin-top: 60px;
-  display: block;
-  width: 100%;
-  text-align: center; }
-
-.meestermatcher-row .img {
-  width: 20%;
-  height: 48px;
-  background-size: cover;
-  display: inline-block; }
-
-.meestermatcher-modal .carousel-list li {
-  margin: 0;
-  padding: 0;
-  background: none; }
-
 .carousel-controller {
   position: fixed;
   bottom: 48px;
@@ -1234,15 +550,13 @@ textarea {
 
 .uitgestippeld-modal .carousel-list {
   height: 80%; }
-
+  .uitgestippeld-modal .carousel-list li {
+    display: block;
+    height: 100%;
+    padding: 1em 0; }
 .uitgestippeld-modal .carousel-controller {
   bottom: initial;
   top: 85%; }
-
-.uitgestippeld-modal .carousel-list li {
-  display: block;
-  height: 100%;
-  padding: 1em 0; }
 
 .uitgestippeld-item {
   color: inherit;
@@ -1260,9 +574,8 @@ textarea {
   vertical-align: middle;
   padding: 1em;
   background: rgba(0, 0, 0, 0.5); }
-
-.uitgestippeld-content h1 {
-  margin-bottom: 1em; }
+  .uitgestippeld-content h1 {
+    margin-bottom: 1em; }
 
 .uitgestippeld-link {
   margin-top: 1em; }
@@ -1274,9 +587,10 @@ textarea {
   right: 0;
   top: 0;
   bottom: 0;
-  background-size: cover;
-  opacity: 1;
+  background-size: contain;
+  background-color: #d55140;
   background-position: 50% 50%;
+  opacity: 1;
   -webkit-transition: all 500ms;
   -moz-transition: all 500ms;
   -ms-transition: all 500ms;
@@ -1332,7 +646,7 @@ textarea {
     background-image: url(data:image/gif;base64,R0lGODlhIAAgAPMAAJmZmf///6+vr8nJybW1tcDAwOjo6Nvb26ioqKOjo7Ozs/Ly8vz8/AAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAIAAgAAAE5xDISWlhperN52JLhSSdRgwVo1ICQZRUsiwHpTJT4iowNS8vyW2icCF6k8HMMBkCEDskxTBDAZwuAkkqIfxIQyhBQBFvAQSDITM5VDW6XNE4KagNh6Bgwe60smQUB3d4Rz1ZBApnFASDd0hihh12BkE9kjAJVlycXIg7CQIFA6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YJvpJivxNaGmLHT0VnOgSYf0dZXS7APdpB309RnHOG5gDqXGLDaC457D1zZ/V/nmOM82XiHRLYKhKP1oZmADdEAAAh+QQJCgAAACwAAAAAIAAgAAAE6hDISWlZpOrNp1lGNRSdRpDUolIGw5RUYhhHukqFu8DsrEyqnWThGvAmhVlteBvojpTDDBUEIFwMFBRAmBkSgOrBFZogCASwBDEY/CZSg7GSE0gSCjQBMVG023xWBhklAnoEdhQEfyNqMIcKjhRsjEdnezB+A4k8gTwJhFuiW4dokXiloUepBAp5qaKpp6+Ho7aWW54wl7obvEe0kRuoplCGepwSx2jJvqHEmGt6whJpGpfJCHmOoNHKaHx61WiSR92E4lbFoq+B6QDtuetcaBPnW6+O7wDHpIiK9SaVK5GgV543tzjgGcghAgAh+QQJCgAAACwAAAAAIAAgAAAE7hDISSkxpOrN5zFHNWRdhSiVoVLHspRUMoyUakyEe8PTPCATW9A14E0UvuAKMNAZKYUZCiBMuBakSQKG8G2FzUWox2AUtAQFcBKlVQoLgQReZhQlCIJesQXI5B0CBnUMOxMCenoCfTCEWBsJColTMANldx15BGs8B5wlCZ9Po6OJkwmRpnqkqnuSrayqfKmqpLajoiW5HJq7FL1Gr2mMMcKUMIiJgIemy7xZtJsTmsM4xHiKv5KMCXqfyUCJEonXPN2rAOIAmsfB3uPoAK++G+w48edZPK+M6hLJpQg484enXIdQFSS1u6UhksENEQAAIfkECQoAAAAsAAAAACAAIAAABOcQyEmpGKLqzWcZRVUQnZYg1aBSh2GUVEIQ2aQOE+G+cD4ntpWkZQj1JIiZIogDFFyHI0UxQwFugMSOFIPJftfVAEoZLBbcLEFhlQiqGp1Vd140AUklUN3eCA51C1EWMzMCezCBBmkxVIVHBWd3HHl9JQOIJSdSnJ0TDKChCwUJjoWMPaGqDKannasMo6WnM562R5YluZRwur0wpgqZE7NKUm+FNRPIhjBJxKZteWuIBMN4zRMIVIhffcgojwCF117i4nlLnY5ztRLsnOk+aV+oJY7V7m76PdkS4trKcdg0Zc0tTcKkRAAAIfkECQoAAAAsAAAAACAAIAAABO4QyEkpKqjqzScpRaVkXZWQEximw1BSCUEIlDohrft6cpKCk5xid5MNJTaAIkekKGQkWyKHkvhKsR7ARmitkAYDYRIbUQRQjWBwJRzChi9CRlBcY1UN4g0/VNB0AlcvcAYHRyZPdEQFYV8ccwR5HWxEJ02YmRMLnJ1xCYp0Y5idpQuhopmmC2KgojKasUQDk5BNAwwMOh2RtRq5uQuPZKGIJQIGwAwGf6I0JXMpC8C7kXWDBINFMxS4DKMAWVWAGYsAdNqW5uaRxkSKJOZKaU3tPOBZ4DuK2LATgJhkPJMgTwKCdFjyPHEnKxFCDhEAACH5BAkKAAAALAAAAAAgACAAAATzEMhJaVKp6s2nIkolIJ2WkBShpkVRWqqQrhLSEu9MZJKK9y1ZrqYK9WiClmvoUaF8gIQSNeF1Er4MNFn4SRSDARWroAIETg1iVwuHjYB1kYc1mwruwXKC9gmsJXliGxc+XiUCby9ydh1sOSdMkpMTBpaXBzsfhoc5l58Gm5yToAaZhaOUqjkDgCWNHAULCwOLaTmzswadEqggQwgHuQsHIoZCHQMMQgQGubVEcxOPFAcMDAYUA85eWARmfSRQCdcMe0zeP1AAygwLlJtPNAAL19DARdPzBOWSm1brJBi45soRAWQAAkrQIykShQ9wVhHCwCQCACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq+E71SRQeyqUToLA7VxF0JDyIQh/MVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiRMDjI0Fd30/iI2UA5GSS5UDj2l6NoqgOgN4gksEBgYFf0FDqKgHnyZ9OX8HrgYHdHpcHQULXAS2qKpENRg7eAMLC7kTBaixUYFkKAzWAAnLC7FLVxLWDBLKCwaKTULgEwbLA4hJtOkSBNqITT3xEgfLpBtzE/jiuL04RGEBgwWhShRgQExHBAAh+QQJCgAAACwAAAAAIAAgAAAE7xDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfZiCqGk5dTESJeaOAlClzsJsqwiJwiqnFrb2nS9kmIcgEsjQydLiIlHehhpejaIjzh9eomSjZR+ipslWIRLAgMDOR2DOqKogTB9pCUJBagDBXR6XB0EBkIIsaRsGGMMAxoDBgYHTKJiUYEGDAzHC9EACcUGkIgFzgwZ0QsSBcXHiQvOwgDdEwfFs0sDzt4S6BK4xYjkDOzn0unFeBzOBijIm1Dgmg5YFQwsCMjp1oJ8LyIAACH5BAkKAAAALAAAAAAgACAAAATwEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq+E71SRQeyqUToLA7VxF0JDyIQh/MVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GGl6NoiPOH16iZKNlH6KmyWFOggHhEEvAwwMA0N9GBsEC6amhnVcEwavDAazGwIDaH1ipaYLBUTCGgQDA8NdHz0FpqgTBwsLqAbWAAnIA4FWKdMLGdYGEgraigbT0OITBcg5QwPT4xLrROZL6AuQAPUS7bxLpoWidY0JtxLHKhwwMJBTHgPKdEQAACH5BAkKAAAALAAAAAAgACAAAATrEMhJaVKp6s2nIkqFZF2VIBWhUsJaTokqUCoBq+E71SRQeyqUToLA7VxF0JDyIQh/MVVPMt1ECZlfcjZJ9mIKoaTl1MRIl5o4CUKXOwmyrCInCKqcWtvadL2SYhyASyNDJ0uIiUd6GAULDJCRiXo1CpGXDJOUjY+Yip9DhToJA4RBLwMLCwVDfRgbBAaqqoZ1XBMHswsHtxtFaH1iqaoGNgAIxRpbFAgfPQSqpbgGBqUD1wBXeCYp1AYZ19JJOYgH1KwA4UBvQwXUBxPqVD9L3sbp2BNk2xvvFPJd+MFCN6HAAIKgNggY0KtEBAAh+QQJCgAAACwAAAAAIAAgAAAE6BDISWlSqerNpyJKhWRdlSAVoVLCWk6JKlAqAavhO9UkUHsqlE6CwO1cRdCQ8iEIfzFVTzLdRAmZX3I2SfYIDMaAFdTESJeaEDAIMxYFqrOUaNW4E4ObYcCXaiBVEgULe0NJaxxtYksjh2NLkZISgDgJhHthkpU4mW6blRiYmZOlh4JWkDqILwUGBnE6TYEbCgevr0N1gH4At7gHiRpFaLNrrq8HNgAJA70AWxQIH1+vsYMDAzZQPC9VCNkDWUhGkuE5PxJNwiUK4UfLzOlD4WvzAHaoG9nxPi5d+jYUqfAhhykOFwJWiAAAIfkECQoAAAAsAAAAACAAIAAABPAQyElpUqnqzaciSoVkXVUMFaFSwlpOCcMYlErAavhOMnNLNo8KsZsMZItJEIDIFSkLGQoQTNhIsFehRww2CQLKF0tYGKYSg+ygsZIuNqJksKgbfgIGepNo2cIUB3V1B3IvNiBYNQaDSTtfhhx0CwVPI0UJe0+bm4g5VgcGoqOcnjmjqDSdnhgEoamcsZuXO1aWQy8KAwOAuTYYGwi7w5h+Kr0SJ8MFihpNbx+4Erq7BYBuzsdiH1jCAzoSfl0rVirNbRXlBBlLX+BP0XJLAPGzTkAuAOqb0WT5AH7OcdCm5B8TgRwSRKIHQtaLCwg1RAAAOwAAAAAAAAAAAA==); }
   .button-spinner.loading {
     cursor: default;
-    background-color: #909194; }
+    background-color: #a2abad; }
     .button-spinner.loading .label {
       opacity: 0;
       top: 1em; }

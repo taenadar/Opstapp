@@ -1,7 +1,7 @@
 .route-info
 {
 	position: fixed;
-	background: #d55140;
+	background: $color-primary;
 	left: 0;
 	right: 0;
 	bottom: -20%;
@@ -183,53 +183,6 @@
 	
 }
 
-.meestermatcher-modal .carousel-list
-{
-	margin-top: 24px;
-}
-
-.meestermatcher-modal .carousel-list p
-{
-	margin-bottom: 36px;
-	text-align: center
-}
-
-.meestermatcher-row
-{
-	text-align: justify;
-	margin: 24px;
-}
-
-.meestermatcher-row::after
-{
-	display: inline-block;
-	width: 100%;
-	content: ''
-}
-
-.meestermatcher-row strong
-{
-	margin-top: 60px;
-	display: block;
-	width: 100%;
-	text-align: center;
-}
-
-.meestermatcher-row .img
-{
-	width: 20%;
-	height: 48px;
-	background-size: cover;
-	display: inline-block;
-}
-
-.meestermatcher-modal .carousel-list li
-{
-	margin: 0;
-	padding: 0;
-	background: none;
-}
-
 .carousel-controller
 {
 	position: fixed;
@@ -320,23 +273,28 @@
 	text-overflow: ellipsis;
 }
 
-.uitgestippeld-modal .carousel-list
+.uitgestippeld-modal
 {
-	height: 80%;
+	.carousel-list
+	{
+		height: 80%;
+		
+		li
+		{
+			display: block;
+			height: 100%;
+			padding: 1em 0;
+		}
+	}
+	
+	.carousel-controller
+	{
+		bottom: initial;
+		top: 85%;
+	}
 }
 
-.uitgestippeld-modal .carousel-controller
-{
-	bottom: initial;
-	top: 85%;
-}
 
-.uitgestippeld-modal .carousel-list li
-{
-	display: block;
-	height: 100%;
-	padding: 1em 0;
-}
 
 .uitgestippeld-item
 {
@@ -357,11 +315,11 @@
 	vertical-align: middle;
 	padding: 1em;
 	background: rgba(0,0,0,.5);
-}
-
-.uitgestippeld-content h1
-{
-	margin-bottom: 1em;
+	
+	h1
+	{
+		margin-bottom: 1em;
+	}
 }
 
 .uitgestippeld-link
@@ -377,9 +335,12 @@
 	right: 0;
 	top: 0;
 	bottom: 0;
-	background-size: cover;
-	opacity: 1;
+	
+	background-size: contain;
+	background-color: $color-primary;
 	background-position: 50% 50%;
+	
+	opacity: 1;
 	-webkit-transition: all 500ms;
 	-moz-transition: all 500ms;
 	-ms-transition: all 500ms;
@@ -400,6 +361,10 @@
 
 .walkthrough-modal .content
 {
+	padding: 1em;
+	text-align: center;
+	background-color: $color-primary;
+
 	.walkthrough-paragraph, .walkthrough-image
 	{
 		position: relative;
@@ -423,18 +388,11 @@
 	{
 		max-height: 40%;
 	}
-	
-	padding: 1em;
-	text-align: center;
-	background-color: $color-primary;
 }
 
 
-.settings-modal .content
+.settings-modal .content h2
 {
-	h2
-	{
-		margin-top: 12px;
-		margin-bottom: 6px;
-	}
+	margin-top: 12px;
+	margin-bottom: 6px;
 }

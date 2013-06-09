@@ -1,15 +1,13 @@
 /* Forms
 -------------------------------------------------- */
 
-input,
-textarea,
-button,
-select {
+input, button
+{
 	font-family: inherit;
 	font-size: inherit;
 }
 
-select, textarea, input[type="text"], input[type=search], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="tel"], input[type="color"], .input-group
+input[type="text"], .input-group
 {
 	width: 100%;
 	height: 2rem;
@@ -20,16 +18,6 @@ select, textarea, input[type="text"], input[type=search], input[type="password"]
 	-webkit-appearance: none;
 	box-sizing: border-box;
 	margin-bottom: .5rem;
-}
-
-input[type="search"]
-{
-	border-radius: 999rem;
-}
-
-textarea
-{
-	height: auto;
 }
 
 /* Input groups (cluster multiple inputs together into a single group)
@@ -72,15 +60,6 @@ textarea
 }
 
 .input-row label + input
-{
-	float: right;
-	width: 65%;
-	padding-left: 0;
-	margin-top: .125rem;
-	margin-bottom: .125rem;
-}
-
-.input-row label + select
 {
 	float: right;
 	width: 65%;

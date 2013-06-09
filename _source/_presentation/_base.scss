@@ -1,90 +1,28 @@
 /* Hard reset
 -------------------------------------------------- */
 
-html,
-body,
-div,
-span,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-section,
-summary,
-time,
-audio,
-video {
+/*
+	!!!IMPORTANT!!!
+	Add all element tagnames to this list. The list as it is now, holds all elements used by Opstapp currently.
+	Run the following JS in your browsers console and replace the next selector with what's returned.
+
+	```js
+	s=$('*'),i=-1,l=s.length,a=[],e=/^(?:script|canvas|style|head|meta|link|title)$/i;
+	while(++i<l){x=s[i],y=x.tagName.toLowerCase(),e.lastIndex=0;
+	if(!~a.indexOf(y)&&!e.test(y))a.push(y)}a.sort().join(', ');
+	```
+*/
+
+a, body, div, fieldset, h1, h2, h3, header, html, img, input, label, li, p, span, ul
+{
 	padding: 0;
 	margin: 0;
 	border: 0;
 }
 
 /* Prevents iOS text size adjust after orientation change, without disabling (Thanks to @necolas) */
-html {
+html
+{
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 }
@@ -92,7 +30,8 @@ html {
 /* Base styles
 -------------------------------------------------- */
 
-body {
+body
+{
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -105,7 +44,8 @@ body {
 }
 
 /* Universal link styling */
-a {
+a
+{
 	color: $color-primary;
 	text-decoration: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* Removes the dark touch outlines on links */
@@ -122,12 +62,18 @@ a {
 	background-color: $color-darker;
 
 	-webkit-transition-property: top, bottom;
+	-moz-transition-property: top, bottom;
+	-o-transition-property: top, bottom;
 	transition-property: top, bottom;
 
 	-webkit-transition-duration: .2s, .2s;
+	-moz-transition-duration: .2s, .2s;
+	-o-transition-duration: .2s, .2s;
 	transition-duration: .2s, .2s;
 
 	-webkit-transition-timing-function: linear, linear;
+	-moz-transition-timing-function: linear, linear;
+	-o-transition-timing-function: linear, linear;
 	transition-timing-function: linear, linear;
 
 	-webkit-overflow-scrolling: touch;
@@ -135,7 +81,8 @@ a {
 
 /* Hack to force all relatively and absolutely positioned elements still render while scrolling
 	 Note: This is a bug for "-webkit-overflow-scrolling: touch" */
-.content > * {
+.content > *
+{
 	-webkit-transform: translateZ(0px);
 	transform: translateZ(0px);
 }
@@ -146,19 +93,9 @@ a {
 	padding: 10px;
 }
 
-.content-extra-padded
-{
-	padding: 24px;
-}
-
 /* Pad top/bottom of content so it doesn't hide behind .bar-title and .bar-tab.
-	 Note: For these to work, content must come after both bars in the markup */
-.bar-title ~ .content {
+	 Note: For these to work, content must come after bar-title in the markup */
+.bar-title ~ .content
+{
 	top: 37px;
-}
-.bar-tab ~ .content {
-	bottom: 50px;
-}
-.bar-header-secondary ~ .content {
-	top: 74px;
 }
